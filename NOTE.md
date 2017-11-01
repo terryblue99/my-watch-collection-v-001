@@ -17,11 +17,16 @@
 
     - user (Devise attributes) => Action # 2  
 
-        has_many :watches  
+        devise :database_authenticatable, :registerable,  
+         :recoverable, :rememberable, :trackable, :validatable,  
+         :omniauthable, :omniauth_providers => [:facebook]  
 
-        Method: @user.watches
+        has_many :watches 
+        belongs_to :current_watch, class_name: "Watch"  
 
-    - watch (watch_name, maker, model_number, date_bought, user_id, movement_id, water_resistance)  
+        Method: @user.watches  
+
+    - watch (name, maker, movement, band, model_number, water_resistance, date_bought, user_id)  
 
          belongs_to :user  
          has_many :watches_complications  
@@ -32,14 +37,19 @@
 
          Methods: @watch.user / @watch.complications   
 
-    complication (:name)  
+    complication (name)  
 
        has_many :watches_complications  
        has_many :watches, through: :watches_complications  
 
        validates :name, presence: true  
 
-       Method: @complication.watches
+       Method: @complication.watches  
+
+    watches_complications (watch_id, Complication_id, complication_quantity)  
+
+       belongs_to :watch  
+       belongs_to :complication  
 
 5. Create views
 
@@ -50,6 +60,7 @@
 
     users (Devise) => Action # 2  
     watches  
+    complications  
 
 7. Code basic processing
 
@@ -60,4 +71,3 @@
     flash messages  
 
  8. Add complexities
- 
