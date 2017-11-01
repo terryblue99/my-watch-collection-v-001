@@ -13,7 +13,7 @@
     - Header  
     - Flash Messages  
 
-4. Crearte models and tables
+4. Create models and tables
 
     - user (Devise attributes) => Action # 2  
 
@@ -32,7 +32,7 @@
          has_many :watches_complications  
          has_many :complications, through: watches_complications  
 
-         validates :watchname, presence: true  
+         validates :name, presence: true  
          validates :maker, presence: true  
 
          Methods: @watch.user / @watch.complications   
@@ -46,7 +46,7 @@
 
        Method: @complication.watches  
 
-    watches_complications (watch_id, Complication_id, complication_quantity)  
+    watches_complications (watch_id, complication_id, complication_quantity)  
 
        belongs_to :watch  
        belongs_to :complication  
