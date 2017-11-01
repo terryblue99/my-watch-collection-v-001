@@ -8,8 +8,6 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.6'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -35,10 +33,36 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-group :development, :test do
+gem 'sdoc', '~> 0.4.0',          group: :doc
+gem 'devise'
+gem "omniauth"
+gem "omniauth-facebook"
+gem "dotenv-rails"
+gem 'will_paginate', '~> 3.1.1'
+gem 'will_paginate-bootstrap'
+
+group :test, :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem "rspec-rails"
+  gem "capybara"
+  gem "launchy"
+  gem "rack_session_access"
+  gem "selenium-webdriver"
+  gem "better_errors"
+  gem "binding_of_caller"
+  gem "factory_girl_rails"
+  gem "simplecov"
+  gem "database_cleaner"
+  gem "sqlite3"
+  gem "pry"
+  gem "guard-rspec", require: false
+  gem "thin"
 end
+
+gem "bootstrap-sass", "~> 3.1.1"
+gem "faker"
+gem "friendly_id"
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
