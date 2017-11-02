@@ -3,7 +3,6 @@
   <head>
     <title>MyWatchCollection</title>
     <%= csrf_meta_tags %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
@@ -14,7 +13,11 @@
 
   <body>
 
-  	<div class="container"  role="main">
+    <%= render "layouts/header" %>
+
+    <br><br><br>
+  
+    <div class="container"  role="main">
 
       <div class="row">
 
