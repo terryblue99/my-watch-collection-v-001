@@ -20,16 +20,23 @@ class WatchesController < ApplicationController
 
 	def show
 	    if !@watch   
-	      redirect_to watches_path, alert: "The watch was not found!"
+	      	redirect_to watches_path, alert: "The watch was not found!"
 	    end
 	end
 
 	def new
-		binding.pry
+		@watch = Watch.new
 	end
 
 	def create
 		binding.pry
+		@watch = Watch.new(watch_params)
+	    if 	@watch.save
+	   		current_user.watches << @watch	
+	      	redirect_to watch_path(@watch), notice: "The watch was successfully saved!"
+	    else
+	      	redirect_to watch_path(@watch), alert: "The watch was not saved!"
+	    end
 	end
 
 	def update
@@ -38,11 +45,11 @@ class WatchesController < ApplicationController
 
 	def destroy
 		if !@watch   
-	      redirect_to watches_path, alert: "The watch was not found!"
+	      	redirect_to watches_path, alert: "The watch was not found!"
 	    else
-	      watch_name = @watch.name	
-	      @watch.delete
-	      redirect_to watches_path, notice: "'#{watch_name}' has been deleted!"
+	      	watch_name = @watch.name	
+	      	@watch.delete
+	      	redirect_to watches_path, notice: "'#{watch_name}' has been deleted!"
 	    end
 	end
 
@@ -50,6 +57,19 @@ class WatchesController < ApplicationController
 
 	def set_watch
 		@watch = Watch.find_by_id(params[:id])
-	end	
+	end
+
+	def watch_params
+    # modify method to accept the params hash keys
+    params.require(:watch).permit(
+    	:name,
+    	:maker,
+    	:movement,
+    	:band,
+    	:model_number,
+    	:water_resistance,
+    	:date_bought
+    	)
+  end
 
 end
