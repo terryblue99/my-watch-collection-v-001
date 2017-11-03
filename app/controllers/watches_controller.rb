@@ -2,7 +2,16 @@ class WatchesController < ApplicationController
 	before_action :set_watch, only: [:show, :edit, :update, :destroy]
 	
 	def index
-		binding.pry
+		if @user = User.find_by(email: current_user.email)
+		    @watches_for_page_display = @user.watches.all
+		  	if session[:rows] # Selection made of how many watches to display on each page
+		    	@watches = @user.watches.paginate(:page => params[:page], :per_page => session[:rows]).order(:maker, :name)
+		  	else # First time displaying watches
+		    	@watches = @user.watches.paginate(:page => params[:page], :per_page => 15).order(:maker, :name)
+		  	end
+		else
+			redirect_to log_in_path
+		end
 	end
 
 	def rows

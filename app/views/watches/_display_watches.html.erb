@@ -1,1 +1,19 @@
-<h1>Display Watches</h1>
+<div class="col-sm-9">	
+	<div>
+	  <% if watches.size > 0 %>
+	    <h4 class="text-success" style="text-indent: 9em;">My Watches [<%= watches_for_page_display.size %>]</h4>
+	      <div>
+	        <ul>
+	          <% watches.each do |watch| %>
+	            <li><%= watch.maker %>: <%= link_to watch.name, watch_path(watch) %></li>
+	          <%end%>
+	        </ul>
+	      </div>
+	      <div style="margin-left: 90px;">
+	        <%= will_paginate @watches %>
+	      </div>
+	  <%else%>
+	    <h4 class="text-info"><b>There are currently no watches to display!</b></h4>
+	  <%end%>
+	</div>
+</div>
