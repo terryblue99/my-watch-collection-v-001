@@ -37,7 +37,7 @@
 
          Methods: @watch.user / @watch.complications   
 
-    complication (name)  
+    - complication (name)  
 
        has_many :watches_complications  
        has_many :watches, through: :watches_complications  
@@ -46,39 +46,37 @@
 
        Method: @complication.watches  
 
-    watches_complications (watch_id, complication_id, complication_quantity)  
+    - watches_complications (watch_id, complication_id, complication_quantity)  
 
        belongs_to :watch  
        belongs_to :complication  
 
 5. Create views
 
-    users (Devise) => Action # 2  
-    watches  
+    - users (Devise) => Action # 2  
+    - watches  
 
 6. Create controllers
 
-    users (Devise) => Action # 2  
-    watches  
-    complications  
+    - users (Devise) => Action # 2  
+    - watches  
+    - complications  
 
 7. Code basic processing
 
-    Display all watches on successful Sign In  
-    Create a watch  
-    Show a watch  
-    Edit a watch  
-    Delete a watch  
-    flash messages  
+    - Display all watches on successful Sign In  
+    - Create a watch  
+    - Show a watch  
+    - Edit a watch  
+    - Delete a watch  
+    - Flash messages  
 
 8. Add complexities
 
-    Create a new watch with complications (with quantity)  
-    Diplay the most maker and watches  
-    Nested form with custom attribute in associated model  
-    Nested resource show or index (URL e.g. users/2/recipes)  
-    Nested resource "new" form (URL e.g. recipes/1/ingredients)  
-    Form display of validation errors (form URL e.g. /recipes/new)  
-
-
+    - Create a new watch with complications and complication quantity (complications.quantity)  
+    - Diplay the most maker and their watches (e.g. users/most-maker)  
+    - Nested form with custom attribute in associated model (from URL, model name e.g. /watches/new, complication)  
+    - Nested resource show or index (URL e.g. users/1/makers)  
+    - Nested resource "new" form (URL e.g. watches/1/complications)  
+    - Form display of validation errors (form URL e.g. /watches/new)  
 
