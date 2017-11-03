@@ -1,0 +1,21 @@
+<%= form_for watch, :html => {:class => "form-horizontal center"} do |f| %>
+  <%= f.label :name %><br>  
+  <%= f.text_field :name %><br> 
+  <%= f.label :maker %><br>
+  <%= f.text_field :maker %><br>
+  <%= f.label :movement %><br>
+  <%= f.text_field :movement %><br>
+  <%= f.label :band %><br>  
+  <%= f.text_field :band %><br>
+  <%= f.label :model_number %><br>
+  <%= f.text_field :model_number %><br>
+  <%= f.label :water_resistance %><br>
+  <%= f.text_field :water_resistance %><br>
+  <%= f.label :date_bought %><br>
+  <%= f.text_field :date_bought %><br>
+
+  <br>
+
+  <%=f.submit%>
+
+<% end %>
