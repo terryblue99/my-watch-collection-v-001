@@ -19,7 +19,9 @@ class WatchesController < ApplicationController
 	end
 
 	def show
-	    binding.pry
+	    if !@watch   
+	      redirect_to watches_path, alert: "The watch was not found!"
+	    end
 	end
 
 	def new
