@@ -6,5 +6,7 @@ Rails.application.routes.draw do
   root 'watches#index'
 
   resources :watches
+
+  get 'watches/:id/rows', to: 'watches#rows', as: 'rows'
   
 end
