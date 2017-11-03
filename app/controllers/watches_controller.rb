@@ -37,7 +37,13 @@ class WatchesController < ApplicationController
 	end
 
 	def destroy
-		binding.pry
+		if !@watch   
+	      redirect_to watches_path, alert: "The watch was not found!"
+	    else
+	      watch_name = @watch.name	
+	      @watch.delete
+	      redirect_to watches_path, notice: "'#{watch_name}' has been deleted!"
+	    end
 	end
 
 	private
