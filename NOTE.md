@@ -67,7 +67,18 @@
     Display all watches on successful Sign In  
     Create a watch  
     Show a watch  
+    Edit a watch  
     Delete a watch  
     flash messages  
 
- 8. Add complexities
+8. Add complexities
+
+    Create a new watch with complications (with quantity)  
+    Diplay the most maker and watches  
+    Nested form with custom attribute in associated model  
+    Nested resource show or index (URL e.g. users/2/recipes)  
+    Nested resource "new" form (URL e.g. recipes/1/ingredients)  
+    Form display of validation errors (form URL e.g. /recipes/new)  
+
+
+
