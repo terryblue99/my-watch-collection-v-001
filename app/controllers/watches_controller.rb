@@ -29,19 +29,26 @@ class WatchesController < ApplicationController
 	end
 
 	def create
-		binding.pry
-		@watch = Watch.new(watch_params)
-	    if 	@watch.save
+		@watch = Watch.create(watch_params)
+		if @watch.errors.full_messages.size > 0
+			session[:watch_errors] = @watch.errors.full_messages
+	      	redirect_to new_watch_path
+	    else
 	   		current_user.watches << @watch	
 	      	redirect_to watch_path(@watch), notice: "The watch was successfully saved!"
-	    else
-	      	redirect_to watch_path(@watch), alert: "The watch was not saved!"
-	    end
+		end
+
 	end
 
 	def update
-		binding.pry
-	end
+		@watch.update(watch_params)
+		if @watch.errors.full_messages.size > 0
+			session[:watch_errors] = @watch.errors.full_messages
+	      	redirect_to edit_watch_path
+	    else
+	     	redirect_to watch_path, notice: "The watch was successfully edited!"
+	    end
+	end    
 
 	def destroy
 		if !@watch   
