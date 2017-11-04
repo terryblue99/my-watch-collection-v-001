@@ -1,4 +1,4 @@
-class ComplicationsController < ApplicationController
+class ComplicationsWatchesController < ApplicationController
 
 	def create
 

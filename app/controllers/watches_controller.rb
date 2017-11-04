@@ -26,6 +26,8 @@ class WatchesController < ApplicationController
 
 	def new
 		@watch = Watch.new
+		@all_complications = Complication.all
+		@watch_complications = @watch.complications_watches.build
 	end
 
 	def create

@@ -12,9 +12,5 @@ class Watch < ApplicationRecord
       new_comp.complication_id = complication_id
       new_comp.quantity += 1
     end
-
-    new_comp
-
-  end
    		
 end
