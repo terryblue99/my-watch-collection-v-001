@@ -36,7 +36,12 @@ class WatchesController < ApplicationController
 			session[:watch_errors] = @watch.errors.full_messages
 	      	redirect_to new_watch_path
 	    else
-	   		current_user.watches << @watch	
+	   		current_user.watches << @watch
+	   		params[:complications][:id].each do |complication|
+	   			if !complication.empty?
+	   				@watch.complications_watches.build(complication_id: complication).save
+	   			end	
+	   		end	
 	      	redirect_to watch_path(@watch), notice: "The watch was successfully saved!"
 		end
 
@@ -48,6 +53,11 @@ class WatchesController < ApplicationController
 			session[:watch_errors] = @watch.errors.full_messages
 	      	redirect_to edit_watch_path
 	    else
+	    	params[:complications][:id].each do |complication|
+	   			if !complication.empty?
+	   				@watch.complications_watches.build(complication_id: complication).save
+	   			end	
+	   		end
 	     	redirect_to watch_path, notice: "The watch was successfully edited!"
 	    end
 	end    

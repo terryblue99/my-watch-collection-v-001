@@ -11,6 +11,17 @@
 			<h5 style="text-indent: 25em;">Model Number: <b><%=@watch.model_number%></b></h5>
 			<h5 style="text-indent: 25em;">Water Resistance: <b><%=@watch.water_resistance%></b></h5>
 			<h5 style="text-indent: 25em;">Date Bought: <b><%=@watch.date_bought%></b></h5>
+			<br>
+			<h4>Complications</h4>
+			
+				<% if !@watch.complications.empty? %>
+					<% @watch.complications.each do |complication| %>
+						<h5 style="text-indent: 25em;"><b><%=complication.name%></b></h5>
+					<% end %>
+				<% else %>
+					<h5 style="text-indent: 25em;">There are no complications to display!</h5>	
+				<% end %>
+		
 			<h5><%= link_to "Edit this Watch", edit_watch_path %></h5>
 			<h5><%= link_to "Add a new watch", new_watch_path %></h5>
 			<h5><%= link_to "Show all of my watches", watches_path %></h5>

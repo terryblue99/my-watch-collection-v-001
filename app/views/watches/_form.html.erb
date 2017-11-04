@@ -12,7 +12,7 @@
     </div> 
   </div>
 <% end %>  
-<%binding.pry%>
+
 <%= form_for watch, :html => {:class => "form-horizontal center"} do |f| %>
 
     <%= f.label :name %><br>  
@@ -30,8 +30,8 @@
     <%= f.label :date_bought %><br>
     <%= f.text_field :date_bought %><br>
    
-    <%= f.label "Complications: Select all applicable ones (Shift + Click)" %><br />
-    <%= collection_select(:watch, :complication_ids, Complication.order(:name), :id, :name, {}, {:multiple => true}) %>
+    <%= f.label "Complications: Select all applicable ones (command + Click)" %><br />
+    <%= collection_select(:complications, :id, Complication.order(:name), :id, :name, {}, {:multiple => true}) %>
     
   <br><br>
 
