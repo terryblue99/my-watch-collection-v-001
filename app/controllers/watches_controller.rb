@@ -55,9 +55,13 @@ class WatchesController < ApplicationController
 	    else
 	    	params[:complications][:id].each do |complication|
 	   			if !complication.empty?
-	   				@watch.complications_watches.build(complication_id: complication).save
+	   				binding.pry
+	   				@watch_comp = @watch.complications_watches.build(complication_id: complication)
+	   				@watch_comp.complication_quantity += 1
+	   				@watch_comp.save
 	   			end	
 	   		end
+	   		binding.pry
 	     	redirect_to watch_path, notice: "The watch was successfully edited!"
 	    end
 	end    
