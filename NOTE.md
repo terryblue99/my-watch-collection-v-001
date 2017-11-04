@@ -46,7 +46,7 @@
 
        Method: @complication.watches  
 
-    - watches_complications (watch_id, complication_id, complication_quantity)  
+    - complications_watches (watch_id, complication_id, complication_quantity)  
 
        belongs_to :watch  
        belongs_to :complication  
