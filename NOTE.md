@@ -37,7 +37,7 @@
 
          Methods: @watch.user / @watch.complications   
 
-    - complication (name)  
+    - complication (name, description)  
 
        has_many :watches_complications  
        has_many :watches, through: :watches_complications  

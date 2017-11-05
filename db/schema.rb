@@ -10,18 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171102214324) do
+ActiveRecord::Schema.define(version: 20171104220739) do
 
   create_table "complications", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "description"
   end
 
   create_table "complications_watches", id: false, force: :cascade do |t|
-    t.integer "watch_id",              null: false
-    t.integer "complication_id",       null: false
-    t.integer "complication_quantity"
+    t.integer "watch_id",                 null: false
+    t.integer "complication_id",          null: false
+    t.string  "complication_description"
     t.index ["watch_id", "complication_id"], name: "index_complications_watches_on_watch_id_and_complication_id"
   end
 
