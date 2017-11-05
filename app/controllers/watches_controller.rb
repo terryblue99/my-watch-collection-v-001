@@ -55,12 +55,17 @@ class WatchesController < ApplicationController
 	    else
 	    	params[:complications][:id].each do |complication|
 	   			if !complication.empty?
-	   				@watch.complications_watches.build(complication_id: complication).save
-	   			end	
+	   				if !@watch.complications_watches.detect {|cw| cw.complication_id == complication.to_i}
+			   				@watch.complications_watches.build(complication_id: complication).save
+			   				@cw = ComplicationsWatch.last
+			   				@cw.complication_description = Complication.find_by(id: complication).description
+			   				@cw.save
+			   		end		
+	   			end
 	   		end
 	     	redirect_to watch_path, notice: "The watch was successfully edited!"
 	    end
-	end    
+	end
 
 	def destroy
 		if !@watch   
