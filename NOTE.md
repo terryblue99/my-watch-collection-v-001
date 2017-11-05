@@ -2,7 +2,9 @@
 
 1. Seed data
 
-    - Watch Complications  
+    - Users  
+    - Watches  
+    - Complications  
 
 2. Implement Devise/OmniAuth, using Facebook Sign In
 
@@ -15,7 +17,7 @@
 
 4. Create models and tables
 
-    - user (Devise attributes) => Action # 2  
+    - user (Attributes: Devise attributes) => Action # 2  
 
         devise :database_authenticatable, :registerable,  
          :recoverable, :rememberable, :trackable, :validatable,  
@@ -26,7 +28,7 @@
 
         Method: @user.watches  
 
-    - watch (name, maker, movement, band, model_number, water_resistance, date_bought, user_id)  
+    - watch (Attributes: name, maker, movement, band, model_number, water_resistance, date_bought, user_id)  
 
          belongs_to :user  
          has_many :watches_complications  
@@ -37,7 +39,7 @@
 
          Methods: @watch.user / @watch.complications   
 
-    - complication (name, description)  
+    - complication (Attributes: name, description)  
 
        has_many :watches_complications  
        has_many :watches, through: :watches_complications  
@@ -46,10 +48,16 @@
 
        Method: @complication.watches  
 
-    - complications_watches (watch_id, complication_id, complication_quantity)  
+    - complications_watch (Attributes: watch_id, complication_id, complication_description)  
 
        belongs_to :watch  
        belongs_to :complication  
+
+       # When trying to save a record in the join table -  
+       # it fails with "TypeError - nil is not a symbol nor a string"  
+       # because there is no "primary key".  
+       # The problem was solved by adding the following line to the model    
+       self.primary_key = 'watch_id'  
 
 5. Create views
 
@@ -60,7 +68,6 @@
 
     - users (Devise) => Action # 2  
     - watches  
-    - complications  
 
 7. Code basic processing
 
@@ -73,10 +80,10 @@
 
 8. Add complexities
 
-    - Create a new watch with complications and complication quantity (complications.quantity)  
-    - Diplay the most maker and their watches (e.g. users/most-maker)  
-    - Nested form with custom attribute in associated model (from URL, model e.g. /watches/new, complication)  
-    - Nested resource show or index (URL e.g. users/1/makers)  
+    - Create a new watch with complications and complication description (ComplicationsWatch.complication_description)  
+    - Display the most maker and their watches (e.g. watches/most_maker)  
+    - Nested form with custom attribute in associated model (from URL, model e.g. /watches/new, complications)  
+    - Nested resource show or index (URL e.g. watches/1/makers)  
     - Nested resource "new" form (URL e.g. watches/1/complications)  
     - Form display of validation errors (form URL e.g. /watches/new)  
 
