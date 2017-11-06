@@ -1,5 +1,5 @@
 <div class="col-sm-12 text-center">
-  <%if watches_for_page_display && watches_for_page_display.size > 15 %>
+  <%if watches_for_display && watches_for_display > 15 %>
     <%= form_tag ("rows_path") do %>
       <b class="text-success">Watches on a page:</b> <input  type="number" id="rows" name="rows" min="1" max="50">
       <button class="btn btn-primary btn btn-sm">submit</button>

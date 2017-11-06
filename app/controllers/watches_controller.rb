@@ -3,9 +3,10 @@ class WatchesController < ApplicationController
 	before_action :set_watch, only: [:show, :edit, :update, :destroy]
 	
 	def index
+
 		if user_signed_in?
 			if @user = User.find_by(email: current_user.email)
-			    @watches_for_page_display = @user.watches.all
+			    @watches_for_display = @user.watches.size
 			  	if session[:rows] # Selection made of how many watches to display on each page
 			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => session[:rows]).order(:maker, :name)
 			  	else # First time displaying watches
@@ -17,6 +18,7 @@ class WatchesController < ApplicationController
 		else
 			redirect_to log_in_path, alert: "Please Log In to continue!"
 		end	
+
 	end
 
 	def rows
@@ -24,17 +26,19 @@ class WatchesController < ApplicationController
 	end
 
 	def show
-		binding.pry
+
 		if user_signed_in?
 		    if !@watch   
 		      	redirect_to watches_path, alert: "The watch was not found!"
 		    end
 		else
 			redirect_to log_in_path, alert: "Please Log In to continue!" 
-		end	  
+		end	
+
 	end
 
 	def new
+
 		if user_signed_in?
 			@watch = Watch.new
 			@all_complications = Complication.all
@@ -42,9 +46,11 @@ class WatchesController < ApplicationController
 		else
 			redirect_to log_in_path, alert: "Please Log In to continue!"
 		end	
+
 	end
 
 	def create
+
 		if user_signed_in?
 			@watch = Watch.create(watch_params)
 			if @watch.errors.full_messages.size > 0
@@ -62,9 +68,11 @@ class WatchesController < ApplicationController
 		else
 			redirect_to log_in_path, alert: "Please Log In to continue!"
 		end	
+
 	end
 
 	def update
+
 		if user_signed_in?
 			@watch.update(watch_params)
 			if @watch.errors.full_messages.size > 0
@@ -86,9 +94,11 @@ class WatchesController < ApplicationController
 		else
 			redirect_to log_in_path, alert: "Please Log In to continue!"
 		end
+
 	end
 
 	def destroy
+
 		if user_signed_in?
 			if !@watch   
 		      	redirect_to watches_path, alert: "The watch was not found!"
@@ -100,23 +110,37 @@ class WatchesController < ApplicationController
 		else
 			redirect_to log_in_path, alert: "Please Log In to continue!"
 		end
+
 	end
 
 	def most_maker
-		binding.pry
-		watches = Watch.all
-		most_maker = watches.group(:maker).order('count_all DESC').limit(1).count
+
+		most_maker = current_user.watches.group(:maker).order('count_all DESC').limit(1).count
 		@maker = most_maker.keys[0]
 		@total = most_maker.values[0]
+		@most_maker_array = current_user.watches.select { |w| w.maker == @maker }
+
+		@watches_for_page_display = @most_maker_array.size
+	  	if session[:rows] # Selection made of how many watches to display on each page
+	    	@watches = @most_maker_array.paginate(:page => params[:page], :per_page => session[:rows])
+	    	@watches = @watches.sort_by(&:name)
+	  	else # First time displaying watches
+	    	@watches = @most_maker_array.paginate(:page => params[:page], :per_page => 15)
+	    	@watches = @watches.sort_by(&:name)
+	  	end
+
 	end	
 
 	private
 
 	def set_watch
+
 		@watch = Watch.find_by_id(params[:id])
+
 	end
 
 	def watch_params
+
     # params hash keys
     params.require(:watch).permit(
     	:name,

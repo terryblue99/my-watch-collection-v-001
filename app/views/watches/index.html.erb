@@ -4,13 +4,13 @@
     
     <%= render "side_links" %>
 
-    <%= render partial: "display_watches", locals: {watches: @watches, watches_for_page_display: @watches_for_page_display} %>
+    <%= render partial: "display_watches", locals: {watches: @watches, watches_for_display: @watches_for_display} %>
   
   </div>
   
   <div class="row">
 
-    <%= render partial: "page_size", locals: {watches_for_page_display: @watches_for_page_display} %>
+    <%= render partial: "page_size", locals: {watches_for_display: @watches_for_display} %>
 
   </div>
 
