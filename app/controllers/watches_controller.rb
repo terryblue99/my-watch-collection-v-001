@@ -24,6 +24,7 @@ class WatchesController < ApplicationController
 	end
 
 	def show
+		binding.pry
 		if user_signed_in?
 		    if !@watch   
 		      	redirect_to watches_path, alert: "The watch was not found!"
@@ -101,6 +102,14 @@ class WatchesController < ApplicationController
 		end
 	end
 
+	def most_maker
+		binding.pry
+		watches = Watch.all
+		most_maker = watches.group(:maker).order('count_all DESC').limit(1).count
+		@maker = most_maker.keys[0]
+		@total = most_maker.values[0]
+	end	
+
 	private
 
 	def set_watch
@@ -108,7 +117,7 @@ class WatchesController < ApplicationController
 	end
 
 	def watch_params
-    # modify method to accept the params hash keys
+    # params hash keys
     params.require(:watch).permit(
     	:name,
     	:maker,

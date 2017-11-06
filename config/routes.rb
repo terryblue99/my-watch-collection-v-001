@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 	authenticate :user do  
 	  root 'watches#index'
 	  resources :watches
+	  get '/watches/:id/most_maker', to: 'watches#most_maker', as: 'most_maker'
 	  get 'watches/:id/rows', to: 'watches#rows', as: 'rows'
 	end  
   
