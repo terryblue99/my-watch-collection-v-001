@@ -119,7 +119,7 @@ class WatchesController < ApplicationController
 		maker = most_maker.keys[0]
 		most_maker_array = current_user.watches.select { |w| w.maker == maker }
 
-		@watches_for_page_display = most_maker_array.size
+		@watches_for_display = most_maker_array.size
 	  	if session[:rows] # Selection made of how many watches to display on each page
 	    	@watches = most_maker_array.paginate(:page => params[:page], :per_page => session[:rows])
 	    	@watches = @watches.sort_by(&:name)
