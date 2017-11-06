@@ -73,10 +73,10 @@ class WatchesController < ApplicationController
 		    	params[:complications][:id].each do |complication|
 		   			if !complication.empty?
 		   				if !@watch.complications_watches.detect {|cw| cw.complication_id == complication.to_i}
-				   				@watch.complications_watches.build(complication_id: complication).save
-				   				@cw = ComplicationsWatch.last
-				   				@cw.complication_description = Complication.find_by(id: complication).description
-				   				@cw.save
+			   				@watch.complications_watches.build(complication_id: complication).save
+			   				@cw = ComplicationsWatch.last
+			   				@cw.complication_description = Complication.find_by(id: complication).description
+			   				@cw.save
 				   		end		
 		   			end
 		   		end
@@ -116,7 +116,8 @@ class WatchesController < ApplicationController
     	:band,
     	:model_number,
     	:water_resistance,
-    	:date_bought
+    	:date_bought,
+    	complication_attributes: [:name, :description]
     	)
   end
 

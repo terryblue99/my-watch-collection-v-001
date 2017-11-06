@@ -1,19 +1,19 @@
-<% if session[:watch_errors] && session[:watch_errors].any? %>  
-  <div class="container alert alert-danger"" role="main" >
-    <div class="row">
-      <div class="col-sm-8 col-sm-offset-1">      
-          <div id="error_explanation">
-              <% session[:watch_errors].each do |message| %>
-                <p><%= message %></p>
-              <% end %>
-              <% session[:watch_errors] = nil %>
-          </div>
-      </div>
-    </div> 
-  </div>
-<% end %>  
-
 <%= form_for watch, :html => {:class => "form-horizontal center"} do |f| %>
+
+    <% if session[:watch_errors] && session[:watch_errors].any? %>  
+      <div class="container alert alert-danger"" role="main" >
+        <div class="row">
+          <div class="col-sm-8 col-sm-offset-1">      
+              <div id="error_explanation">
+                  <% session[:watch_errors].each do |message| %>
+                    <p><%= message %></p>
+                  <% end %>
+                  <% session[:watch_errors] = nil %>
+              </div>
+          </div>
+        </div> 
+      </div>
+    <% end %>  
 
     <%= f.label :name %><br>  
     <%= f.text_field :name %><br> 
@@ -32,6 +32,15 @@
    
     <%= f.label "Complications: Select all applicable ones" %><br />
     <%= collection_select(:complications, :id, Complication.order(:name), :id, :name, {}, {:multiple => true}) %>
+
+    <h3>New Complication</h3>
+
+    <%= f.fields_for :complication_attributes do |fields| %>
+      <%= fields.label :name %>
+      <%=fields.text_field :name %>
+      <%= fields.label :description %>
+      <%=fields.text_field :description %>
+    <% end %>
     
   <br><br>
 
