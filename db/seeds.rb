@@ -6,19 +6,19 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 @user = User.create(email: "terry@terry.com", password: "terry123")
-@watch = Watch.create(name: "Terry Subaqua Noma III", maker: "Terry Watches", movement: "Ronda Z60 Quartz Chronograph", band: "Leather", model_number: "SN-1234", water_resistance: "500 meters", date_bought: "2017-09-23")
+@watch = Watch.create(name: "Terry Subaqua Noma III", maker: "Terry Watches", movement: "Ronda Z60 Quartz Chronograph", band: "Leather", model_number: "SN-1234", water_resistance: "500 meters", date_bought: "2017-09-23", user_id: @user.id)
 @user.watches << @watch
-@watch.save
+@user.save
 @cw = ComplicationsWatch.create(watch_id: "#{@watch.id}", complication_id: 10)
-@watch = Watch.create(name: "Blue Zeus Magnum", maker: "Terry Watches", movement: "Swiss Ronda 7003.L Quartz", band: "Stainless Steel", model_number: "M-5678", water_resistance: "200 meters", date_bought: "2016-10-03")
+@watch = Watch.create(name: "Blue Zeus Magnum", maker: "Terry Watches", movement: "Swiss Ronda 7003.L Quartz", band: "Stainless Steel", model_number: "M-5678", water_resistance: "200 meters", date_bought: "2016-10-03", user_id: @user.id)
 @user.watches << @watch
-@watch.save
+@user.save
 @cw = ComplicationsWatch.create(watch_id: "#{@watch.id}", complication_id: 1)
 
 @user = User.create(email: "blue@blue.com", password: "blue123")
-@watch = Watch.create(name: "TerryBlue Pro Diver", maker: "TerryBlue Watches", movement: "Japanese SII NH35A Automatic w/ 24 Jewels", band: "Rubber Strap", model_number: "PD-9123", water_resistance: "300 meters", date_bought: "2017-11-31")
+@watch = Watch.create(name: "TerryBlue Pro Diver", maker: "TerryBlue Watches", movement: "Japanese SII NH35A Automatic w/ 24 Jewels", band: "Rubber Strap", model_number: "PD-9123", water_resistance: "300 meters", date_bought: "2017-11-31", user_id: @user.id)
 @user.watches << @watch
-@watch.save
+@user.save
 @cw = ComplicationsWatch.create(watch_id: "#{@watch.id}", complication_id: 14)
 
 complications = [{name: "Date: Date Window", description: "The window is also referred to as an aperture"},

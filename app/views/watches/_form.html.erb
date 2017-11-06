@@ -30,7 +30,7 @@
     <%= f.label :date_bought %><br>
     <%= f.text_field :date_bought %><br>
    
-    <%= f.label "Complications: Select all applicable ones (command + Click)" %><br />
+    <%= f.label "Complications: Select all applicable ones" %><br />
     <%= collection_select(:complications, :id, Complication.order(:name), :id, :name, {}, {:multiple => true}) %>
     
   <br><br>
