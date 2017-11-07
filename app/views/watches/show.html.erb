@@ -1,6 +1,7 @@
 <body class="container bg-info">
-  <div class="row">    
-    <div class="col-sm-10"> 
+  <div class="row">  
+  <%= render "show_links" %>  
+    <div class="col-sm-7"> 
 
 	    <div style="text-indent: 25em;">
 			<h4 class="text-success">One of my watches</h4>
@@ -12,20 +13,22 @@
 			<h5 style="text-indent: 25em;">Water Resistance: <b><%=@watch.water_resistance%></b></h5>
 			<h5 style="text-indent: 25em;">Date Bought: <b><%=@watch.date_bought%></b></h5>
 			<br>
-			<h4>Complications</h4>
-			
-				<% if !@watch.complications.empty? %>
-					<% @watch.complications.each do |complication| %>
-						<h5 style="text-indent: 25em;"><b><%=complication.name%></b></h5>
+			<% if session[:show_complications] %>
+				<h4 class="text-success">Complications</h4>
+				
+					<% if !@watch.complications.empty? %>
+						<% @watch.complications.each do |complication| %>
+							<h5 style="text-indent: 25em;"><b><%=complication.name%></b></h5>
+						<% end %>
+					<% else %>
+						<h5 style="text-indent: 25em;">There are no complications to display!</h5>	
 					<% end %>
-				<% else %>
-					<h5 style="text-indent: 25em;">There are no complications to display!</h5>	
-				<% end %>
+
+				<% session[:show_complications] = nil %>
+					
+			<% end %>		
 		
-			<h5><%= link_to "Edit this Watch", edit_watch_path %></h5>
-			<h5><%= link_to "Add a new watch", new_watch_path %></h5>
-			<h5><%= link_to "Show all of my watches", watches_path %></h5>
-			<h5><%= link_to 'Delete this watch', watch_path, method: :delete, data: { confirm: 'Are you sure?' } %></h5>
+			
 		</div>
 
     </div>

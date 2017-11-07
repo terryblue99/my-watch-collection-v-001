@@ -130,6 +130,13 @@ class WatchesController < ApplicationController
 
 	end	
 
+	def watch_complications
+		
+		session[:show_complications] = "yes"
+		redirect_to watch_path
+		
+	end	
+
 	private
 
 	def set_watch
