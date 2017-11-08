@@ -1,10 +1,16 @@
+
 <body class="container bg-info">
-  <div class="row">  
-  <%= render "show_links" %>  
-    <div class="col-sm-7"> 
 
-	    <%= render partial: "show", locals: {watch: @watch} %>
+  	<div class="row"> 
 
-    </div>
-  </div>
+  		<%= render "show_links" %> 
+
+    	<div class="col-sm-7"> 
+
+	    	<%= render partial: "show_watch", locals: {watch: @watch} %>
+
+    	</div>
+    	
+  	</div>
+
  </body>

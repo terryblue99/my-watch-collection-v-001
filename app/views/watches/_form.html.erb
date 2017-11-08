@@ -1,49 +1,60 @@
+
 <%= form_for watch, :html => {:class => "form-horizontal center"} do |f| %>
 
-    <% if session[:watch_errors] && session[:watch_errors].any? %>  
-      <div class="container alert alert-danger"" role="main" >
-        <div class="row">
-          <div class="col-sm-8 col-sm-offset-1">      
-              <div id="error_explanation">
-                  <% session[:watch_errors].each do |message| %>
-                    <p><%= message %></p>
-                  <% end %>
-                  <% session[:watch_errors] = nil %>
-              </div>
-          </div>
-        </div> 
+  <body class="container bg-info">
+    <div class="row">   
+      <div class="col-sm-10"> 
+        <div align="center">
+
+          <% if session[:watch_errors] && session[:watch_errors].any? %>  
+            <div class="container alert alert-danger"" role="main" >
+              <div class="row">
+                <div class="col-sm-8 col-sm-offset-1">      
+                    <div id="error_explanation">
+                        <% session[:watch_errors].each do |message| %>
+                          <p><%= message %></p>
+                        <% end %>
+                        <% session[:watch_errors] = nil %>
+                    </div>
+                </div>
+              </div> 
+            </div>
+          <% end %>  
+
+          <%= f.label :name %><br>  
+          <%= f.text_field :name %><br> 
+          <%= f.label :maker %><br>
+          <%= f.text_field :maker %><br>
+          <%= f.label :movement %><br>
+          <%= f.text_field :movement %><br>
+          <%= f.label :band %><br>  
+          <%= f.text_field :band %><br>
+          <%= f.label :model_number %><br>
+          <%= f.text_field :model_number %><br>
+          <%= f.label :water_resistance %><br>
+          <%= f.text_field :water_resistance %><br>
+          <%= f.label :date_bought %><br>
+          <%= f.text_field :date_bought %><br>
+         
+          <%= f.label "Complications: Select all applicable ones" %><br />
+          <%= collection_select(:complications, :id, Complication.order(:name), :id, :name, {}, {:multiple => true}) %>
+
+          <h3 class="text-success">New Complication</h3>
+
+          <%= f.fields_for :complication_attributes do |fields| %>
+            <%= fields.label :name %>
+            <%=fields.text_field :name %>
+            <%= fields.label :description %>
+            <%=fields.text_field :description %>
+          <% end %>
+          
+          <br><br>
+
+          <%= f.submit %>
+
+        </div>  
       </div>
-    <% end %>  
-
-    <%= f.label :name %><br>  
-    <%= f.text_field :name %><br> 
-    <%= f.label :maker %><br>
-    <%= f.text_field :maker %><br>
-    <%= f.label :movement %><br>
-    <%= f.text_field :movement %><br>
-    <%= f.label :band %><br>  
-    <%= f.text_field :band %><br>
-    <%= f.label :model_number %><br>
-    <%= f.text_field :model_number %><br>
-    <%= f.label :water_resistance %><br>
-    <%= f.text_field :water_resistance %><br>
-    <%= f.label :date_bought %><br>
-    <%= f.text_field :date_bought %><br>
-   
-    <%= f.label "Complications: Select all applicable ones" %><br />
-    <%= collection_select(:complications, :id, Complication.order(:name), :id, :name, {}, {:multiple => true}) %>
-
-    <h3 class="text-success">New Complication</h3>
-
-    <%= f.fields_for :complication_attributes do |fields| %>
-      <%= fields.label :name %>
-      <%=fields.text_field :name %>
-      <%= fields.label :description %>
-      <%=fields.text_field :description %>
-    <% end %>
-    
-  <br><br>
-
-  <%= f.submit %>
-
+    </div>
+  </body>
+  
 <% end %>
