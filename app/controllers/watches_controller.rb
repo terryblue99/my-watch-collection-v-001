@@ -7,8 +7,10 @@ class WatchesController < ApplicationController
 		if user_signed_in?
 			if @user = User.find_by(email: current_user.email)
 			    @watches_for_display = @user.watches.size
+			    session[:most_maker] = nil
 			  	if session[:rows] # Selection made of how many watches to display on each page
 			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => session[:rows]).order(:maker, :name)
+			    	session[:rows] = nil
 			  	else # First time displaying watches
 			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => 15).order(:maker, :name)
 			  	end
@@ -22,7 +24,19 @@ class WatchesController < ApplicationController
 	end
 
 	def rows
-	  	binding.pry
+	  	if user_signed_in?
+	  	  if !session[:most_maker]
+	      	session[:rows] = params[:rows] # Selection made of how many watches to display on each page  
+	      	redirect_to watches_path
+	      else
+	      	session[:maker_rows] = params[:rows] # Selection made of how many watches to display on each page  
+	      	session[:most_maker] = nil
+	      	redirect_to most_maker_path
+	      end	
+	    else
+	      redirect_to log_in_path, alert: "Please Log In to continue!"
+	    end
+
 	end
 
 	def show
@@ -115,14 +129,16 @@ class WatchesController < ApplicationController
 
 	def most_maker
 
+		session[:most_maker] = "yes"
 		most_maker = current_user.watches.group(:maker).order('count_all DESC').limit(1).count
 		maker = most_maker.keys[0]
 		most_maker_array = current_user.watches.select { |w| w.maker == maker }
 
 		@watches_for_display = most_maker_array.size
 		most_maker_array = most_maker_array.sort_by(&:name)
-	  	if session[:rows] # Selection made of how many watches to display on each page
-	    	@watches = most_maker_array.paginate(:page => params[:page], :per_page => session[:rows])
+	  	if session[:maker_rows] # Selection made of how many watches to display on each page
+	    	@watches = most_maker_array.paginate(:page => params[:page], :per_page => session[:maker_rows])
+	    	session[:maker_rows] = nil
 	  	else # First time displaying watches
 	    	@watches = most_maker_array.paginate(:page => params[:page], :per_page => 15)
 	  	end

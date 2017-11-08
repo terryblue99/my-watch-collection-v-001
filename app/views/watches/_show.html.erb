@@ -1,0 +1,25 @@
+<div style="text-indent: 23em;">
+	<h4 class="text-success">One of my watches</h4>
+	<h5 style="text-indent: 23em;">Name: <b><%=@watch.name%></b></h5>
+	<h5 style="text-indent: 23em;">Maker: <b><%=@watch.maker%></b></h5>
+	<h5 style="text-indent: 23em;">Movement: <b><%=@watch.movement%></b></h5>
+	<h5 style="text-indent: 23em;">Band: <b><%=@watch.band%></b></h5>
+	<h5 style="text-indent: 23em;">Model Number: <b><%=@watch.model_number%></b></h5>
+	<h5 style="text-indent: 23em;">Water Resistance: <b><%=@watch.water_resistance%></b></h5>
+	<h5 style="text-indent: 23em;">Date Bought: <b><%=@watch.date_bought%></b></h5>
+	<br>
+	<% if session[:show_complications] %>
+		<h4 class="text-success">Complications</h4>
+		
+			<% if !watch.complications.empty? %>
+				<% watch.complications.each do |complication| %>
+					<h5 style="text-indent: 23em;"><b><%=complication.name%></b></h5>
+				<% end %>
+			<% else %>
+				<h5 style="text-indent: 23em;">There are no complications to display!</h5>	
+			<% end %>
+
+		<% session[:show_complications] = nil %>
+			
+	<% end %>			
+</div>
