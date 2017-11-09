@@ -20,7 +20,7 @@
 
 				<% watch.complications.each do |complication| %>
 
-					<h5 style="text-indent: 15em;"><b><%=complication.name%></b> | <%=complication.description%></h5>
+					<h5 style="text-indent: 15em;"><b><%= link_to complication.name, description_path(watch) %></b></h5>
 
 				<% end %>
 

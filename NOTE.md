@@ -83,7 +83,7 @@
     - Create a new watch with complications and complication description (ComplicationsWatch.complication_description)  
     - Display the most maker and their watches (e.g. watches/most_maker)  
     - Nested form with custom attribute in associated model (from URL, model e.g. /watches/new, complications)  
-    - Nested resource show or index (URL e.g. watches/1/complications)  
+    - Nested resource show (URL e.g. watches/1/complications)  
     - Nested resource "new" form (URL e.g. watches/1/complications)  
     - Form display of validation errors (form URL e.g. /watches/new)  
 

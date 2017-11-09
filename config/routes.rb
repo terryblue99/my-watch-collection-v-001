@@ -7,9 +7,19 @@ Rails.application.routes.draw do
 	authenticate :user do  
 	  root 'watches#index'
 	  resources :watches
-	  get '/watches/:id/most_maker', to: 'watches#most_maker', as: 'most_maker'
-	  get '/watches/:id/watch_complications', to: 'watches#watch_complications', as: 'watch_complications'
+	#   get '/watches/:id/most_maker', to: 'watches#most_maker', as: 'most_maker'
+	#   get '/watches/:id/watch_complications', to: 'watches#watch_complications', as: 'watch_complications'
+	#   get 'watches/:id/rows', to: 'watches#rows', as: 'rows'
+	  resources :watches do
+
+	  	resource :complications, only: [:show, :new, :edit]	    
+
+	  end
+
 	  get 'watches/:id/rows', to: 'watches#rows', as: 'rows'
-	end  
+	  get '/watches/:id/most_maker', to: 'watches#most_maker', as: 'most_maker'
+	  get 'comlications/:id/description', to: 'complications#description', as: 'description'
+
+	end 
   
 end

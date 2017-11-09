@@ -171,12 +171,12 @@ class WatchesController < ApplicationController
 
 	end	
 
-	def watch_complications
+	# def watch_complications
 		
-		session[:show_complications] = "yes"
-		redirect_to watch_path
+	# 	session[:show_complications] = "yes"
+	# 	redirect_to watch_path
 		
-	end	
+	# end	
 
 
 	private
