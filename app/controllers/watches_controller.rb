@@ -5,6 +5,7 @@ class WatchesController < ApplicationController
 	def index
 
 		if user_signed_in?
+
 			if @user = User.find_by(email: current_user.email)
 			    @watches_for_display = @user.watches.size
 			    session[:most_maker] = nil
@@ -18,6 +19,7 @@ class WatchesController < ApplicationController
 			else
 				redirect_to log_in_path, alert: "Please Log In to continue!"
 			end
+			
 		else
 			redirect_to log_in_path, alert: "Please Log In to continue!"
 		end	
@@ -27,6 +29,7 @@ class WatchesController < ApplicationController
 	def rows
 
 	  	if user_signed_in?
+
 	  	  # Selection made of how many watches to display on each page	
 	  	  if !session[:most_maker]
 	      	session[:rows] = params[:rows]   
@@ -36,6 +39,7 @@ class WatchesController < ApplicationController
 	      	session[:most_maker] = nil
 	      	redirect_to most_maker_path
 	      end	
+
 	    else
 	      redirect_to log_in_path, alert: "Please Log In to continue!"
 	    end
@@ -69,6 +73,7 @@ class WatchesController < ApplicationController
 	def create
 
 		if user_signed_in?
+
 			@watch = Watch.create(watch_params)
 			if @watch.errors.full_messages.size > 0
 				session[:watch_errors] = @watch.errors.full_messages
@@ -85,6 +90,7 @@ class WatchesController < ApplicationController
 		   		end	
 		      	redirect_to watch_path(@watch), notice: "The watch was successfully saved!"
 			end
+
 		else
 			redirect_to log_in_path, alert: "Please Log In to continue!"
 		end	
@@ -94,7 +100,9 @@ class WatchesController < ApplicationController
 	def update
 
 		if user_signed_in?
+
 			@watch.update(watch_params)
+
 			if @watch.errors.full_messages.size > 0
 				session[:watch_errors] = @watch.errors.full_messages
 		      	redirect_to edit_watch_path
@@ -111,6 +119,7 @@ class WatchesController < ApplicationController
 		   		end
 		     	redirect_to watch_path, notice: "The watch was successfully edited!"
 		    end
+
 		else
 			redirect_to log_in_path, alert: "Please Log In to continue!"
 		end
@@ -120,6 +129,7 @@ class WatchesController < ApplicationController
 	def destroy
 
 		if user_signed_in?
+
 			if !@watch   
 		      	redirect_to watches_path, alert: "The watch was not found!"
 		    else
@@ -127,6 +137,7 @@ class WatchesController < ApplicationController
 		      	@watch.delete
 		      	redirect_to watches_path, notice: "'#{watch_name}' has been deleted!"
 		    end
+
 		else
 			redirect_to log_in_path, alert: "Please Log In to continue!"
 		end
@@ -136,17 +147,20 @@ class WatchesController < ApplicationController
 	def most_maker
 
 		if current_user.watches.size > 2 
+
 			session[:most_maker] = "yes"
 			most_maker = current_user.watches.group(:maker).order('count_all DESC').limit(1).count
 			most_maker_array = current_user.watches.select { |w| w.maker == most_maker.keys[0] }
 			@watches_for_display = most_maker_array.size
 			most_maker_array = most_maker_array.sort_by(&:name)
+
 		  	if session[:maker_rows] # Selection made of how many watches to display on each page
 		    	@watches = most_maker_array.paginate(:page => params[:page], :per_page => session[:maker_rows])
 		    	session[:maker_rows] = nil
 		  	else # First time displaying watches
 		    	@watches = most_maker_array.paginate(:page => params[:page], :per_page => 15)
 		  	end
+
 		else
 
 			@watches = current_user.watches.sort_by(&:name)
@@ -163,6 +177,7 @@ class WatchesController < ApplicationController
 		redirect_to watch_path
 		
 	end	
+
 
 	private
 
