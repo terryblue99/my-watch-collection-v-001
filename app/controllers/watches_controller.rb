@@ -78,6 +78,9 @@ class WatchesController < ApplicationController
 		   		params[:complications][:id].each do |complication|
 		   			if !complication.empty?
 		   				@watch.complications_watches.build(complication_id: complication).save
+		   				@cw = ComplicationsWatch.last
+		   				@cw.complication_description = Complication.find_by(id: complication).description
+		   				@cw.save
 		   			end	
 		   		end	
 		      	redirect_to watch_path(@watch), notice: "The watch was successfully saved!"

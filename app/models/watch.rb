@@ -6,6 +6,7 @@ class Watch < ApplicationRecord
    	validates :maker, presence: true
 
    	def complication_attributes=(attributes)
+
    		if !attributes[:name].empty? && !attributes[:description].empty?
 	   		@cn = Complication.new(name: attributes[:name], description: attributes[:description])
 	   		@cn.save
@@ -13,7 +14,8 @@ class Watch < ApplicationRecord
 			@cw = ComplicationsWatch.last
 			@cw.complication_description = Complication.find_by(id: @cn.id).description
 			@cw.save
+			
 		end	
-   	end	
+   	end
    		
 end
