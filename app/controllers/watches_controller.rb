@@ -19,7 +19,7 @@ class WatchesController < ApplicationController
 			else
 				redirect_to log_in_path, alert: "Please Log In to continue!"
 			end
-			
+
 		else
 			redirect_to log_in_path, alert: "Please Log In to continue!"
 		end	
@@ -73,7 +73,7 @@ class WatchesController < ApplicationController
 	def create
 
 		if user_signed_in?
-
+			
 			@watch = Watch.create(watch_params)
 			if @watch.errors.full_messages.size > 0
 				session[:watch_errors] = @watch.errors.full_messages
@@ -82,10 +82,9 @@ class WatchesController < ApplicationController
 		   		current_user.watches << @watch
 		   		params[:complications][:id].each do |complication|
 		   			if !complication.empty?
-		   				@watch.complications_watches.build(complication_id: complication).save
-		   				@cw = ComplicationsWatch.last
-		   				@cw.complication_description = Complication.find_by(id: complication).description
-		   				@cw.save
+		   				@watch_build = @watch.complications_watches.build(complication_id: complication)
+		   				@watch_build.complication_description = Complication.find_by(id: complication).description
+		   				@watch_build.save
 		   			end	
 		   		end	
 		      	redirect_to watch_path(@watch), notice: "The watch was successfully saved!"
@@ -107,13 +106,13 @@ class WatchesController < ApplicationController
 				session[:watch_errors] = @watch.errors.full_messages
 		      	redirect_to edit_watch_path
 		    else
+		    	
 		    	params[:complications][:id].each do |complication|
 		   			if !complication.empty?
 		   				if !@watch.complications_watches.detect {|cw| cw.complication_id == complication.to_i}
-			   				@watch.complications_watches.build(complication_id: complication).save
-			   				@cw = ComplicationsWatch.last
-			   				@cw.complication_description = Complication.find_by(id: complication).description
-			   				@cw.save
+			   				@watch_build = @watch.complications_watches.build(complication_id: complication)
+			   				@watch_build.complication_description = Complication.find_by(id: complication).description
+			   				@watch_build.save
 				   		end		
 		   			end
 		   		end
@@ -169,14 +168,7 @@ class WatchesController < ApplicationController
 
 		end  	
 
-	end	
-
-	# def watch_complications
-		
-	# 	session[:show_complications] = "yes"
-	# 	redirect_to watch_path
-		
-	# end	
+	end
 
 
 	private

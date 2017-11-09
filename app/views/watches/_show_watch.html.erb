@@ -15,12 +15,13 @@
 	<% if session[:show_complications] %>
 
 		<h4 class="text-success">Complications</h4>
+		<h5>(Click a link to see a description)</h5>
 		
 			<% if !watch.complications.empty? %>
 
 				<% watch.complications.each do |complication| %>
 
-					<h5 style="text-indent: 15em;"><b><%= link_to complication.name, description_path(watch) %></b></h5>
+					<h5 style="text-indent: 15em;"><b><%= link_to complication.name, description_path(watch, comp_name: complication.name, comp_id: complication.id) %></b></h5>
 
 				<% end %>
 
