@@ -8,10 +8,11 @@ class WatchesController < ApplicationController
 			if @user = User.find_by(email: current_user.email)
 			    @watches_for_display = @user.watches.size
 			    session[:most_maker] = nil
-			  	if session[:rows] # Selection made of how many watches to display on each page
+			    # Selection made of how many watches to display on each page
+			  	if session[:rows]
 			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => session[:rows]).order(:maker, :name)
 			    	session[:rows] = nil
-			  	else # First time displaying watches
+			  	else
 			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => 15).order(:maker, :name)
 			  	end
 			else
@@ -24,12 +25,14 @@ class WatchesController < ApplicationController
 	end
 
 	def rows
+
 	  	if user_signed_in?
+	  	  # Selection made of how many watches to display on each page	
 	  	  if !session[:most_maker]
-	      	session[:rows] = params[:rows] # Selection made of how many watches to display on each page  
+	      	session[:rows] = params[:rows]   
 	      	redirect_to watches_path
 	      else
-	      	session[:maker_rows] = params[:rows] # Selection made of how many watches to display on each page  
+	      	session[:maker_rows] = params[:rows]
 	      	session[:most_maker] = nil
 	      	redirect_to most_maker_path
 	      end	
@@ -132,8 +135,7 @@ class WatchesController < ApplicationController
 		if current_user.watches.size > 2 
 			session[:most_maker] = "yes"
 			most_maker = current_user.watches.group(:maker).order('count_all DESC').limit(1).count
-			maker = most_maker.keys[0]
-			most_maker_array = current_user.watches.select { |w| w.maker == maker }
+			most_maker_array = current_user.watches.select { |w| w.maker == most_maker.keys[0] }
 			@watches_for_display = most_maker_array.size
 			most_maker_array = most_maker_array.sort_by(&:name)
 		  	if session[:maker_rows] # Selection made of how many watches to display on each page
