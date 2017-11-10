@@ -11,7 +11,7 @@ class ComplicationsController < ApplicationController
 	def description
 		
 		@comp_name = params[:comp_name]
-		@description = ComplicationsWatch.find_by(watch_id: params[:id], complication_id: params[:comp_id]).complication_description
+		@description = Complication.description(params[:comp_id])
 		
 	end
 

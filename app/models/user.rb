@@ -15,5 +15,11 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0,20]
     end
   end
+
+  def self.find_user(current_user)
+
+    self.find_by(email: current_user.email)
+    
+  end
          
 end
