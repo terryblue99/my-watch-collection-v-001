@@ -107,7 +107,7 @@ class WatchesController < ApplicationController
 
 		if user_signed_in?
 
-			Watch.update_watch(watch_params)
+			@watch = Watch.update_watch(watch_params)
 
 			if @watch.errors.full_messages.size > 0
 				session[:watch_errors] = @watch.errors.full_messages
