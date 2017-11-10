@@ -3,6 +3,6 @@ class Complication < ApplicationRecord
     has_many :watches, through: :complications_watches
 
     validates :name, presence: true
-    validates :description, presence: true	
+    validates :description, presence: true
 
 end

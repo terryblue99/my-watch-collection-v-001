@@ -8,4 +8,12 @@ class ComplicationsWatch < ApplicationRecord
 	# The problem was solved by adding the following line
 	self.primary_key = 'watch_id'
 
+	def self.build_join(watch, complication)
+		
+    	@join_build = watch.complications_watches.build(complication_id: complication)
+		@join_build.complication_description = Complication.find_by(id: complication).description
+		@join_build.save
+
+    end	
+
 end

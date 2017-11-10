@@ -75,6 +75,7 @@ class WatchesController < ApplicationController
 		if user_signed_in?
 			
 			@watch = Watch.create(watch_params)
+
 			if @watch.errors.full_messages.size > 0
 				session[:watch_errors] = @watch.errors.full_messages
 		      	redirect_to new_watch_path
@@ -82,9 +83,9 @@ class WatchesController < ApplicationController
 		   		current_user.watches << @watch
 		   		params[:complications][:id].each do |complication|
 		   			if !complication.empty?
-		   				@watch_build = @watch.complications_watches.build(complication_id: complication)
-		   				@watch_build.complication_description = Complication.find_by(id: complication).description
-		   				@watch_build.save
+
+		   				ComplicationsWatch.build_join(@watch, complication)
+		   	
 		   			end	
 		   		end	
 		      	redirect_to watch_path(@watch), notice: "The watch was successfully saved!"
@@ -110,9 +111,8 @@ class WatchesController < ApplicationController
 		    	params[:complications][:id].each do |complication|
 		   			if !complication.empty?
 		   				if !@watch.complications_watches.detect {|cw| cw.complication_id == complication.to_i}
-			   				@watch_build = @watch.complications_watches.build(complication_id: complication)
-			   				@watch_build.complication_description = Complication.find_by(id: complication).description
-			   				@watch_build.save
+		   					
+			   				ComplicationsWatch.build_join(@watch, complication)
 				   		end		
 		   			end
 		   		end
