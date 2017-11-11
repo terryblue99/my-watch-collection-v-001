@@ -4,20 +4,28 @@ class Watch < ApplicationRecord
 
 	belongs_to :user
 	has_many :complications_watches
-    has_many :complications, through: :complications_watches
-   	validates :name, presence: true
-   	validates :maker, presence: true
+   has_many :complications, through: :complications_watches
+   validates :name, presence: true
+   validates :maker, presence: true
 
    	def complication_attributes=(attributes)
 
    		if !attributes[:name].empty? && !attributes[:description].empty?
-	   		@cn = Complication.new(name: attributes[:name], description: attributes[:description])
-	   		@cn.save
-			@watch_build = self.complications_watches.build(complication_id: @cn.id)
-			@watch_build.complication_description = Complication.find_by(id: @cn.id).description
-			@watch_build.save
+
+	   		@complication = Complication.new(name: attributes[:name], description: attributes[:description])
+	   		@complication.save
+
+            if @complication.errors.any?
+               binding.pry
+               
+            else
+      			@watch_build = self.complications_watches.build(complication_id: @complication.id)
+      			@watch_build.complication_description = Complication.find_by(id: @complication.id).description
+      			@watch_build.save
+            end
 			
-		end	
+		   end
+
    	end
 
    	def self.retrieve_most_maker(current_user)

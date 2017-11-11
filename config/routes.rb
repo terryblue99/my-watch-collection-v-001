@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 	
 	  resources :watches do
 
-	  	resource :complications, only: [:show, :new, :edit]	    
+	  	resource :complications   
 
 	  end
 
