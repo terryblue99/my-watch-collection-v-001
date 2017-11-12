@@ -81,7 +81,7 @@ class WatchesController < ApplicationController
 		if user_signed_in?
 			
 			@watch = Watch.create_watch(watch_params)
-
+			binding.pry
 			if @watch.errors.full_messages.size > 0
 				session[:watch_errors] = @watch.errors.full_messages
 		      	redirect_to new_watch_path
@@ -106,9 +106,9 @@ class WatchesController < ApplicationController
 	def update
 
 		if user_signed_in?
-			
+			binding.pry
 			@watch = Watch.update_watch(watch_params)
-
+			binding.pry
 			if @watch.errors.full_messages.size > 0
 				session[:watch_errors] = @watch.errors.full_messages
 		      	redirect_to edit_watch_path

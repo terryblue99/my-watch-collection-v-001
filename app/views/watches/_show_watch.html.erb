@@ -15,9 +15,10 @@
 	<% if session[:show_complications] %>
 
 		<h4 class="text-success">Complications</h4>
-		<h5>(Click one to see a description)</h5>
 		
 			<% if !watch.complications.empty? %>
+			
+				<h5>(Click one to see a description)</h5>
 
 				<% watch.complications.each do |complication| %>
 
