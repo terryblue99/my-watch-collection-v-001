@@ -20,6 +20,12 @@
               </div> 
             </div>
           <% end %>  
+        
+          <% if params[:action] == "new" %>
+            <h3 class="text-success">New Watch</h3>
+          <% else %> 
+            <h3 class="text-success">Edit a Watch</h3>
+          <% end %>  
 
           <%= f.label :name %><br>  
           <%= f.text_field :name %><br> 

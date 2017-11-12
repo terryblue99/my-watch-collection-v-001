@@ -2,13 +2,13 @@
 <div style="text-indent: 15em;">
 
 	<h4 class="text-success">One of my watches</h4>
-	<h5 style="text-indent: 15em;">Name: <b><%=@watch.name%></b></h5>
-	<h5 style="text-indent: 15em;">Maker: <b><%=@watch.maker%></b></h5>
-	<h5 style="text-indent: 15em;">Movement: <b><%=@watch.movement%></b></h5>
-	<h5 style="text-indent: 15em;">Band: <b><%=@watch.band%></b></h5>
-	<h5 style="text-indent: 15em;">Model Number: <b><%=@watch.model_number%></b></h5>
-	<h5 style="text-indent: 15em;">Water Resistance: <b><%=@watch.water_resistance%></b></h5>
-	<h5 style="text-indent: 15em;">Date Bought: <b><%=@watch.date_bought%></b></h5>
+	<h5><b class="text-success">Name:</b> <%=@watch.name%></h5>
+	<h5><b class="text-success">Maker:</b> <%=@watch.maker%></h5>
+	<h5><b class="text-success">Movement:</b> <%=@watch.movement%></h5>
+	<h5><b class="text-success">Band:</b> <%=@watch.band%></h5>
+	<h5><b class="text-success">Model Number:</b> <%=@watch.model_number%></h5>
+	<h5><b class="text-success">Water Resistance:</b> <%=@watch.water_resistance%></h5>
+	<h5><b class="text-success">Date Bought:</b> <%=@watch.date_bought%></h5>
 
 	<br>
 	
@@ -21,13 +21,13 @@
 
 				<% watch.complications.each do |complication| %>
 
-					<h5 style="text-indent: 15em;"><b><%= link_to complication.name, description_path(watch, comp_name: complication.name, comp_id: complication.id) %></b></h5>
+					<h5><b><%= link_to complication.name, description_path(watch, comp_name: complication.name, comp_id: complication.id) %></b></h5>
 
 				<% end %>
 
 			<% else %>
 
-				<h5 style="text-indent: 15em;">There are no complications to display!</h5>
+				<h5>There are no complications to display!</h5>
 
 			<% end %>
 
