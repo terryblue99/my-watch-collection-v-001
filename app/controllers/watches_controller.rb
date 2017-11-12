@@ -84,7 +84,7 @@ class WatchesController < ApplicationController
 			binding.pry
 			if @watch.errors.full_messages.size > 0
 				session[:watch_errors] = @watch.errors.full_messages
-		      	redirect_to new_watch_path
+		      	render :new
 		    else
 		   		current_user.watches << @watch
 		   		params[:complications][:id].each do |complication|
@@ -111,7 +111,7 @@ class WatchesController < ApplicationController
 			binding.pry
 			if @watch.errors.full_messages.size > 0
 				session[:watch_errors] = @watch.errors.full_messages
-		      	redirect_to edit_watch_path
+		      	render :edit
 		    else
 		    	
 		    	params[:complications][:id].each do |complication|

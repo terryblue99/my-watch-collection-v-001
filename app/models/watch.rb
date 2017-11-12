@@ -8,22 +8,21 @@ class Watch < ApplicationRecord
    validates :name, presence: true
    validates :maker, presence: true
 
-   validate do |watch|
-      watch.complications.each do |complication|
-         if !complication.valid?
-            complication.errors.full_messages.each do |msg|
-               self.errors[:base] << "'#{complication.name}': #{msg}"
+      validate do |watch|
+         watch.complications.each do |complication|
+            if !complication.valid?
+               complication.errors.full_messages.each do |msg|
+                  self.errors[:base] << "'#{complication.name}': #{msg}"
+               end
             end
-         end   
+         end 
       end
-   end
 
    	def complication_attributes=(attributes)
 
    		if !attributes[:name].empty? && !attributes[:description].empty?
 
 	   		@complication = Complication.new(name: attributes[:name], description: attributes[:description])
-            @complication.errors.add(:name, :not_valid, message: "The new complication is invalid")
 
 	   		if @complication.save
       			@watch_build = self.complications_watches.build(complication_id: @complication.id)
@@ -32,7 +31,6 @@ class Watch < ApplicationRecord
             else
                # Add the errored out complication to the watch's
                # complication array, making the custom validator fail
-               binding.pry
                self.complications << @complication
             end
 			
@@ -49,7 +47,7 @@ class Watch < ApplicationRecord
    	end
 
    	def self.create_watch(watch_params)
-         
+
    		self.create(watch_params)
 
    	end
