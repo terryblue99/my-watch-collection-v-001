@@ -81,10 +81,10 @@ class WatchesController < ApplicationController
 		if user_signed_in?
 			
 			@watch = Watch.create_watch(watch_params)
-
+			
 			if @watch.errors.full_messages.size > 0
 				session[:watch_errors] = @watch.errors.full_messages
-		      	redirect_to new_watch_path
+		      	render :new
 		    else
 		   		current_user.watches << @watch
 		   		params[:complications][:id].each do |complication|
@@ -107,11 +107,15 @@ class WatchesController < ApplicationController
 
 		if user_signed_in?
 
-			@watch = Watch.update_watch(watch_params)
-
+			begin
+	          @watch = Watch.update(watch_params)    
+	        rescue => complication_error
+	          @watch.errors[:base] << "Invalid Complication: Name has already been taken"
+	        end
+		
 			if @watch.errors.full_messages.size > 0
 				session[:watch_errors] = @watch.errors.full_messages
-		      	redirect_to edit_watch_path
+		      	render :edit
 		    else
 		    	
 		    	params[:complications][:id].each do |complication|
