@@ -3,7 +3,7 @@ class Complication < ApplicationRecord
     has_many :watches, through: :complications_watches
 
     validates :name, presence: true
-    validates_uniqueness_of :name
+    validates :name, uniqueness: true
     validates :description, presence: true
 
     def self.description(c_id)
