@@ -1,27 +1,22 @@
 
 class ComplicationsController < ApplicationController
-	before_action :set_session
+	before_action :set_session, only: [:show, :description]
 
 	def show
-		
+		# Show the watch complication/s
 		redirect_to watch_path(params[:watch_id])
 		
 	end
 
 	def description
-
+		# Show the description associated with a complication
 		@comp_name = params[:comp_name]
-		@description = ComplicationsWatch.find_by(watch_id: params[:watch_id], complication_id: params[:comp_id]).complication_description
 		@comp_id = params[:comp_id]
+		@watch_id = params[:watch_id]
+		
+		@description = ComplicationsWatch.description(@watch_id, @comp_id)
 		
 	end
-
-	def complication_errors(errors)
-		binding.pry
-		session[:watch_errors] = errors
-		redirect_to edit_watch_path
-
-	end	
 
 	def destroy
 		
@@ -44,7 +39,7 @@ class ComplicationsController < ApplicationController
 	end
 
 	def set_session
-
+		# Activates the display of the watch complication/s
 		session[:show_complications] = "yes"
 
 	end

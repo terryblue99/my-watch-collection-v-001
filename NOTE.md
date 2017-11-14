@@ -23,16 +23,15 @@
          :recoverable, :rememberable, :trackable, :validatable,  
          :omniauthable, :omniauth_providers => [:facebook]  
 
-        has_many :watches 
-        belongs_to :current_watch, class_name: "Watch"  
+        has_many :watches  
 
         Method: @user.watches  
 
     - watch (Attributes: name, maker, movement, band, model_number, water_resistance, date_bought, user_id)  
 
          belongs_to :user  
-         has_many :watches_complications  
-         has_many :complications, through: :watches_complications  
+         has_many :complications_watches  
+         has_many :complications, through: :complications_watches  
 
          validates :name, presence: true  
          validates :maker, presence: true  
@@ -41,10 +40,12 @@
 
     - complication (Attributes: name, description)  
 
-       has_many :watches_complications  
-       has_many :watches, through: :watches_complications  
+       has_many :complications_watches  
+       has_many :watches, through: :complications_watches  
 
        validates :name, presence: true  
+       validates :name, uniqueness: true  
+       validates :description, presence: true  
 
        Method: @complication.watches  
 
@@ -56,7 +57,7 @@
        # When trying to save a record in the join table -  
        # it fails with "TypeError - nil is not a symbol nor a string"  
        # because there is no "primary key".  
-       # The problem was solved by adding the following line to the model    
+       # The problem is solved by adding the following line to the model  
        self.primary_key = 'watch_id'  
 
 5. Create views
@@ -76,14 +77,16 @@
     - Show a watch  
     - Edit a watch  
     - Delete a watch  
+    - Validation messages  
     - Flash messages  
 
 8. Add complexities
 
-    - Create a new watch with complications and complication description (ComplicationsWatch.complication_description)  
-    - Display the most maker and their watches (e.g. watches/most_maker)  
-    - Nested form with custom attribute in associated model (from URL, model e.g. /watches/new, complications)  
-    - Nested resource show (URL e.g. watches/1/complications)  
-    - Nested resource "new" form (URL e.g. watches/1/complications)  
-    - Form display of validation errors (form URL e.g. /watches/new)  
-
+    - Create a new watch with complication/s & join table description/s  
+    - Delete a complication  
+    - Show a complication's description  
+    - Display the most maker and their watches  
+    - Nested complication form with custom attribute writer in watch model  
+    - Nested complication resource "show" form  
+    - Nested complication resource "new" form  
+    - Form display of validation errors  

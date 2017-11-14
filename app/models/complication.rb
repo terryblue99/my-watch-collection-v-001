@@ -6,10 +6,4 @@ class Complication < ApplicationRecord
     validates :name, uniqueness: true
     validates :description, presence: true
 
-    def self.description(c_id)
-
-    	self.find_by(id: c_id).description
-
-    end	
-
 end

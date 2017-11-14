@@ -6,7 +6,6 @@ class User < ApplicationRecord
          :omniauthable, :omniauth_providers => [:facebook]
 
   has_many :watches
-  belongs_to :current_watch, class_name: "Watch"
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
