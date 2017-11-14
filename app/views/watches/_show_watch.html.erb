@@ -1,7 +1,7 @@
 
 <div style="text-indent: 15em;">
 
-	<h4 class="text-success">One of my watches</h4>
+	<h4>One of my watches</h4>
 	<h5><b class="text-success">Name:</b> <%=@watch.name%></h5>
 	<h5><b class="text-success">Maker:</b> <%=@watch.maker%></h5>
 	<h5><b class="text-success">Movement:</b> <%=@watch.movement%></h5>
@@ -14,11 +14,11 @@
 	
 	<% if session[:show_complications] %>
 
-		<h4 class="text-success">Complications</h4>
+		<h4>Complications</h4>
 		
 			<% if !watch.complications.empty? %>
 			
-				<h5>(Click one to see a description)</h5>
+				<h5 class="text-success">(Click one to see a description)</h5>
 
 				<% watch.complications.each do |complication| %>
 		
@@ -28,7 +28,7 @@
 
 			<% else %>
 
-				<h5>There are no complications to display!</h5>
+				<h5 class="text-danger">There are no complications to display!</h5>
 
 			<% end %>
 
