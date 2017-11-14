@@ -69,7 +69,6 @@ class WatchesController < ApplicationController
 		if user_signed_in?
 			@watch = Watch.new
 			@all_complications = Complication.all
-			@watch_complications = @watch.complications_watches.build
 		else
 			redirect_to log_in_path, alert: "Please Log In to continue!"
 		end	
@@ -89,9 +88,9 @@ class WatchesController < ApplicationController
 		   		current_user.watches << @watch
 		   		params[:complications][:id].each do |complication|
 		   			if !complication.empty?
-
+		   				
 		   				ComplicationsWatch.build_join(@watch, complication)
-		   	
+
 		   			end	
 		   		end	
 		      	redirect_to watch_path(@watch), notice: "The watch was successfully saved!"
@@ -108,23 +107,24 @@ class WatchesController < ApplicationController
 		if user_signed_in?
 
 			begin
-	          @watch = Watch.update(watch_params)    
-	        rescue => complication_error
-	          @watch.errors[:base] << "Invalid Complication: Name has already been taken"
+			  	
+	          @watch.update(watch_params) 
+	           
+	        rescue => invalid_complication
+	        	@watch.errors[:base] << "Invalid Complication: #{invalid_complication.message[65..-2]}"
 	        end
-		
+			
 			if @watch.errors.full_messages.size > 0
 				session[:watch_errors] = @watch.errors.full_messages
-		      	render :edit
-		    else
-		    	
+		      	render :new
+		    else    	
 		    	params[:complications][:id].each do |complication|
 		   			if !complication.empty?
 		   				if !@watch.complications_watches.detect {|cw| cw.complication_id == complication.to_i}
 
 			   				ComplicationsWatch.build_join(@watch, complication)
 
-				   		end		
+				   		end
 		   			end
 		   		end
 		     	redirect_to watch_path, notice: "The watch was successfully edited!"

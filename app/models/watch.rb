@@ -12,18 +12,18 @@ class Watch < ApplicationRecord
          watch.complications.each do |complication|
             if !complication.valid?
                complication.errors.full_messages.each do |msg|
-                  self.errors[:base] << "#{complication.name}: #{msg}"
+                  self.errors[:base] << msg
                end
             end
          end 
       end
 
    	def complication_attributes=(attributes)
-
+        
    		if !attributes[:name].empty? || !attributes[:description].empty?
 
 	   		@complication = Complication.new(name: attributes[:name], description: attributes[:description])
-
+            
 	   		if @complication.save
       			@watch_build = self.complications_watches.build(complication_id: @complication.id)
       			@watch_build.complication_description = @complication.description
@@ -33,10 +33,10 @@ class Watch < ApplicationRecord
                # complication array, making the custom validator fail      
                begin
                   self.complications << @complication
-               rescue => complication_error
-                  throw complication_error
-               end 
-
+               rescue => invalid_complication
+                  throw invalid_complication
+               end
+               
             end
 			   
 		   end

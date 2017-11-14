@@ -1,5 +1,5 @@
 
-<%= form_for watch, :html => {:class => "form-horizontal center"} do |f| %>
+<%= form_for this_watch, :html => {:class => "form-horizontal center"} do |f| %>
 
   <body class="container bg-info">
     <div class="row">   
@@ -46,7 +46,6 @@
           <%= collection_select(:complications, :id, Complication.order(:name), :id, :name, {}, {:multiple => true}) %>
 
           <h3 class="text-success">New Complication</h3>
-
           <%= f.fields_for :complication_attributes do |fields| %>
             <%= fields.label :name %>
             <%=fields.text_field :name %>
