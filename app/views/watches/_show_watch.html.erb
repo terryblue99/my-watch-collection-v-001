@@ -1,5 +1,5 @@
 
-<div style="text-indent: 15em;">
+<div class="col-sm-8" style="margin-left: 20px;">
 
 	<h4>One of my watches</h4>
 	<h5><b class="text-success">Name:</b> <%=@watch.name%></h5>
@@ -22,7 +22,7 @@
 
 				<% watch.complications.each do |complication| %>
 		
-					<h5 style="text-indent: 15em;"><b><%= link_to complication.name, description_path(watch, watch_id: watch.id, comp_name: complication.name, comp_id: complication.id) %></b></h5>
+					<h5><b><%= link_to complication.name, description_path(watch, watch_id: watch.id, comp_name: complication.name, comp_id: complication.id) %></b></h5>
 
 				<% end %>
 
