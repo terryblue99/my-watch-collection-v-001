@@ -9,6 +9,7 @@ class ComplicationsWatch < ApplicationRecord
 	self.primary_key = 'watch_id'
 
 	def self.build_join(watch, complication)
+		# Builds the join table entry, acquiring the complication description from the complications table
 		
     	@join_build = watch.complications_watches.build(complication_id: complication)
 		@join_build.complication_description = Complication.find_by(id: complication).description

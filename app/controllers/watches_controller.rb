@@ -12,6 +12,7 @@ class WatchesController < ApplicationController
 
 			    @watches_for_display = @user.watches.size
 			    session[:most_maker] = nil
+
 			    # Selection made of how many watches to display on each page
 			  	if session[:rows]
 			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => session[:rows]).order(:maker, :name)
@@ -30,6 +31,7 @@ class WatchesController < ApplicationController
 	end
 
 	def rows
+		# Initiated when user selects how many watches to display on each page
 
 	  	if user_signed_in?
 	  		
@@ -55,9 +57,11 @@ class WatchesController < ApplicationController
 	def show
 
 		if user_signed_in?
+
 		    if !@watch   
 		      	redirect_to watches_path, alert: "The watch was not found!"
 		    end
+
 		else
 			redirect_to log_in_path, alert: "Please Log In to continue!" 
 		end	
@@ -67,8 +71,10 @@ class WatchesController < ApplicationController
 	def new
 
 		if user_signed_in?
+
 			@watch = Watch.new
 			@all_complications = Complication.all
+
 		else
 			redirect_to log_in_path, alert: "Please Log In to continue!"
 		end	
@@ -108,10 +114,12 @@ class WatchesController < ApplicationController
 
 			begin
 			  	
-	          @watch.update(watch_params) 
+	          Watch.update_watch(@watch, watch_params)
 	           
 	        rescue => invalid_complication
+
 	        	@watch.errors[:base] << "Invalid Complication: #{invalid_complication.message[65..-2]}"
+
 	        end
 			
 			if @watch.errors.full_messages.size > 0
@@ -144,7 +152,7 @@ class WatchesController < ApplicationController
 		      	redirect_to watches_path, alert: "The watch was not found!"
 		    else
 		      	watch_name = @watch.name	
-		      	@watch.delete
+		      	Watch.delete_watch(@watch)
 		      	redirect_to watches_path, notice: "'#{watch_name}' has been deleted!"
 		    end
 
@@ -155,6 +163,7 @@ class WatchesController < ApplicationController
 	end
 
 	def most_maker
+		# Find the maker of most of the watches and display them
 
 		if current_user.watches.size > 2 
 
@@ -176,7 +185,6 @@ class WatchesController < ApplicationController
 
 			@watches = current_user.watches.sort_by(&:name)
 			@watches_for_display = current_user.watches.size
-			@watches = @watches.paginate(:page => params[:page], :per_page => 15)
 
 		end  	
 

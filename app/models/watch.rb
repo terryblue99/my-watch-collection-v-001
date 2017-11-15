@@ -63,6 +63,17 @@ class Watch < ApplicationRecord
 
    	end
 
+      def self.update_watch(watch, params)
+      
+         watch.update(params)
+
+      end
+
+      def self.delete_watch(watch)
+
+         watch.delete
+
+      end   
 
       def self.delete_join(watch, comp_id)
 

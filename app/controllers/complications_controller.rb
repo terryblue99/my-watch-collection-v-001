@@ -18,8 +18,7 @@ class ComplicationsController < ApplicationController
 		
 	end
 
-	def destroy
-		
+	def destroy		
 		# Delete the complications_watches join record
 		if user_signed_in?
 

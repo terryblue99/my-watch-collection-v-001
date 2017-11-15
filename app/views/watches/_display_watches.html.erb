@@ -3,6 +3,7 @@
 	
 	<div>
 	  <% if watches.size > 0 %>
+
 	    <h4 style="text-indent: 9em;">My Watches [<%= watches_for_display %>]</h4>
 	      <div>
 	        <ul>
@@ -12,21 +13,28 @@
 	        </ul>
 	      </div>
 
-	      <div style="margin-left: 90px;">
-	      	<%= will_paginate watches, renderer: BootstrapPagination::Rails %>
-	      </div>
+			<%if watches_for_display && watches_for_display.size > 15 %>
+		      <div style="margin-left: 90px;">
+		      	<%= will_paginate watches, renderer: BootstrapPagination::Rails %>
+		      </div>
+		    <% end %>
+
 	  <%else%>
+
 	    <h4 class="text-danger"><b>There are currently no watches to display!</b></h4>
+
 	  <%end%>
 	</div>
 
 	<div class="row">
 	    <div class="col-sm-8 text-center">
 	      <%if watches_for_display && watches_for_display.size > 15 %>
+
 	        <%= form_tag rows_path(current_user), method: :get do %>
 	          <b class="text-success">Watches on a page:</b> <input  type="number" id="rows" name="rows" min="1" max="50">
 	          <button class="btn btn-primary btn btn-sm">submit</button>
 	        <%end%>
+	        
 	      <%end%>
 	    </div>
   	</div>
