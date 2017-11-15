@@ -20,6 +20,6 @@ class ComplicationsWatch < ApplicationRecord
     	
     	self.find_by(watch_id: watch_id, complication_id: complication_id).complication_description
 
-    end	
+    end
 
 end

@@ -187,7 +187,7 @@ class WatchesController < ApplicationController
 
 	def set_watch
 
-		@watch = Watch.find_by_id(params[:id])
+		@watch = Watch.find_watch(params[:id])
 
 	end
 

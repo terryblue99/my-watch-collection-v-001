@@ -51,10 +51,24 @@ class Watch < ApplicationRecord
 
    	end
 
+      def self.find_watch(watch_id)
+         
+         self.find_by_id(watch_id)
+
+      end   
+
    	def self.create_watch(watch_params)
          
    		self.create(watch_params)
 
    	end
+
+
+      def self.delete_join(watch, comp_id)
+
+         watch.complications.delete(comp_id)
+         
+      end
    		
 end
+

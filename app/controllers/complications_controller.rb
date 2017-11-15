@@ -23,12 +23,13 @@ class ComplicationsController < ApplicationController
 		# Delete the complications_watches join record
 		if user_signed_in?
 
-			@watch = Watch.find_by_id(params[:watch_id])
+			@watch = Watch.find_watch(params[:watch_id])
 
 			if !@watch   
 		      	redirect_to description_path(params[:watch_id]), alert: "The watch was not found!"
-		    else	
-		      	@watch.complications.delete(params[:comp_id])
+		    else
+		    	Watch.delete_join(@watch, params[:comp_id])
+		    	
 		      	redirect_to watch_path(params[:watch_id]), notice: "Complication: '#{params[:comp_name]}' has been deleted!"
 		    end
 
