@@ -1,24 +1,23 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+my_watch_collection  
 
-Things you may want to cover:
+A Rails CRUD app that allows watch collectors to document their watch collection.  
 
-* Ruby version
+Installation, Usage & Development  
 
-* System dependencies
+Clone this repository to your computer and run the following commands in your terminal:  
 
-* Configuration
+1. bundle install  
+2. rake db:migrate  
+3. rake db:seed (Loads the complications table with watch complications)  
+                (There are a few sample users which are commented out)  
+4. rails s  
 
-* Database creation
+Then sign up / sign in  
 
-* Database initialization
+Bug reports and pull requests are welcome on GitHub at https://github.com/terryblue99/my_watch_collection. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the "Contributor Covenant" code of conduct.  
 
-* How to run the test suite
+License  
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+This app is available as open source under the terms of the MIT License [MIT License](http://opensource.org/licenses/MIT).  
