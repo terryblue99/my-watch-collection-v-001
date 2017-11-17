@@ -86,7 +86,7 @@ class WatchesController < ApplicationController
 		if user_signed_in?
 			
 			@watch = Watch.create_watch(watch_params)
-			
+
 			if @watch.errors.full_messages.size > 0
 				session[:watch_errors] = @watch.errors.full_messages
 		      	render :new
@@ -112,19 +112,16 @@ class WatchesController < ApplicationController
 
 		if user_signed_in?
 
-			begin
-			  	
-	          Watch.update_watch(@watch, watch_params)
-	           
-	        rescue => invalid_complication
-
-	        	@watch.errors[:base] << "Invalid Complication: #{invalid_complication.message[65..-2]}"
-
-	        end
+			watch_result = Watch.update_watch(@watch, watch_params)
+			binding.pry
+			if watch_result != nil
+				@watch.errors[:base] << "Invalid Complication: #{watch_result}"
+			end	
 			
 			if @watch.errors.full_messages.size > 0
 				session[:watch_errors] = @watch.errors.full_messages
-		      	render :new
+				watch_result = nil
+		      	render :edit
 		    else    	
 		    	params[:complications][:id].each do |complication|
 		   			if !complication.empty?

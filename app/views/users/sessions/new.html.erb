@@ -1,6 +1,18 @@
 <body class="container bg-info">
-  <div class="text-center">
+
+  <div class="col-sm-1">
+  </div>
+
+  <div class="col-sm-3 well" style="border-width: 1px; border-style: solid; border-color: black">
+
+    <%= link_to image_tag("http://www.wristcritic.com/wp-content/uploads/2014/09/popular-invicta-watches-2.png", width: 250), root_path %>
+    
+  </div>
+
+  <div class="col-sm-8">
+
     <h2 class="text-success">Log in</h2>
+    
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field">
         <%= f.label :email %><br />
@@ -25,6 +37,7 @@
     <% end %>
 
     <%= render "users/shared/links" %>
+
   </div>
 
 </body>

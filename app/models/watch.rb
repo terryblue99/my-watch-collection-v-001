@@ -19,7 +19,9 @@ class Watch < ApplicationRecord
       end
 
    	def complication_attributes=(attributes)
-        
+
+         @@complication_result = nil
+
    		if !attributes[:name].empty? || !attributes[:description].empty?
 
 	   		@complication = Complication.new(name: attributes[:name], description: attributes[:description])
@@ -29,12 +31,12 @@ class Watch < ApplicationRecord
       			@watch_build.complication_description = @complication.description
       			@watch_build.save
             else
-               # Add the errored out complication to the watch's
-               # complication array, making the custom validator fail      
-               begin
+
+               if @@watch_create == "yes"
+                  @@watch_create = "no"
                   self.complications << @complication
-               rescue => invalid_complication
-                  throw invalid_complication
+               else   
+                  @@complication_result = @complication.errors.messages
                end
                
             end
@@ -59,13 +61,16 @@ class Watch < ApplicationRecord
 
    	def self.create_watch(watch_params)
          
+         @@watch_create = "yes"
    		self.create(watch_params)
 
    	end
 
       def self.update_watch(watch, params)
-      
+
+         @@watch_create = "no"
          watch.update(params)
+         @@complication_result
 
       end
 
