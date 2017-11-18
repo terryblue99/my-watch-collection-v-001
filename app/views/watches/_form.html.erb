@@ -46,7 +46,7 @@
           <%= collection_select(:complications, :id, Complication.order(:name), :id, :name, {}, {:multiple => true}) %>
 
           <h3 class="text-success">New Complication</h3>
-          <%= f.fields_for :complication_attributes do |fields| %>
+          <%= f.fields_for :complications do |fields| %>
             <%= fields.label :name %>
             <%=fields.text_field :name %>
             <%= fields.label :description %>

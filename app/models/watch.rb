@@ -18,30 +18,52 @@ class Watch < ApplicationRecord
          end 
       end
 
-   	def complication_attributes=(attributes)
+   	def complications_attributes=(complication_hashes)
+       
+         @@complication_result = nil # Used for capturing any complication validation errors when updating a watch
 
-         @@complication_result = nil
+         complication_hashes.each do |i, complication_attributes| 
 
-   		if !attributes[:name].empty? || !attributes[:description].empty?
+      		if complication_attributes[:name].present? || complication_attributes[:description].present?
 
-	   		@complication = Complication.new(name: attributes[:name], description: attributes[:description])
-            
-	   		if @complication.save
-      			@watch_build = self.complications_watches.build(complication_id: @complication.id)
-      			@watch_build.complication_description = @complication.description
-      			@watch_build.save
-            else
-
-               if @@watch_create == "yes"
-                  @@watch_create = "no"
-                  self.complications << @complication
-               else   
-                  @@complication_result = @complication.errors.messages
-               end
+   	   		@complication = Complication.new(name: complication_attributes[:name], description: complication_attributes[:description])
                
-            end
-			   
-		   end
+               if @complication.save
+
+         			@watch_build = self.complications_watches.build(complication_id: @complication.id)
+         			@watch_build.complication_description = @complication.description
+         			@watch_build.save
+
+               else
+
+                  if @@watch_create == "yes"
+                     @@watch_create = "no"
+
+                     # Capture complication validation errors when creating a watch
+                     self.complications << @complication
+
+                  else
+
+                     # Capture complication validation errors when updating a watch
+                     # Need this because 'self.complications << @complication' causes app to abort
+
+                     @@complication_result = ""
+                     
+                     if @complication.errors.messages[:name].size > 0
+                        @@complication_result += "Name #{@complication.errors.messages[:name][0]}"
+                     end
+
+                     if @complication.errors.messages[:description].size > 0
+                        @@complication_result += ", Description #{@complication.errors.messages[:description][0]}"
+                     end
+       
+                  end
+                  
+               end
+   			   
+   		   end
+
+         end   
 
    	end
 
@@ -70,6 +92,9 @@ class Watch < ApplicationRecord
 
          @@watch_create = "no"
          watch.update(params)
+
+         # Complication validation errors captured 
+         # for a watch update (if any), else == nil
          @@complication_result
 
       end

@@ -72,8 +72,8 @@ class WatchesController < ApplicationController
 
 		if user_signed_in?
 
-			@watch = Watch.new
-			@all_complications = Complication.all
+			@watch = Watch.new	
+			@watch.complications.build
 
 		else
 			redirect_to log_in_path, alert: "Please Log In to continue!"
@@ -113,8 +113,8 @@ class WatchesController < ApplicationController
 		if user_signed_in?
 
 			watch_result = Watch.update_watch(@watch, watch_params)
-			binding.pry
-			if watch_result != nil
+			
+			if watch_result != nil			
 				@watch.errors[:base] << "Invalid Complication: #{watch_result}"
 			end	
 			
@@ -207,7 +207,7 @@ class WatchesController < ApplicationController
     	:model_number,
     	:water_resistance,
     	:date_bought,
-    	complication_attributes: [:name, :description]
+    	complications_attributes: [:name, :description]
     	)
   end
 
