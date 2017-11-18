@@ -4,12 +4,14 @@ class ComplicationsController < ApplicationController
 
 	def show
 		# Show the watch complication/s
+
 		redirect_to watch_path(params[:watch_id])
 		
 	end
 
 	def description
-		# Show the description associated with a complication
+		# Get the description associated with a complication
+
 		@comp_name = params[:comp_name]
 		@comp_id = params[:comp_id]
 		@watch_id = params[:watch_id]
@@ -20,16 +22,21 @@ class ComplicationsController < ApplicationController
 
 	def destroy		
 		# Delete the complications_watches join record
+
 		if user_signed_in?
 
 			@watch = Watch.find_watch(params[:watch_id])
 
-			if !@watch   
+			if !@watch 
+
 		      	redirect_to description_path(params[:watch_id]), alert: "The watch was not found!"
+
 		    else
+
 		    	Watch.delete_join(@watch, params[:comp_id])
 		    	
 		      	redirect_to watch_path(params[:watch_id]), notice: "Complication: '#{params[:comp_name]}' has been deleted!"
+		      	
 		    end
 
 		else
@@ -39,7 +46,8 @@ class ComplicationsController < ApplicationController
 	end
 
 	def set_session
-		# Activates the display of the watch complication/s
+		# Activate the display of the watch complication/s
+
 		session[:show_complications] = "yes"
 
 	end

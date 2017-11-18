@@ -5,18 +5,18 @@ class Watch < ApplicationRecord
 	belongs_to :user
 	has_many :complications_watches
    has_many :complications, through: :complications_watches
-   validates :name, presence: true
-   validates :maker, presence: true
+   validates :watch_name, presence: true
+   validates :watch_maker, presence: true
 
-      validate do |watch|
-         watch.complications.each do |complication|
-            if !complication.valid?
-               complication.errors.full_messages.each do |msg|
-                  self.errors[:base] << msg
-               end
+   validate do |watch|
+      watch.complications.each do |complication|
+         if !complication.valid?
+            complication.errors.full_messages.each do |msg|
+               self.errors[:base] << msg
             end
-         end 
-      end
+         end
+      end 
+   end
 
    	def complications_attributes=(complication_hashes)
        
@@ -24,9 +24,9 @@ class Watch < ApplicationRecord
 
          complication_hashes.each do |i, complication_attributes| 
 
-      		if complication_attributes[:name].present? || complication_attributes[:description].present?
+      		if complication_attributes[:complication_name].present? || complication_attributes[:complication_description].present?
 
-   	   		@complication = Complication.new(name: complication_attributes[:name], description: complication_attributes[:description])
+   	   		@complication = Complication.new(complication_name: complication_attributes[:complication_name], complication_description: complication_attributes[:complication_description])
                
                if @complication.save
 
@@ -49,12 +49,12 @@ class Watch < ApplicationRecord
 
                      @@complication_result = ""
                      
-                     if @complication.errors.messages[:name].size > 0
-                        @@complication_result += "Name #{@complication.errors.messages[:name][0]}"
+                     if @complication.errors.messages[:complication_name].size > 0
+                        @@complication_result += "Name #{@complication.errors.messages[:complication_name][0]}"
                      end
 
-                     if @complication.errors.messages[:description].size > 0
-                        @@complication_result += ", Description #{@complication.errors.messages[:description][0]}"
+                     if @complication.errors.messages[:complication_description].size > 0
+                        @@complication_result += ", Description #{@complication.errors.messages[:complication_description][0]}"
                      end
        
                   end
@@ -68,10 +68,11 @@ class Watch < ApplicationRecord
    	end
 
    	def self.retrieve_most_maker(current_user)
+         # Find the maker of most of the watches and the watches
 
-   		most_maker = current_user.watches.group(:maker).order('count_all DESC').limit(1).count
-   		most_maker_array = current_user.watches.select { |w| w.maker == most_maker.keys[0] }
-   		most_maker_array = most_maker_array.sort_by(&:name)
+   		most_maker = current_user.watches.group(:watch_maker).order('count_all DESC').limit(1).count
+   		most_maker_array = current_user.watches.select { |w| w.watch_maker == most_maker.keys[0] }
+   		most_maker_array = most_maker_array.sort_by(&:watch_name)
 
    	end
 

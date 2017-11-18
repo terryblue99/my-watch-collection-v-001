@@ -15,9 +15,11 @@ class WatchesController < ApplicationController
 
 			    # Selection made of how many watches to display on each page
 			  	if session[:rows]
-			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => session[:rows]).order(:maker, :name)
+			  		# selected by user
+			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => session[:rows]).order(:watch_maker, :watch_name)
 			  	else
-			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => 15).order(:maker, :name)
+			  		# Default
+			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => 15).order(:watch_maker, :watch_name)
 			  	end
 
 			else
@@ -33,18 +35,19 @@ class WatchesController < ApplicationController
 	def rows
 		# Initiated when user selects how many watches to display on each page
 
-	  	if user_signed_in?
-	  		
-	  	  # Selection made of how many watches to display on each page	
-	  	  if !session[:most_maker]
+	  	if user_signed_in?	
 
-	      	session[:rows] = params[:rows]   
-	      	redirect_to watches_path
+	  	  if session[:most_maker]
 
-	      else
-	      	
+	  	  	# Maker of most of the watches and the watches
 	      	session[:maker_rows] = params[:rows]	   
 	      	redirect_to most_maker_path
+
+	      else
+
+	      	# All watches
+	      	session[:rows] = params[:rows]   
+	      	redirect_to watches_path
 
 	      end	
 
@@ -72,8 +75,7 @@ class WatchesController < ApplicationController
 
 		if user_signed_in?
 
-			@watch = Watch.new	
-			@watch.complications.build
+			@watch = Watch.new
 
 		else
 			redirect_to log_in_path, alert: "Please Log In to continue!"
@@ -93,7 +95,7 @@ class WatchesController < ApplicationController
 		    else
 		   		current_user.watches << @watch
 		   		params[:complications][:id].each do |complication|
-		   			if !complication.empty?
+		   			if complication.present?
 		   				
 		   				ComplicationsWatch.build_join(@watch, complication)
 
@@ -112,6 +114,7 @@ class WatchesController < ApplicationController
 
 		if user_signed_in?
 
+			# watch_result will contain complication validation error message/s, if any
 			watch_result = Watch.update_watch(@watch, watch_params)
 			
 			if watch_result != nil			
@@ -124,7 +127,7 @@ class WatchesController < ApplicationController
 		      	render :edit
 		    else    	
 		    	params[:complications][:id].each do |complication|
-		   			if !complication.empty?
+		   			if complication.present?
 		   				if !@watch.complications_watches.detect {|cw| cw.complication_id == complication.to_i}
 
 			   				ComplicationsWatch.build_join(@watch, complication)
@@ -145,12 +148,14 @@ class WatchesController < ApplicationController
 
 		if user_signed_in?
 
-			if !@watch   
-		      	redirect_to watches_path, alert: "The watch was not found!"
-		    else
-		      	watch_name = @watch.name	
+			if @watch
+
+				watch_name = @watch.watch_name	
 		      	Watch.delete_watch(@watch)
 		      	redirect_to watches_path, notice: "'#{watch_name}' has been deleted!"
+		      	
+		    else
+		      	redirect_to watches_path, alert: "The watch was not found!"
 		    end
 
 		else
@@ -168,19 +173,21 @@ class WatchesController < ApplicationController
 
 			most_maker_array = Watch.retrieve_most_maker(current_user)
 			
-			most_maker_array = most_maker_array.sort_by(&:name)
+			most_maker_array = most_maker_array.sort_by(&:watch_name)
 			@watches_for_display = most_maker_array.size
 
 			# Selection made of how many watches to display on each page
 		  	if session[:maker_rows] 
+		  		# selected by user
 		    	@watches = most_maker_array.paginate(:page => params[:page], :per_page => session[:maker_rows])
 		  	else
+		  		# Default
 		    	@watches = most_maker_array.paginate(:page => params[:page], :per_page => 15)
 		  	end
 
 		else
 
-			@watches = current_user.watches.sort_by(&:name)
+			@watches = current_user.watches.sort_by(&:watch_name)
 			@watches_for_display = current_user.watches.size
 
 		end  	
@@ -194,20 +201,20 @@ class WatchesController < ApplicationController
 
 		@watch = Watch.find_watch(params[:id])
 
-	end
+	end	
 
 	def watch_params
 
     # params hash keys
     params.require(:watch).permit(
-    	:name,
-    	:maker,
+    	:watch_name,
+    	:watch_maker,
     	:movement,
     	:band,
     	:model_number,
     	:water_resistance,
     	:date_bought,
-    	complications_attributes: [:name, :description]
+    	complications_attributes: [:complication_name, :complication_description]
     	)
   end
 

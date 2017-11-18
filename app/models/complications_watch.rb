@@ -12,7 +12,7 @@ class ComplicationsWatch < ApplicationRecord
 		# Builds the join table entry, acquiring the complication description from the complications table
 		
     	@join_build = watch.complications_watches.build(complication_id: complication)
-		@join_build.complication_description = Complication.find_by(id: complication).description
+		@join_build.complication_description = Complication.find_by(id: complication).complication_description
 		@join_build.save
 
     end

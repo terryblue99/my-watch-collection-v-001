@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171112220018) do
+ActiveRecord::Schema.define(version: 20171118195021) do
 
   create_table "complications", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "description"
-    t.index ["name"], name: "index_complications_on_name", unique: true
+    t.string   "complication_name"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "complication_description"
+    t.index ["complication_name"], name: "index_complications_on_complication_name", unique: true
   end
 
   create_table "complications_watches", id: false, force: :cascade do |t|
@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 20171112220018) do
   end
 
   create_table "watches", force: :cascade do |t|
-    t.string   "name"
-    t.string   "maker"
+    t.string   "watch_name"
+    t.string   "watch_maker"
     t.string   "movement"
     t.string   "band"
     t.string   "model_number"
