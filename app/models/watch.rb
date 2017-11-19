@@ -31,7 +31,7 @@ class Watch < ApplicationRecord
                if @complication.save
 
          			@watch_build = self.complications_watches.build(complication_id: @complication.id)
-         			@watch_build.complication_description = @complication.description
+         			@watch_build.complication_description = @complication.complication_description
          			@watch_build.save
 
                else
@@ -99,6 +99,12 @@ class Watch < ApplicationRecord
          @@complication_result
 
       end
+
+      def self.sort_most_maker_array(most_maker_array)
+
+         most_maker_array.sort_by(&:watch_name)
+
+      end   
 
       def self.delete_watch(watch)
 

@@ -8,12 +8,12 @@
 	      <div>
 	        <ul>
 	          <% watches.each do |watch| %>
-	            <li><%= watch.watch_maker %>: <%= link_to watch.watch_name, watch_path(watch) %></li>
+	            <li class="text-success"><%= watch.watch_maker %>: <b><%= link_to watch.watch_name, watch_path(watch) %></b></li>
 	          <%end%>
 	        </ul>
 	      </div>
-
-			<%if watches_for_display && watches_for_display.size > 15 %>
+			
+			<%if watches_for_display && watches_for_display > 20 %>
 		      <div style="margin-left: 90px;">
 		      	<%= will_paginate watches, renderer: BootstrapPagination::Rails %>
 		      </div>
@@ -28,7 +28,8 @@
 
 	<div class="row">
 	    <div class="col-sm-8 text-center">
-	      <%if watches_for_display && watches_for_display.size > 15 %>
+	    	
+	      <%if watches_for_display && watches_for_display > 20 %>
 
 	        <%= form_tag rows_path(current_user), method: :get do %>
 	          <b class="text-success">Watches on a page:</b> <input  type="number" id="rows" name="rows" min="1" max="50">

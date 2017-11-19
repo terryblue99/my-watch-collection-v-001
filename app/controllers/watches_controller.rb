@@ -9,7 +9,7 @@ class WatchesController < ApplicationController
 			@user = User.find_user(current_user)
 
 			if @user
-
+				
 			    @watches_for_display = @user.watches.size
 			    session[:most_maker] = nil
 
@@ -36,7 +36,7 @@ class WatchesController < ApplicationController
 		# Initiated when user selects how many watches to display on each page
 
 	  	if user_signed_in?	
-
+	  		
 	  	  if session[:most_maker]
 
 	  	  	# Maker of most of the watches and the watches
@@ -44,7 +44,7 @@ class WatchesController < ApplicationController
 	      	redirect_to most_maker_path
 
 	      else
-
+	      	
 	      	# All watches
 	      	session[:rows] = params[:rows]   
 	      	redirect_to watches_path
@@ -173,7 +173,7 @@ class WatchesController < ApplicationController
 
 			most_maker_array = Watch.retrieve_most_maker(current_user)
 			
-			most_maker_array = most_maker_array.sort_by(&:watch_name)
+			most_maker_array = Watch.sort_most_maker_array(most_maker_array)
 			@watches_for_display = most_maker_array.size
 
 			# Selection made of how many watches to display on each page
@@ -187,7 +187,7 @@ class WatchesController < ApplicationController
 
 		else
 
-			@watches = current_user.watches.sort_by(&:watch_name)
+			@watches = current_user.watches
 			@watches_for_display = current_user.watches.size
 
 		end  	
