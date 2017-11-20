@@ -100,6 +100,12 @@ class Watch < ApplicationRecord
 
       end
 
+      def self.sort_complications(watch)
+
+         watch_complications_sorted = watch.complications.sort_by(&:complication_name)
+
+      end   
+
       def self.sort_most_maker_array(most_maker_array)
 
          most_maker_array.sort_by(&:watch_name)

@@ -21,10 +21,10 @@
             </div>
           <% end %>  
         
-          <% if params[:action] != "edit" && params[:action] != "update"%>
-            <h3 class="text-success">New Watch</h3>
+          <% if params[:action] == "edit" || params[:action] == "update"%>
+            <h3 class="text-success">Edit a Watch</h3>    
           <% else %> 
-            <h3 class="text-success">Edit a Watch</h3>
+            <h3 class="text-success">New Watch</h3>
           <% end %>  
 
           <%= f.label :watch_name %><br>  
@@ -33,7 +33,7 @@
           <%= f.text_field :watch_maker %><br>
           <%= f.label :movement %><br>
           <%= f.text_field :movement %><br>
-          <%= f.label :band %><br>  
+          <%= f.label :band %><br>
           <%= f.text_field :band %><br>
           <%= f.label :model_number %><br>
           <%= f.text_field :model_number %><br>
