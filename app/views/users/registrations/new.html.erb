@@ -1,5 +1,7 @@
 <body class="container bg-info">
 
+<%= devise_error_messages! %>
+
   <div class="col-sm-1">
   </div>
 
@@ -9,13 +11,14 @@
     
   </div>
 
-  <div class="col-sm-8">   
+  <div class="col-sm-8">
+
     
+
     <h2 class="text-success">Sign up</h2>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-      <%= devise_error_messages! %>
- 
+      
         <div class="field">
           <%= f.label :email %><br />
           <%= f.email_field :email, autofocus: true %>
