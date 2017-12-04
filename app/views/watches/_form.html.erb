@@ -2,14 +2,14 @@
 <%= form_for this_watch, :html => {:class => "form-horizontal center"} do |f| %>
 
   <body class="container bg-info">
-    <div class="row">   
-      <div class="col-sm-10"> 
+    <div class="row">
+      <div class="col-sm-10">
         <div align="center">
 
-          <% if session[:watch_errors] && session[:watch_errors].any? %>  
-            <div class="container alert alert-danger"" role="main" >
+          <% if session[:watch_errors] && session[:watch_errors].any? %>
+            <div class="container alert alert-danger" role="main" >
               <div class="row">
-                <div class="col-sm-8 col-sm-offset-1">      
+                <div class="col-sm-8 col-sm-offset-1">
                     <div id="error_explanation">
                         <% session[:watch_errors].each do |message| %>
                           <p><%= message %></p>
@@ -17,18 +17,18 @@
                         <% session[:watch_errors] = nil %>
                     </div>
                 </div>
-              </div> 
+              </div>
             </div>
-          <% end %>  
-        
-          <% if params[:action] == "edit" || params[:action] == "update"%>
-            <h3 class="text-success">Edit this Watch</h3>    
-          <% else %> 
-            <h3 class="text-success">New Watch</h3>
-          <% end %>  
+          <% end %>
 
-          <%= f.label :watch_name %><br>  
-          <%= f.text_field :watch_name %><br> 
+          <% if params[:action] == "edit" || params[:action] == "update"%>
+            <h3 class="text-success">Edit this Watch</h3>
+          <% else %>
+            <h3 class="text-success">New Watch</h3>
+          <% end %>
+
+          <%= f.label :watch_name %><br>
+          <%= f.text_field :watch_name %><br>
           <%= f.label :watch_maker %><br>
           <%= f.text_field :watch_maker %><br>
           <%= f.label :movement %><br>
@@ -41,7 +41,7 @@
           <%= f.text_field :water_resistance %><br>
           <%= f.label :date_bought %><br>
           <%= f.text_field :date_bought %><br>
-         
+
           <%= f.label "Complications: Select all applicable ones" %><br />
           <%= collection_select(:complications, :id, Complication.order(:complication_name), :id, :complication_name, {}, {:multiple => true}) %>
 
@@ -52,14 +52,14 @@
             <%= fields.label :complication_description %>
             <%=fields.text_field :complication_description %>
           <% end %>
-          
+
           <br><br>
 
           <%= f.submit %>
 
-        </div>  
+        </div>
       </div>
     </div>
   </body>
-  
+
 <% end %>

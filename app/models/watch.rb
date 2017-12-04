@@ -1,128 +1,110 @@
 class Watch < ApplicationRecord
 	require 'will_paginate'
-	require 'will_paginate/array'	
+	require 'will_paginate/array'
 
 	belongs_to :user
 	has_many :complications_watches
-   has_many :complications, through: :complications_watches
-   validates :watch_name, presence: true
-   validates :watch_maker, presence: true
+  has_many :complications, through: :complications_watches
+  validates :watch_name, presence: true
+  validates :watch_maker, presence: true
 
-   validate do |watch|
-      watch.complications.each do |complication|
-         if !complication.valid?
-            complication.errors.full_messages.each do |msg|
-               self.errors[:base] << msg
-            end
-         end
-      end 
-   end
+  validate do |watch|
+    watch.complications.each do |complication|
+       if !complication.valid?
+          complication.errors.full_messages.each do |msg|
+	          self.errors[:base] << msg
+	        end
+       end
+    end
+  end
 
-   	def complications_attributes=(complication_hashes)
-       
-         @@complication_result = nil # Used for capturing any complication validation errors when updating a watch
+ 	def complications_attributes=(complication_hashes)
 
-         complication_hashes.each do |i, complication_attributes| 
+       @@complication_result = nil # Used for capturing any complication validation errors when updating a watch
 
-      		if complication_attributes[:complication_name].present? || complication_attributes[:complication_description].present?
+       complication_hashes.each do |i, complication_attributes|
 
-   	   		@complication = Complication.new(complication_name: complication_attributes[:complication_name], complication_description: complication_attributes[:complication_description])
-               
-               if @complication.save
+	    		if complication_attributes[:complication_name].present? || complication_attributes[:complication_description].present?
 
-         			@watch_build = self.complications_watches.build(complication_id: @complication.id)
-         			@watch_build.complication_description = @complication.complication_description
-         			@watch_build.save
+		 	   			@complication = Complication.new(complication_name: complication_attributes[:complication_name], complication_description: complication_attributes[:complication_description])
 
-               else
+		          if @complication.save
 
-                  if @@watch_create == "yes"
-                     @@watch_create = "no"
+		       				@watch_build = self.complications_watches.build(complication_id: @complication.id)
+		       				@watch_build.complication_description = @complication.complication_description
+		       				@watch_build.save
 
-                     # Capture complication validation errors when creating a watch
-                     self.complications << @complication
+		          else
 
-                  else
+		            	if @@watch_create == "yes"
 
-                     # Capture complication validation errors when updating a watch
-                     # Need this because 'self.complications << @complication' causes app to abort
+		                 @@watch_create = "no"
+		                 # Capture complication validation errors when creating a watch
+		                 self.complications << @complication
 
-                     @@complication_result = ""
-                     
-                     if @complication.errors.messages[:complication_name].size > 0
-                        @@complication_result += "Name #{@complication.errors.messages[:complication_name][0]}"
-                     end
+		              else
+		                 # Capture complication validation errors when updating a watch
+		                 # Need this because 'self.complications << @complication' causes app to abort
+		                 @@complication_result = ""
 
-                     if @complication.errors.messages[:complication_description].size > 0
-                        @@complication_result += ", Description #{@complication.errors.messages[:complication_description][0]}"
-                     end
-       
-                  end
-                  
-               end
-   			   
-   		   end
+		                 if @complication.errors.messages[:complication_name].size > 0
+		                    @@complication_result += "Name #{@complication.errors.messages[:complication_name][0]}"
+		                 end
 
-         end   
+		                 if @complication.errors.messages[:complication_description].size > 0
+		                    @@complication_result += ", Description #{@complication.errors.messages[:complication_description][0]}"
+		                 end
 
-   	end
+		              end
 
-   	def self.retrieve_most_maker(current_user)
-         # Find the maker of most of the watches and the watches
+		          end
 
-   		most_maker = current_user.watches.group(:watch_maker).order('count_all DESC').limit(1).count
-   		most_maker_array = current_user.watches.select { |w| w.watch_maker == most_maker.keys[0] }
-   		most_maker_array = most_maker_array.sort_by(&:watch_name)
+	 		 		end
 
-   	end
+    		end
 
-      def self.find_watch(watch_id)
-         
-         self.find_by_id(watch_id)
+ 	end
 
-      end   
+ 	def self.retrieve_most_maker(current_user)
+  # Find the maker of most of the watches, and the watches
 
-   	def self.create_watch(watch_params)
-         
-         @@watch_create = "yes"
-   		self.create(watch_params)
+ 		most_maker = current_user.watches.group(:watch_maker).order('count_all DESC').limit(1).count
+ 		most_maker_array = current_user.watches.select { |w| w.watch_maker == most_maker.keys[0] }
+ 		most_maker_array = most_maker_array.sort_by(&:watch_name)
 
-   	end
+ 	end
 
-      def self.update_watch(watch, params)
+  def self.find_watch(watch_id)
+     self.find_by_id(watch_id)
+  end
 
-         @@watch_create = "no"
-         watch.update(params)
+ 	def self.create_watch(watch_params)
 
-         # Complication validation errors captured 
-         # for a watch update (if any), else == nil
-         @@complication_result
+    @@watch_create = "yes"
+ 		self.create(watch_params)
 
-      end
+ 	end
 
-      def self.sort_complications(watch)
+  def self.update_watch(watch, params)
 
-         watch_complications_sorted = watch.complications.sort_by(&:complication_name)
+     @@watch_create = "no"
+     watch.update(params)
+     # Complication validation errors captured
+     # for a watch update (if any), else == nil
+     @@complication_result
 
-      end   
+  end
 
-      def self.sort_most_maker_array(most_maker_array)
+  def self.sort_complications(watch)
+     watch_complications_sorted = watch.complications.sort_by(&:complication_name)
+  end
 
-         most_maker_array.sort_by(&:watch_name)
+  def self.delete_watch(watch)
+     watch.delete
+  end
 
-      end   
+  def self.delete_join(watch, comp_id)
+     watch.complications.delete(comp_id)
+  end
 
-      def self.delete_watch(watch)
-
-         watch.delete
-
-      end   
-
-      def self.delete_join(watch, comp_id)
-
-         watch.complications.delete(comp_id)
-         
-      end
-   		
 end
-

@@ -16,9 +16,7 @@ class User < ApplicationRecord
   end
 
   def self.find_user(current_user)
-
-    self.find_by(email: current_user.email)
-    
+    self.find_by(email: current_user.email)    
   end
-         
+
 end
