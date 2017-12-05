@@ -70,6 +70,7 @@
 
     - users (Devise) => Action # 2  
     - watches  
+    - complications  
 
 7. Code basic processing
 
