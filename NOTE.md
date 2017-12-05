@@ -1,4 +1,4 @@
-# Application Design Plan 
+# Application Design Plan
 
 1. Seed data
 
@@ -64,6 +64,7 @@
 
     - users (Devise) => Action # 2  
     - watches  
+    - complications  
 
 6. Create controllers
 

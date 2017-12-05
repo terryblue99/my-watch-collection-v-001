@@ -96,6 +96,7 @@ class Watch < ApplicationRecord
   end
 
   def self.sort_complications(watch)
+	# Initiated by app/views/watches/_show_watch.html.erb
      watch_complications_sorted = watch.complications.sort_by(&:complication_name)
   end
 
