@@ -54,11 +54,11 @@
        belongs_to :watch  
        belongs_to :complication  
 
-       (When trying to save a record in the join table -  
+       (When trying to save a record in the join table  
         it fails with "TypeError - nil is not a symbol nor a string"  
         because there is no "primary key".  
         The problem is solved by adding the following line to the model)  
-        
+
        self.primary_key = 'watch_id'  
 
 5. Create views

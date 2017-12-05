@@ -88,7 +88,7 @@ class WatchesController < ApplicationController
 		  else
 		   		current_user.watches << @watch
 		   		params[:complications][:id].each do |complication|
-
+						binding.pry
 			   		if complication.present?
 			   			ComplicationsWatch.build_join(@watch, complication)
 			   		end
@@ -118,10 +118,11 @@ class WatchesController < ApplicationController
 					watch_result = nil
 		      render :edit
 		  else
-		    	params[:complications][:id].each do |complication|
-		   			if complication.present?
-		   				if !@watch.complications_watches.detect {|cw| cw.complication_id == complication.to_i}
-			   				ComplicationsWatch.build_join(@watch, complication)
+		    	params[:complications][:id].each do |c_id|
+						
+		   			if c_id.present?
+		   				if !@watch.complications_watches.detect {|cw| cw.complication_id == c_id.to_i}
+			   				ComplicationsWatch.build_join(@watch, c_id)
 				   		end
 		   			end
 	   			end
