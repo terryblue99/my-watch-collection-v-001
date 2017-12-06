@@ -20,7 +20,7 @@ class Watch < ApplicationRecord
 
  	def complications_attributes=(complication_hashes)
 	# Nested fields_for complication
-	
+
        @@complication_result = nil # Used for capturing any complication validation errors when updating a watch
 
        complication_hashes.each do |i, complication_attributes|
@@ -69,9 +69,12 @@ class Watch < ApplicationRecord
  	def self.retrieve_most_maker(current_user)
   # Find the maker of most of the watches, and the watches
 
- 		most_maker = current_user.watches.group(:watch_maker).order('count_all DESC').limit(1).count
- 		most_maker_array = current_user.watches.select { |w| w.watch_maker == most_maker.keys[0] }
- 		most_maker_array = most_maker_array.sort_by(&:watch_name)
+		# returns the maker with the highest number of occurrences
+		most_maker = current_user.watches.group(:watch_maker).order('count_all DESC').limit(1).count
+		# returns the maker's watches
+		most_maker_array = current_user.watches.select { |w| w.watch_maker == most_maker.keys[0] }
+		# sorts by watch name ascending
+		most_maker_array = most_maker_array.sort_by(&:watch_name)
 
  	end
 
