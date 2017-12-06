@@ -19,7 +19,8 @@ class Watch < ApplicationRecord
   end
 
  	def complications_attributes=(complication_hashes)
-
+	# Nested fields_for complication
+	
        @@complication_result = nil # Used for capturing any complication validation errors when updating a watch
 
        complication_hashes.each do |i, complication_attributes|
