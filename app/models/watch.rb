@@ -31,9 +31,9 @@ class Watch < ApplicationRecord
 
 		          if @complication.save
 
-		       				@watch_build = self.complications_watches.build(complication_id: @complication.id)
-		       				@watch_build.complication_description = @complication.complication_description
-		       				@watch_build.save
+		       				@join_build = self.complications_watches.build(complication_id: @complication.id)
+		       				@join_build.complication_description = @complication.complication_description
+		       				@join_build.save
 
 		          else
 
