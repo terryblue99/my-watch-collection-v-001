@@ -78,6 +78,11 @@ class Watch < ApplicationRecord
 
  	end
 
+	def self.retrieve_newest_watches(current_user)
+    # sorts by date bought descending
+    current_user.watches.limit(10).order(date_bought: :desc)
+ end
+
   def self.find_watch(watch_id)
      self.find_by_id(watch_id)
   end

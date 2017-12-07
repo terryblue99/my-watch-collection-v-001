@@ -179,6 +179,13 @@ class WatchesController < ApplicationController
 
 	end
 
+	def newest_watches
+
+    session[:newest_watches] = "yes"
+    @watches = Watch.retrieve_newest_watches(current_user)
+    @watches_for_display = @watches.size
+		
+ end
 
 	private
 
