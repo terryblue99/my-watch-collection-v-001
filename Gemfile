@@ -5,6 +5,7 @@ git_source(:github) do |repo_name|
   'https://github.com/#{repo_name}.git'
 end
 
+gem 'active_model_serializers', '0.10.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.6'
@@ -61,6 +62,9 @@ group :test, :development do
   gem 'pry'
   gem 'guard-rspec', require: false
   gem 'thin'
+
+  # Adds step-by-step debugging and stack navigation capabilities to pry using byebug. To use, invoke pry normally.
+  gem 'pry-byebug'
 end
 
 gem 'bootstrap-sass', '~> 3.1.1'
