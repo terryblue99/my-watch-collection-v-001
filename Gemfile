@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
+  repo_name = '#{repo_name}/#{repo_name}' unless repo_name.include?('/')
+  'https://github.com/#{repo_name}.git'
 end
 
 
@@ -35,36 +35,37 @@ gem 'bcrypt', platforms: :ruby
 
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'devise'
-gem "omniauth"
-gem "omniauth-facebook"
-gem "dotenv-rails"
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'dotenv-rails'
 gem 'will_paginate', '~> 3.1.1'
 gem 'will_paginate-bootstrap'
+gem 'sprockets', '~> 3.7.2'
 
 group :test, :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
-  gem "rspec-rails"
-  # gem "capybara"
-  # gem "launchy"
-  # gem "capybara", '>= 2.16.0'
-  # gem "launchy", '>= 2.4.3'
-  gem "rack_session_access"
-  gem "selenium-webdriver"
-  gem "better_errors"
-  gem "binding_of_caller"
-  gem "factory_bot_rails"
-  gem "simplecov"
-  gem "database_cleaner"
-  gem "sqlite3"
-  gem "pry"
-  gem "guard-rspec", require: false
-  gem "thin"
+  gem 'rspec-rails'
+  # gem 'capybara'
+  # gem 'launchy'
+  # gem 'capybara', '>= 2.16.0'
+  # gem 'launchy', '>= 2.4.3'
+  gem 'rack_session_access'
+  gem 'selenium-webdriver'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'factory_bot_rails'
+  gem 'simplecov'
+  gem 'database_cleaner'
+  gem 'sqlite3'
+  gem 'pry'
+  gem 'guard-rspec', require: false
+  gem 'thin'
 end
 
-gem "bootstrap-sass", "~> 3.1.1"
-gem "faker"
-gem "friendly_id"
+gem 'bootstrap-sass', '~> 3.1.1'
+gem 'faker'
+gem 'friendly_id'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
