@@ -14,7 +14,6 @@
 # @user.watches << @watch
 # @user.save
 # @cw = ComplicationsWatch.create(watch_id: "#{@watch.id}", complication_id: 14, complication_description: "Greenwich Mean Time that displays two or more time zones")
-
 Complication.destroy_all
 
 complications = [{complication_name: "Date - Date Window", complication_description: "The window is also referred to as an aperture"},
