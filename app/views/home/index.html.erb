@@ -1,0 +1,19 @@
+<body class="container bg-info">
+
+	<div class="row">
+
+	  	<div class="col-sm-1"></div>
+
+		<div class="col-sm-3 well" style="border-width: 1px; border-style: solid; border-color: black">
+
+		  <h5><%= link_to "Show all of my watches", watches_path, :class => "load_watches" %></h5>
+		  <h5><%= link_to "Show the maker of most of my watches", most_maker_path(current_user) %></h5>
+		  <h5><%= link_to "Show the 10 newest watches", newest_watches_path(current_user) %></h5>
+		  <h5><%= link_to "Add a new watch", new_watch_path %></h5>
+		  <%= link_to image_tag("http://www.wristcritic.com/wp-content/uploads/2014/09/popular-invicta-watches-2.png", width: 250), root_path %>
+
+		</div>
+	  
+	</div>
+
+</body>
