@@ -9,6 +9,8 @@ gem 'active_model_serializers', '0.10.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.6'
+# Use sqlite3 as the database for Active Record
+gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -34,7 +36,9 @@ gem 'bcrypt', platforms: :ruby
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# bundle exec rake doc:rails generates the API under doc/api
 gem 'sdoc', '~> 0.4.0',          group: :doc
+
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
@@ -58,7 +62,6 @@ group :test, :development do
   gem 'factory_bot_rails'
   gem 'simplecov'
   gem 'database_cleaner'
-  gem 'sqlite3'
   gem 'pry'
   gem 'guard-rspec', require: false
   gem 'thin'
