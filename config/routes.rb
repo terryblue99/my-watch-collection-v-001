@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
 	authenticate :user do
 
-	  root 'watches#index'
+	  root 'home#index'
 	  resources :watches
 
 	  resources :watches do
