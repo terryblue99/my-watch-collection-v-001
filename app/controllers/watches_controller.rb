@@ -25,7 +25,7 @@ class WatchesController < ApplicationController
 			   #    format.html {render 'index.html', :layout => false}
 			   #    format.js {render 'index.js', :layout => false}
 		    # 	end
-		    	render #:layout => false
+		    	render :layout => false
 
 			else
 				redirect_to log_in_path, alert: "Please Log In to continue!"
