@@ -1,5 +1,5 @@
 class WatchesController < ApplicationController
-	before_filter :authenticate_user!
+	before_action :authenticate_user!
 	before_action :set_watch, only: [:show, :edit, :update, :destroy]
 
 	def index
@@ -20,6 +20,12 @@ class WatchesController < ApplicationController
 			  		# Default
 			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => 18).order(:watch_maker, :watch_name)
 			  	end
+
+			  	# respond_to do |format|
+			   #    format.html {render 'index.html', :layout => false}
+			   #    format.js {render 'index.js', :layout => false}
+		    # 	end
+		    	render #:layout => false
 
 			else
 				redirect_to log_in_path, alert: "Please Log In to continue!"
