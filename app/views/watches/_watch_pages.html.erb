@@ -1,0 +1,11 @@
+<body class="container bg-info">
+
+  <div class="row">
+    
+    <%= render "index_links" %>
+
+    <%= render partial: "show_watches", locals: {watches: @watches, watches_for_display: @watches_for_display} %>
+  
+  </div>
+
+</body>
