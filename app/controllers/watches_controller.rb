@@ -21,11 +21,10 @@ class WatchesController < ApplicationController
 			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => 18).order(:watch_maker, :watch_name)
 			  	end
 
-			  	respond_to do |format|
-			      format.html {render 'index.html'}
-			      format.js {render 'index.js', :layout => false}
-		    	end
-		    	# render :layout => false
+		    	respond_to do |format|
+			      format.html { render 'index.html'}
+			      format.json { render :json => @watches}
+			    end
 
 			else
 				redirect_to log_in_path, alert: "Please Log In to continue!"
