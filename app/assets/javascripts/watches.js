@@ -6,7 +6,7 @@ function attachListeners() {
 
   	$('a.load_watches').on('click', function(e) {
 
- 	$.getJSON(this.href).success(function(json){
+ 		$.getJSON(this.href).success(function(json){
  		
 			// clear the UL html (in case there were previous watches)
 		  	let $ul = $("div.watches ul")
@@ -21,4 +21,9 @@ function attachListeners() {
 		})
 		e.preventDefault()
 	})
+
+  	$('a.load_complications').on('click', function(e) {
+  		
+  	})
+
 }
