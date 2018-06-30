@@ -131,7 +131,7 @@ class WatchesController < ApplicationController
 				   		end
 		   			end
 	   			end
-	     		redirect_to watch_path, notice: "The watch was successfully edited!"
+	     		redirect_to watch_path, notice: "The watch was successfully updated!"
 	    end
 
 		else
