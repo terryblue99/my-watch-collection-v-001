@@ -1,3 +1,5 @@
+
+
 <body class="container bg-light">
 
 	<div class="row">
@@ -19,7 +21,13 @@
 		    <div class="watches">
 		      <ul>
 		      </ul>
-		    </div>				
+		    </div>
+
+		    <%if @watches_for_display && @watches_for_display > 18 %>
+		      <div style="margin-left: 90px;">
+		      	<%= will_paginate @watches, renderer: BootstrapPagination::Rails %>
+		      </div>
+		    <% end %>			
 
 			<div class="row">
 			    <div class="col-sm-8 text-center">
