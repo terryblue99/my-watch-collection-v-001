@@ -24,6 +24,7 @@ class WatchesController < ApplicationController
 		    	respond_to do |format|
 			      format.html { render 'index.html'}
 			      format.json { render :json => @watches}
+			      format.js
 			    end
 
 			else
