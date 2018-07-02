@@ -1,4 +1,2 @@
 
-let html = "<%=j(render('watches/watches') || "There are no watches to show") %>"
-
-$("div.watches ul").empty().html(html)
+$(".watches ul").html("<%= j (render("watches")) %>");
