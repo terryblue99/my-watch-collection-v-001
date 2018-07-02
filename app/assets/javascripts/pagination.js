@@ -1,11 +1,11 @@
 
 $(function() {
 	
-	$(".pagination a").click(function(e) {
+	$(document).on("click", ".pagination a", function(e) {
 		
-		// clear the UL html (in case there were previous watches)
-	  	let $ul = $("div.watches ul")
-	  	$ul.html("") // emptied the UL
+		// clear the div html (in case there were previous watches)
+	  	// let $div = $("div.watches")
+	  	// $div.html("") // emptied the div
 
 	    $.get(this.href, null, null, "script")
 
