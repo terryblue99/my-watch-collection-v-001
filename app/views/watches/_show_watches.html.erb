@@ -1,3 +1,4 @@
+<% javascript "pagination" %>
 
 <div class="col-sm-8">
 
@@ -9,19 +10,17 @@
 	    	<% session[:newest_watches] = "no" %>
 	    <% else %>
 	    	<h4 style="text-indent: 9em;">My Watches [<%= watches_for_display %>]</h4>
-	    <% end %>	
-
-	      <div>
+	    <% end %>
+		  
+	      <div class="watches">
 	        <ul>
-	          <% watches.each do |watch| %>
-	            <li class="text-success"><%= watch.watch_maker %>: <b><%= link_to watch.watch_name, watch_path(watch) %></b></li>
-	          <%end%>
+	          <%= render "load_watches" %>
 	        </ul>
 	      </div>
 
 			<%if watches_for_display && watches_for_display > 18 %>
 		      <div style="margin-left: 90px;">
-		      	<%= will_paginate watches, renderer: BootstrapPagination::Rails %>
+		      	<%= will_paginate watches %>
 		      </div>
 		    <% end %>
 
