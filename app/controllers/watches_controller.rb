@@ -9,7 +9,7 @@ class WatchesController < ApplicationController
 			@user = User.find_user(current_user)
 
 			if @user
-
+				
 			    @watches_for_display = @user.watches.size
 			    session[:most_maker] = nil
 			    # Selection made of how many watches to display on each page
@@ -21,11 +21,11 @@ class WatchesController < ApplicationController
 			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => 18).order(:watch_maker, :watch_name)
 			  	end
 
-		    	# respond_to do |format|
-			    #   format.html { render 'index.html'}
-			    #   format.json { render :json => @watches}
-			    #   format.js
-			    # end
+		    	respond_to do |format|
+			      format.html { render 'index.html'}
+			      format.json { render :json => @watches}
+			      format.js
+			    end
 
 			else
 				redirect_to log_in_path, alert: "Please Log In to continue!"
@@ -161,7 +161,7 @@ class WatchesController < ApplicationController
 
 	def most_maker
 	# Find the maker of most of the watches and display them
-
+		
 		if current_user.watches.size > 2
 
 			session[:most_maker] = "yes"
@@ -175,6 +175,12 @@ class WatchesController < ApplicationController
 		  		# Default
 		    	@watches = most_maker_array.paginate(:page => params[:page], :per_page => 18)
 		  	end
+		  	
+		  	respond_to do |format|
+		      format.html { render 'most_maker.html'}
+		      format.json { render :json => @watches}
+		      format.js
+		    end
 
 		else
 
