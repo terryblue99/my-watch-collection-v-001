@@ -3,26 +3,20 @@
 <div class="col-sm-8">
 
 	<div>
-	  <% if watches.size > 0 %>
+	  <% if @watches.size > 0 %>
 
 		<% if session[:newest_watches] == "yes" %>
-	    	<h4 style="text-indent: 9em;">Newest Watches [<%= watches_for_display %>]</h4>
+	    	<h4 style="text-indent: 9em;">Newest Watches [<%= @watches_for_display %>]</h4>
 	    	<% session[:newest_watches] = "no" %>
 	    <% else %>
-	    	<h4 style="text-indent: 9em;">My Watches [<%= watches_for_display %>]</h4>
+	    	<h4 style="text-indent: 9em;">My Watches [<%= @watches_for_display %>]</h4>
 	    <% end %>
 		  
 	      <div class="watches">
-	        <ul>
+	       
 	          <%= render "load_watches" %>
-	        </ul>
+	        
 	      </div>
-
-			<%if watches_for_display && watches_for_display > 18 %>
-		      <div style="margin-left: 90px;">
-		      	<%= will_paginate watches %>
-		      </div>
-		    <% end %>
 
 	  <%else%>
 
@@ -34,7 +28,7 @@
 	<div class="row">
 	    <div class="col-sm-8 text-center">
 
-	      <%if watches_for_display && watches_for_display > 18 %>
+	      <%if @watches_for_display && @watches_for_display > 18 %>
 
 	        <%= form_tag rows_path(current_user), method: :get do %>
 	          <b class="text-success">Watches on a page:</b> <input  type="number" id="rows" name="rows" min="1" max="50">
