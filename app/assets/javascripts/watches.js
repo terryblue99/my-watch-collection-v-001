@@ -6,18 +6,16 @@ $(function() {
 function attachListeners() {
 
 	$(document).on("click", ".pagination a", function(e) {
-		// get watches stored in the database
-		// $.get(this.href, null, null, "script")
 
+		// get watches stored in the database		
 		$.getJSON(this.href).success(function(json){
 		
-			// clear the UL html (in case there were previous watches)
-		  	// let $ul = $("div.watches ul")
-		  	// $ul.html("") // emptied the UL
+			// clear the div html (in case there were previous watches)
+		  	$("div.watches").html("")
 		  	
-		  	//iterate over each watch within json
+		  	// iterate over each watch within json
 		  	json.forEach(function(watch){
-		  		// with each watch data, append an LI to the UL with the watch content
+		  		// append each watch data to the watches div
 		  		$("div.watches").append(`<h5 class="text-success">${watch.watch_maker}: <b><a href="/watches/${watch.id}">${watch.watch_name}</a></b></h5>`)
 			})
 		
