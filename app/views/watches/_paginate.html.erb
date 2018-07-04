@@ -1,6 +1,5 @@
 
 <%if @watches_for_display && @watches_for_display > 18 %>
-	<% session[:check_paginate] = "yes" %>
 	<div style="margin-left: 90px;">
 		<%= will_paginate @watches, renderer: BootstrapPagination::Rails %>
 	</div>
