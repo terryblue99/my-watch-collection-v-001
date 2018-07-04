@@ -12,11 +12,11 @@
 	    	<h4 style="text-indent: 9em;">My Watches [<%= @watches_for_display %>]</h4>
 	    <% end %>
 		  
-	      <div class="watches">
-	       
-	          <%= render "load_watches" %>
-	        
+	      <div class="watches">       
+	          <%= render "load_watches" %>   
 	      </div>
+
+		  <%= render "paginate" %> 
 
 	  <%else%>
 
