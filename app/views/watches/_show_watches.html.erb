@@ -1,28 +1,26 @@
-<% javascript "pagination" %>
 
 <div class="col-sm-8">
 
 	<div>
 	  <% if @watches.size > 0 %>
 
-		<% if session[:newest_watches] == "yes" %>
-	    	<h4 style="text-indent: 9em;">Newest Watches [<%= @watches_for_display %>]</h4>
-	    	<% session[:newest_watches] = "no" %>
-	    <% else %>
-	    	<h4 style="text-indent: 9em;">My Watches [<%= @watches_for_display %>]</h4>
-	    <% end %>
-		  
-	      <div class="watches">       
-	          <%= render "load_watches" %>   
-	      </div>
+			<% if session[:newest_watches] == "yes" %>
+		    	<h4 style="text-indent: 9em;">Newest Watches [<%= @watches_for_display %>]</h4>
+		    	<% session[:newest_watches] = "no" %>
+		    <% else %>
+		    	<h4 style="text-indent: 9em;">My Watches [<%= @watches_for_display %>]</h4>
+		    <% end %>
 
-		  <%= render "paginate" %> 
+		  	<% javascript "pagination" %>
+	
+	      	<div class="watches">       
+	          <%= render "load_watches" %>
+	          <%= render "paginate" %>
+	      	</div>
 
-	  <%else%>
-
-	    <h4 class="text-danger"><b>There are currently no watches to display!</b></h4>
-
-	  <%end%>
+		 <%else%>
+		    <h4 class="text-danger"><b>There are currently no watches to display!</b></h4>
+		<%end%>
 	</div>
 
 	<div class="row">
