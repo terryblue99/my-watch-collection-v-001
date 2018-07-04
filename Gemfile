@@ -6,6 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'active_model_serializers', '0.10.6'
+gem 'grape'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.6'
@@ -45,6 +46,7 @@ gem 'omniauth-facebook'
 gem 'dotenv-rails'
 gem 'will_paginate', '~> 3.1.1'
 gem 'will_paginate-bootstrap'
+gem 'api-pagination'
 gem 'sprockets', '~> 3.7.2'
 
 group :test, :development do
