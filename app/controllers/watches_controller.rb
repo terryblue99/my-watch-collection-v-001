@@ -18,7 +18,7 @@ class WatchesController < ApplicationController
 			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => session[:rows]).order(:watch_maker, :watch_name)
 			  	else
 			  		# Default
-			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => 18).order(:watch_maker, :watch_name)
+			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => 16).order(:watch_maker, :watch_name)
 			  	end
 
 		    	respond_to do |format|
@@ -173,7 +173,7 @@ class WatchesController < ApplicationController
 		    	@watches = most_maker_array.paginate(:page => params[:page], :per_page => session[:maker_rows])
 		  	else
 		  		# Default
-		    	@watches = most_maker_array.paginate(:page => params[:page], :per_page => 18)
+		    	@watches = most_maker_array.paginate(:page => params[:page], :per_page => 16)
 		  	end
 		  	
 		  	respond_to do |format|
