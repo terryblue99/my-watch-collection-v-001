@@ -21,7 +21,7 @@ function attachListeners() {
 			})
 
 			// append the pagination process to each page
-			$("div.watches").html("<%= j (render("paginate")) %>")
+			// $("div.watches").html("<%= j (render("paginate")) %>")
 				
 		})
 		e.preventDefault()
