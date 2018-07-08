@@ -10,22 +10,33 @@ function attachListeners() {
 
 		// get watches stored in the database		
 		$.getJSON(this.href).success(function(json){
-	
+			$count = 0
+			$jsonLth = json.length
 			// clear the div html (in case there were previous watches)
-		  	$("div.watches").html("")
-		  	$("div.watches_paginate").html("")
-		  	
+		  	$(".watches").html("")
+		  	$(".watches_paginate").html("")
+		  	debugger
 		  	// iterate over each watch within json
 		  	json.forEach(function(watch){
 		  		// append each watch data to the watches div
-		  		$("div.watches").append(`<h5 class="text-success">${watch.watch_maker}: <b><a href="/watches/${watch.id}">${watch.watch_name}</a></b></h5>`)
+		  		$(".watches").append(`<h5 class="text-success">${watch.watch_maker}: <b><a href="/watches/${watch.id}">${watch.watch_name}</a></b></h5>`)
+				$count += 1
+				if ($count == json.length) {
+					$.get("/", null, null, "script")
+				}
 			})
-			// append the pagination process to each page
-			var $script = document.createElement( "script" )
-			$script.type = "text/javascript"
-			$script.innerHTML = '$("div.watches").append("<%= j (render("paginate")) %>")'
-			$("div.watches_paginate").append( `'${$script}'` )
-
+		  	debugger
+			// alert("What the heck!!")
+			// $("div.watches_paginate").html("#{j (render 'paginate')}")
+			// debugger
+			// // append the pagination process to each page
+			// var $script = document.createElement( "script" )
+			// $script.type = "text/javascript"
+			// $script.innerHTML = '$("div.watches").append("<%= j (render("paginate")) %>")'
+			// debugger
+			// $("div.watches_paginate").append( $script.toString() )
+			// debugger
+			// '[object HTMLScriptElement]'
 		})
 		e.preventDefault()
 	})
