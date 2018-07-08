@@ -1,6 +1,4 @@
 
-<% javascript "pagination" %>
-
 <%if @watches_for_display && @watches_for_display > 18 %>
 	<div style="margin-left: 90px;">
 		<%= will_paginate @watches, renderer: BootstrapPagination::Rails %>
