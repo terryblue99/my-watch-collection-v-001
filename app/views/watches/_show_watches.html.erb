@@ -13,18 +13,15 @@
 
 		  	<% javascript "pagination" %>
 	
-			<div>
-		      	<div class="watches">       
-		          <%= render "load_watches" %>
-		      	</div>
-		      	
-		      	<div class="watches_paginate">
-		      	</div>
-		    </div>
+	      	<div class="watches"> 
+	          	<%= render "load_watches" %>
+	      	</div>
 
-	      	<%= render "paginate" %>
-
+	      	<div class="watches_paginate">
+	         	<%= render "paginate" %>
+	        </div>
 		 <%else%>
+	      		
 		    <h4 class="text-danger"><b>There are currently no watches to display!</b></h4>
 		<%end%>
 	</div>
