@@ -10,8 +10,6 @@
 		    <% else %>
 		    	<h4 style="text-indent: 9em;">My Watches [<%= @watches_for_display %>]</h4>
 		    <% end %>
-
-		  	<% javascript "pagination" %>
 	
 	      	<div class="watches"> 
 	          	<%= render "load_watches" %>
@@ -20,8 +18,8 @@
 	      	<div class="watches_paginate">
 	         	<%= render "paginate" %>
 	        </div>
-		 <%else%>
-	      		
+		 
+		 <%else%>	
 		    <h4 class="text-danger"><b>There are currently no watches to display!</b></h4>
 		<%end%>
 	</div>
