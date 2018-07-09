@@ -3,7 +3,7 @@
 
 	<div>
 	  <% if @watches.size > 0 %>
-
+			
 			<% if session[:most_maker] == "yes" %>
 		    	<h4 style="text-indent: 4em;">Maker Of Most Of My Watches [<%= @watches_for_display %>]</h4>
 		    	<% session[:most_maker] = "no" %>
@@ -14,7 +14,7 @@
 		    <% else %>
 		    	<h4 style="text-indent: 4em;">My Watches (All) [<%= @watches_for_display %>]</h4>
 		    <% end %>
-	
+			
 	      	<div class="watches"> 
 	          	<%= render "load_watches" %>
 	      	</div>
@@ -32,7 +32,7 @@
 	    <div class="col-sm-8 text-center">
 
 	      <%if @watches_for_display && @watches_for_display > 18 %>
-
+			<!-- input box and submit button to change number of watches on a page -->
 	        <%= form_tag rows_path(current_user), method: :get do %>
 	          <b class="text-success">Watches on a page:</b> <input  type="number" id="rows" name="rows" min="1" max="50">
 	          <button class="btn btn-primary btn btn-sm">submit</button>
