@@ -17,18 +17,14 @@ function attachListeners() {
 			// clear the div html's of previous watches data
 		  	$(".watches").html("")
 		  	$(".watches_paginate").html("")
-		  	
 		  	// iterate over each watch within json and add to the DOM
 		  	json.forEach(function(watch){
 		  		// append each watch data to the watches div
 		  		$(".watches").append(`<h5 class="text-success">${watch.watch_maker}: <b><a href="/watches/${watch.id}">${watch.watch_name}</a></b></h5>`)
-				$count += 1
-				// if this is the last watch, execute the index.js.erb file 
-				// in the watches view to set pagination entries 
-				if ($count == $jsonLth) {
-					$.get($thisHref, null, null, "script")
-				}
 			})
+			// execute the related js.erb file in the watches view
+			// to set pagination entries (index.js.erb / most_maker.js.erb)
+			$.get($thisHref, null, null, "script")
 		})
 		e.preventDefault()
 	})
