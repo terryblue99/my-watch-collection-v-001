@@ -1,4 +1,4 @@
-
+<!-- update the page links in the show_watches.html.erb watches_paginate div-->
 <%if @watches_for_display && @watches_for_display > 18 %>
 	<div style="margin-left: 90px;">
 		<%= will_paginate @watches, renderer: BootstrapPagination::Rails %>
