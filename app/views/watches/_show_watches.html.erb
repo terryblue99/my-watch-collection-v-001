@@ -4,11 +4,15 @@
 	<div>
 	  <% if @watches.size > 0 %>
 
-			<% if session[:newest_watches] == "yes" %>
-		    	<h4 style="text-indent: 9em;">Newest Watches [<%= @watches_for_display %>]</h4>
+			<% if session[:most_maker] == "yes" %>
+		    	<h4 style="text-indent: 4em;">Maker Of Most Of My Watches [<%= @watches_for_display %>]</h4>
+		    	<% session[:most_maker] = "no" %>
+		    <% elsif %>
+				<% session[:newest_watches] == "yes" %>
+		    	<h4 style="text-indent: 4em;">My 10 Newest Watches</h4>
 		    	<% session[:newest_watches] = "no" %>
 		    <% else %>
-		    	<h4 style="text-indent: 9em;">My Watches [<%= @watches_for_display %>]</h4>
+		    	<h4 style="text-indent: 4em;">My Watches (All) [<%= @watches_for_display %>]</h4>
 		    <% end %>
 	
 	      	<div class="watches"> 
