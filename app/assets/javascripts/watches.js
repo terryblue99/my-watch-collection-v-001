@@ -35,6 +35,7 @@ function pagination(e, $href) {
 }
 
 function showWatch($href) {
-	debugger
-	
+	// get a watch stored in the database		
+	$.getJSON($href, function(json) {
+	})
 }
