@@ -64,6 +64,12 @@ class WatchesController < ApplicationController
 
 		    if !@watch
 		      	redirect_to watches_path, alert: "The watch was not found!"
+		    else
+		    	respond_to do |format|
+			      format.html { render 'show.html'}
+			      format.json { render :json => @watch}
+			      format.js
+			    end
 		    end
 
 		else
