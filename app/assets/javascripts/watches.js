@@ -12,8 +12,6 @@ function attachListeners() {
 
 		// get watches stored in the database		
 		$.getJSON(this.href).success(function(json){
-			$count = 0
-			$jsonLth = json.length
 			// clear the div html's of previous watches data
 		  	$(".watches").html("")
 		  	$(".watches_paginate").html("")
@@ -29,10 +27,10 @@ function attachListeners() {
 		e.preventDefault()
 	})
 
-  	$(document).on('click', '.load_complications a', () => loadComplications())  	
-
+	$("a.show_watch").on('click', () => showWatch())
 }
 
-function loadComplications () {
-
+function showWatch() {
+	alert("Show watch!")
+	e.preventDefault()
 }
