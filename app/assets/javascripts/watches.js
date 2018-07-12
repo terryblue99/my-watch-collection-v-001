@@ -10,12 +10,12 @@ function attachListeners() {
 		pagination(e, $href)
 	})
 
-	$("a.show_watch").on('click', function() {
+	$("a.show_watch").on('click', function(e) {
 		$href = this.href
-		showWatch($href)
+		showWatch(e, $href)
 	})
 }
-
+ 
 function pagination(e, $href) {
 	// get watches stored in the database		
 	$.getJSON($href).success(function(json){
@@ -34,8 +34,25 @@ function pagination(e, $href) {
 	e.preventDefault()
 }
 
-function showWatch($href) {
+function showWatch(e, $href) {
 	// get a watch stored in the database		
-	$.getJSON($href, function(json) {
+	$.getJSON($href)
+	.success(function(json) {
+		alert("json: " + json.watch_name)
 	})
+	.error(function(jqxhr, textStatus, error){
+	    let err = textStatus + ', ' + error;
+	    alert("Request Failed: " + err);
+	})
+	// $.ajax({
+	// url: $href,
+	// type: "GET",
+	// dataType: "json"
+	// }).done(function(json) {
+	//     alert("JSON Data: " + json )
+	// }).fail(function(jqxhr, textStatus, error){
+	//     let err = textStatus + ', ' + error
+	//     alert("Request Failed: " + err)
+	// })
+	e.preventDefault()
 }
