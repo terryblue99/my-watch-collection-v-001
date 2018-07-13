@@ -9,8 +9,8 @@ function attachListeners() {
 		$href = this.href
 		pagination(e, $href)
 	})
-
-	$("a.show_watch").on('click', function(e) {
+	$(document).on("click", "a.show_watch", function(e) {
+	// $("a.show_watch").on('click', function(e) {
 		$href = this.href
 		showWatch(e, $href)
 	})
