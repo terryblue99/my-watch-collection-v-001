@@ -3,6 +3,7 @@
 
 <div class="col-sm-2 well" style="border-width: 1px; border-style: solid; border-color: black">
 
+  	<h5><%= link_to "Show Watch Details", watch_path(watch), :class => "show_watch" %></h5>
   	<h5><%= link_to "Show Complications", watch_complications_path(watch), :class => "load_complications" %></h5>
 	<h5><%= link_to "Edit this Watch", edit_watch_path %></h5>
 	<h5><%= link_to "Add a new watch", new_watch_path %></h5>
