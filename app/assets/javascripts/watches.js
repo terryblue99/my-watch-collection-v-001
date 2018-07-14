@@ -12,8 +12,11 @@ function attachListeners() {
 
 	$(document).on("click", "a.show_watch", function(e) {	
 		$href = this.href
-		$.get($href, null, null, "script")
-		showWatch(e, $href)
+		// handlebar process
+		let templateSource = $("#watch-template").html()
+		let template = Handlebars.compile(templateSource)
+
+		showWatch(e, $href, template)
 	})
 }
  
@@ -35,11 +38,16 @@ function pagination(e, $href) {
 	e.preventDefault()
 }
 
-function showWatch(e, $href) {
-	// get a watch stored in the database		
+
+
+function showWatch(e, $href, template) {
+	
+	$(".load_watch").html("")
+	// get a watch stored in the database	
 	$.getJSON($href)
 	.success(function(json) {
-		alert("json: " + json.watch_name)	
+		// load watch details via handlebars template
+		$(".load_watch").html(template(this))
 	})
 	.error(function(jqxhr, textStatus, error){
 	    let err = textStatus + ', ' + error;
@@ -57,3 +65,5 @@ function showWatch(e, $href) {
 	// })
 	e.preventDefault()
 }
+
+
