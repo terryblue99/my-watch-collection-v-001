@@ -9,9 +9,10 @@ function attachListeners() {
 		$href = this.href
 		pagination(e, $href)
 	})
-	$(document).on("click", "a.show_watch", function(e) {
-	// $("a.show_watch").on('click', function(e) {
+
+	$(document).on("click", "a.show_watch", function(e) {	
 		$href = this.href
+		$.get($href, null, null, "script")
 		showWatch(e, $href)
 	})
 }
@@ -38,7 +39,7 @@ function showWatch(e, $href) {
 	// get a watch stored in the database		
 	$.getJSON($href)
 	.success(function(json) {
-		alert("json: " + json.watch_name)
+		alert("json: " + json.watch_name)	
 	})
 	.error(function(jqxhr, textStatus, error){
 	    let err = textStatus + ', ' + error;
