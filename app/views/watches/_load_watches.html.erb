@@ -1,4 +1,4 @@
 <!-- load watches into the show_watches.html.erb watches div -->
 <% @watches.each do |watch| %>
-<h5 class="text-success"><%= watch.watch_maker %>: <b><%= link_to watch.watch_name, watch_path(watch), :class => "show_watch" %></b></h5>
+<h5 class="text-success"><%= watch.watch_maker %>: <b><%= link_to watch.watch_name, watch_path(watch) %></b></h5>
 <%end%>
