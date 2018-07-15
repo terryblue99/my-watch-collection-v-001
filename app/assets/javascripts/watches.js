@@ -18,6 +18,12 @@ function attachListeners() {
 
 		showWatch(e, $href, template)
 	})
+
+	$(document).on("click", "a.load_complications", function(e) {	
+
+		loadComplications()
+	})
+
 }
  
 function pagination(e, $href) {
@@ -64,6 +70,10 @@ function showWatch(e, $href, template) {
 	//     alert("Request Failed: " + err)
 	// })
 	e.preventDefault()
+}
+
+function loadComplications() {
+	alert("Show Complications")
 }
 
 
