@@ -14,7 +14,7 @@
 				<h4>One of my watches</h4>
 
 					<div class="load_watch">
-						<%= render partial: "load_watch", locals: {watch: @watch} %>
+						
 					</div>
 
 				<br>
@@ -35,7 +35,7 @@
 
 							<% watch_complications.each do |complication| %>
 						
-								<h5><b><%= link_to complication.complication_name, description_path(watch, watch_id: watch.id, comp_name: complication.complication_name, comp_id: complication.id) %></b></h5>
+								<h5><b><%= link_to complication.complication_name, description_path(@watch, watch_id: @watch.id, comp_name: complication.complication_name, comp_id: complication.id) %></b></h5>
 
 							<% end %>
 
@@ -52,6 +52,18 @@
     	</div>
     	
   	</div>
+
+	<script id="watch-template" type="text/x-handlebars-template">
+
+			<h5><b class="text-success">Name:</b> <%= @watch.watch_name %></h5>
+			<h5><b class="text-success">Maker:</b> <%= @watch.watch_maker %></h5>
+			<h5><b class="text-success">Movement:</b> <%= @watch.movement %></h5>
+			<h5><b class="text-success">Band:</b> <%= @watch.band %></h5>
+			<h5><b class="text-success">Model Number:</b> <%= @watch.model_number %></h5>
+			<h5><b class="text-success">Water Resistance:</b> <%= @watch.water_resistance %></h5>
+			<h5><b class="text-success">Date Bought:</b> <%= @watch.date_bought %></h5>
+
+	</script>
 
  </body>
 
