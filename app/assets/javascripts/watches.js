@@ -6,11 +6,13 @@ $(function() {
 function attachListeners() {
 
 	$(document).on("click", ".pagination a", function(e) {	
+
 		$href = this.href
 		pagination(e, $href)
 	})
 
 	$(document).on("click", "a.show_watch", function(e) {	
+
 		$href = this.href
 		// handlebar process
 		let templateSource = $("#watch-template").html()
@@ -21,7 +23,8 @@ function attachListeners() {
 
 	$(document).on("click", "a.load_complications", function(e) {	
 
-		loadComplications()
+		$href = this.href
+		loadComplications(e, $href)
 	})
 
 }
@@ -44,8 +47,6 @@ function pagination(e, $href) {
 	e.preventDefault()
 }
 
-
-
 function showWatch(e, $href, template) {
 	
 	$(".load_watch").html("")
@@ -53,7 +54,7 @@ function showWatch(e, $href, template) {
 	$.getJSON($href)
 	.success(function(json) {
 		// load watch details via handlebars template
-		$(".load_watch").html(template(this))
+		$(".load_watch").html(template(json))
 	})
 	.error(function(jqxhr, textStatus, error){
 	    let err = textStatus + ', ' + error;
@@ -72,8 +73,10 @@ function showWatch(e, $href, template) {
 	e.preventDefault()
 }
 
-function loadComplications() {
-	alert("Show Complications")
+function loadComplications(e, $href) {
+	
+	$.get($href, null, null, "script")
+	e.preventDefault()
 }
 
 
