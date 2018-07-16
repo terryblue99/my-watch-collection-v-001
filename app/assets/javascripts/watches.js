@@ -27,11 +27,18 @@ function attachListeners() {
 		loadComplications(e, $href)
 	})
 
+	$(document).on("click", "a.back", function(e){
+
+		parent.history.back()
+		e.preventDefault()
+	})
+
 }
  
 function pagination(e, $href) {
 	// get watches stored in the database		
-	$.getJSON($href).success(function(json){
+	$.getJSON($href)
+	.success(function(json){
 		// clear the div html's of previous watches data
 	  	$(".watches").html("")
 	  	$(".watches_paginate").html("")
@@ -43,6 +50,9 @@ function pagination(e, $href) {
 		// execute the related js.erb file in the watches view
 		// to set pagination entries (index.js.erb / most_maker.js.erb)
 		$.get($href, null, null, "script")
+	}).error(function(jqxhr, textStatus, error){
+	    let err = textStatus + ', ' + error;
+	    alert("Request Failed: " + err);
 	})
 	e.preventDefault()
 }
