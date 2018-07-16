@@ -6,6 +6,6 @@
 	<h4 class="text-success"><%= @description %></h4>
 
 	<h5><%= link_to 'Delete this complication', watch_complications_path(params[:id], comp_id: @comp_id, comp_name: @comp_name), method: :delete, data: { confirm: 'Are you sure?' } %></h5>
-	<h5><%= link_to "Back", watch_path %></h5>
+	<!-- <h5><%#= link_to "Back", watch_path %></h5> -->
 
 </body>
