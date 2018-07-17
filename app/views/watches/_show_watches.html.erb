@@ -5,7 +5,7 @@
 	  <% if @watches.size > 0 %>
 			
 			<% if session[:most_maker] == "yes" %>
-		    	<h4 style="text-indent: 4em;">Maker Of Most of My Watches [<%= @watches_for_display %>]</h4>
+		    	<h4 style="text-indent: 4em;">Maker of Most of My Watches [<%= @watches_for_display %>]</h4>
 		    	<% session[:most_maker] = "no" %>
 		    <% elsif %>
 				<% session[:newest_watches] == "yes" %>
