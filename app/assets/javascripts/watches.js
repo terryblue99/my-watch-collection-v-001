@@ -24,7 +24,11 @@ function attachListeners() {
 	$(document).on("click", "a.load_complications", function(e) {	
 
 		$href = this.href
-		loadComplications(e, $href)
+		// handlebar process
+		let templateSource = $("#complications").html()
+		let template = Handlebars.compile(templateSource)
+
+		loadComplications(e, $href, template)
 	})
 
 	$(document).on("click", "a.back", function(e){
@@ -51,8 +55,7 @@ function pagination(e, $href) {
 		// to set pagination entries (index.js.erb / most_maker.js.erb)
 		$.get($href, null, null, "script")
 	}).error(function(jqxhr, textStatus, error){
-	    let err = textStatus + ', ' + error;
-	    alert("Request Failed: " + err);
+	    showError(jqxhr, textStatus, error)
 	})
 	e.preventDefault()
 }
@@ -67,8 +70,7 @@ function showWatch(e, $href, template) {
 		$(".load_watch").html(template(json))
 	})
 	.error(function(jqxhr, textStatus, error){
-	    let err = textStatus + ', ' + error;
-	    alert("Request Failed: " + err);
+	    showError(jqxhr, textStatus, error)
 	})
 	// $.ajax({
 	// url: $href,
@@ -83,10 +85,24 @@ function showWatch(e, $href, template) {
 	e.preventDefault()
 }
 
-function loadComplications(e, $href) {
-	
-	$.get($href, null, null, "script")
+function loadComplications(e, $href, template) {
+
+	$.getJSON($href)
+	.success(function(json) {
+		debugger
+		// load watch complications via handlebars template
+		$(".complications").html(template(json))
+	})
+	.error(function(jqxhr, textStatus, error){
+	    showError(jqxhr, textStatus, error)
+	})
 	e.preventDefault()
+}
+
+function showError(jqxhr, textStatus, error) {
+
+	let err = textStatus + ', ' + error
+	alert("Request Failed: " + err)	
 }
 
 
