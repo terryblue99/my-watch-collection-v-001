@@ -11,7 +11,7 @@
 
     		<div class="col-sm-12" style="margin-left: 20px;">
 
-    			<h4>One of My Watches (<%= @watch.id %>)</h4>
+    			<h4>One of My Watches</h4>
 
 				<div class="load_watch">	
 				</div>
@@ -39,12 +39,12 @@
 	</script>
 	<script id="complications" type="text/x-handlebars-template">
 	
-		<h4>Complications</h4>
+		<h4>Complications ({{complications.length}})</h4>
 		
 		<% if @watch.complications.present? %>
 
 			<% if @watch.complications.size > 1 %>
-			
+
 				<% watch_complications = Watch.sort_complications(@watch) %>	
 			<% else %>	
 				<% watch_complications = @watch.complications %>
