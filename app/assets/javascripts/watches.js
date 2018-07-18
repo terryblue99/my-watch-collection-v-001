@@ -32,7 +32,7 @@ function attachListeners() {
 	})
 
 	$(document).on("click", "a.back", function(e){
-
+		// navigate to previous page when 'back' link clicked
 		parent.history.back()
 		e.preventDefault()
 	})
@@ -89,7 +89,6 @@ function loadComplications(e, $href, template) {
 
 	$.getJSON($href)
 	.success(function(json) {
-		debugger
 		// load watch complications via handlebars template
 		$(".complications").html(template(json))
 	})
