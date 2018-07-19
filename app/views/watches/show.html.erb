@@ -41,14 +41,13 @@
 	
 		<h4>Complications ({{complications.length}})</h4>
 		
-		<% if @watch.complications.present? %>
+		{{#if complications}}
 
-			<% if @watch.complications.size > 1 %>
-
+			{{#gt complications.length 1}}
 				<% watch_complications = Watch.sort_complications(@watch) %>	
-			<% else %>	
+			{{else}}	
 				<% watch_complications = @watch.complications %>
-			<% end %>
+			{{/gt}}
 
 			<h5 class="text-success">(Click any to see a description)</h5>	
 
@@ -57,12 +56,15 @@
 				<h5><b><%= link_to complication.complication_name, description_path(@watch, watch_id: @watch.id, comp_name: complication.complication_name, comp_id: complication.id) %></b></h5>
 
 			<% end %>
-
-		<% else %>
+		
+		{{else}}
 			<h5 class="text-danger">There are no complications to display!</h5>
-		<% end %>
+		{{/if}}
 
 	</script>
 
  </body>
+
+
+
 
