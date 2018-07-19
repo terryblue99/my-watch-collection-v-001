@@ -1,3 +1,8 @@
+// handlebars greater than helper
+Handlebars.registerHelper('gt', function( a, b ){
+	var next =  arguments[arguments.length-1];
+	return (a > b) ? next.fn(this) : next.inverse(this);
+})
 
 $(function() {
   attachListeners();
@@ -76,11 +81,11 @@ function showWatch(e, $href, template) {
 	// url: $href,
 	// type: "GET",
 	// dataType: "json"
-	// }).done(function(json) {
-	//     alert("JSON Data: " + json )
-	// }).fail(function(jqxhr, textStatus, error){
-	//     let err = textStatus + ', ' + error
-	//     alert("Request Failed: " + err)
+	// }).sucess(function(json) {
+	//     // load watch details via handlebars template
+	// 	   $(".load_watch").html(template(json))
+	// }).error(function(jqxhr, textStatus, error){
+	//     showError(jqxhr, textStatus, error)
 	// })
 	e.preventDefault()
 }
