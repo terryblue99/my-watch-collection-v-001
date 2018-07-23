@@ -1,9 +1,9 @@
 
-<%= field.label "Add Complication/s: Scroll and select all applicable ones" %>
-<h6> Use CMD-Click or CTRL-Click to select from existing list </h6>
+<h4><%= field.label "Add Complication/s: Scroll and select all applicable ones", class: "text-success" %></h4>
+<h6> Use <b>CMD-Click</b> or <b>CTRL-Click</b> to select from existing list </h6>
 <%= collection_select(:complications, :id, Complication.order(:complication_name), :id, :complication_name, {}, {:multiple => true}) %>
 
-<h3 class="text-success"> Add a New Complication </h3>
+<h4 class="text-success"> Add a New Complication </h4>
 
 <%= field.fields_for :complications, Complication.new do |fields| %>
     <%= fields.label :complication_name %>
