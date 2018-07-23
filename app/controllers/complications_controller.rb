@@ -16,6 +16,21 @@ class ComplicationsController < ApplicationController
 
 	end
 
+	def new
+
+
+	end
+	
+	def create
+
+
+	end
+
+	def update
+
+
+	end	
+
 	def destroy
 	# Delete the complications_watches join record
 
