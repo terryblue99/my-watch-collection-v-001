@@ -42,11 +42,11 @@
           <%= f.label :date_bought %><br>
           <%= f.text_field :date_bought %><br>
 
-          <%= f.label "Complications: Scroll and select all applicable ones" %>
-          <h6> using CMD-Click or CTRL-Click </h6>
+          <%= f.label "Add Complication/s: Scroll and select all applicable ones" %>
+          <h6> Use CMD-Click or CTRL-Click to select from existing list </h6>
           <%= collection_select(:complications, :id, Complication.order(:complication_name), :id, :complication_name, {}, {:multiple => true}) %>
 
-          <h3 class="text-success">New Complication</h3>
+          <h3 class="text-success">Add a New Complication</h3>
           <%= f.fields_for :complications, Complication.new do |fields| %>
             <%= fields.label :complication_name %>
             <%=fields.text_field :complication_name %>
