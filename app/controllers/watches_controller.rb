@@ -116,7 +116,7 @@ class WatchesController < ApplicationController
 	end
 
 	def update
-
+		
 		if user_signed_in?
 			# watch_result will contain complication validation error message/s, if any
 			watch_result = Watch.update_watch(@watch, watch_params)
@@ -130,17 +130,20 @@ class WatchesController < ApplicationController
 					watch_result = nil
 		      render :edit
 		  else
+		  		
+		  		@comp = []
 		    	params[:complications][:id].each do |c_id|
 						# collection complication
 		   			if c_id.present?
 		   				if !@watch.complications_watches.detect {|cw| cw.complication_id == c_id.to_i}
-			   				ComplicationsWatch.build_join(@watch, c_id)
+			   				@comp << ComplicationsWatch.build_join(@watch, c_id)
 				   		end
 		   			end
 	   			end
+	   			
 	   			respond_to do |format|
 			      format.html { redirect_to watch_path, notice: "The watch was successfully updated!"}
-			      format.json { render :json => @watch}
+			      format.json { render :json => @comp}
 			    end
 	    end
 
