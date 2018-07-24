@@ -1,5 +1,5 @@
 
-<h4><%= field.label "Add Complication/s: Scroll and select all applicable ones", class: "text-success" %></h4>
+<h4><%= field.label "Add Complication/s: Scroll and select all applicable ones" %></h4>
 <h6> Use <b>CMD-Click</b> or <b>CTRL-Click</b> to select from existing list </h6>
 <%= collection_select(:complications, :id, Complication.order(:complication_name), :id, :complication_name, {}, {:multiple => true}) %>
 
