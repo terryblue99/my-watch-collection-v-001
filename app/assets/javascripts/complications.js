@@ -27,6 +27,11 @@ function compListeners() {
 		e.preventDefault()
 	})
 
+	$(document).on("submit", "form#new_complication", function(e) {
+
+		e.preventDefault()	
+	})
+
 }
 
 function loadComplications(e, $href, template) {
