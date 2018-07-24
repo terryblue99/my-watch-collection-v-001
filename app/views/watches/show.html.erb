@@ -60,9 +60,11 @@
 		{{/if}}
 
 
-		<%= form_for @watch, :html => {:class => "form-horizontal center"} do |f| %>
+		<%= form_for @watch, :html => {:class => "form-horizontal center", :id => "new_complication"} do |f| %>
 
 			<%= render partial: "complications/form", locals: {field: f} %>
+
+			<%= f.submit %>
 
         <% end %>  	
 
