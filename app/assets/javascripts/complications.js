@@ -32,15 +32,7 @@ function compListeners() {
 		const $form = $(this)
     	const action = $form.attr("action")
     	const params = $form.serialize()
-    	$.ajax({
-	      url: action,
-	      data: params,
-	      dataType: "json",
-	      method: "POST"
-	  	}).success(function(json) {
-      		debugger
-      	});
-		e.preventDefault()	
+    	newComplication(e, action, params)
 	})
 
 }
@@ -56,6 +48,23 @@ function loadComplications(e, $href, template) {
 	    showError(jqxhr, textStatus, error)
 	})
 	e.preventDefault()
+}
+
+function newComplication(e, action, params) {
+	debugger
+	$.ajax({
+      url: action,
+      data: params,
+      dataType: "json",
+      method: "POST"
+  	})
+  	.success(function(json) {
+  	
+  	})
+  	.error(function(jqxhr, textStatus, error){
+	    showError(jqxhr, textStatus, error)
+	})
+  	e.preventDefault()	
 }
 
 function showError(jqxhr, textStatus, error) {
