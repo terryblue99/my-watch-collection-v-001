@@ -8,10 +8,10 @@
 		</div>
 
     	<div class="col-sm-7"> 
-
+			
     		<div class="col-sm-12" style="margin-left: 20px;">
-
-    			<h4>One of My Watches</h4>
+				
+    			<h5><b class="text-success">Watch Name: </b><%= @watch.watch_name %></h5>
 
 				<div class="load_watch">	
 				</div>
@@ -27,7 +27,6 @@
 
 	<script id="watch-template" type="text/x-handlebars-template">
 
-		<h5><b class="text-success">Name:</b> {{watch_name}} </h5>
 		<h5><b class="text-success">Maker:</b> {{watch_maker}} </h5>
 		<h5><b class="text-success">Movement:</b> {{movement}} </h5>
 		<h5><b class="text-success">Band:</b> {{band}} </h5>
