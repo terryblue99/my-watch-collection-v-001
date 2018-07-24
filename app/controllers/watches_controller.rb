@@ -138,7 +138,10 @@ class WatchesController < ApplicationController
 				   		end
 		   			end
 	   			end
-	     		redirect_to watch_path, notice: "The watch was successfully updated!"
+	   			respond_to do |format|
+			      format.html { redirect_to watch_path, notice: "The watch was successfully updated!"}
+			      format.json { render :json => @watch}
+			    end
 	    end
 
 		else
