@@ -1,7 +1,7 @@
 
 // handlebars greater than helper
 Handlebars.registerHelper('gt', function( a, b ){
-	var next =  arguments[arguments.length-1];
+	let next =  arguments[arguments.length-1];
 	return (a > b) ? next.fn(this) : next.inverse(this);
 })
 
@@ -28,7 +28,18 @@ function compListeners() {
 	})
 
 	$(document).on("submit", "form#new_complication", function(e) {
-
+		
+		const $form = $(this)
+    	const action = $form.attr("action")
+    	const params = $form.serialize()
+    	$.ajax({
+	      url: action,
+	      data: params,
+	      dataType: "json",
+	      method: "POST"
+	  	}).success(function(json) {
+      		debugger
+      	});
 		e.preventDefault()	
 	})
 
