@@ -97,7 +97,7 @@ class WatchesController < ApplicationController
 			if @watch.errors.full_messages.size > 0
 					session[:watch_errors] = @watch.errors.full_messages
 		      render :new
-		  else
+		  	else
 		   		current_user.watches << @watch
 		   		params[:complications][:id].each do |complication|
 						# collection complication
@@ -129,23 +129,25 @@ class WatchesController < ApplicationController
 					session[:watch_errors] = @watch.errors.full_messages
 					watch_result = nil
 		      render :edit
-		  else
+		  	else
 		  		
-		  		@comp = []
+		  		@comp_names = []
+		  		
 		    	params[:complications][:id].each do |c_id|
 						# collection complication
 		   			if c_id.present?
 		   				if !@watch.complications_watches.detect {|cw| cw.complication_id == c_id.to_i}
-			   				@comp << ComplicationsWatch.build_join(@watch, c_id)
+			   				ComplicationsWatch.build_join(@watch, c_id)
+							@comp_names << Complication.find(c_id.to_i).complication_name
 				   		end
 		   			end
 	   			end
 	   			
 	   			respond_to do |format|
 			      format.html { redirect_to watch_path, notice: "The watch was successfully updated!"}
-			      format.json { render :json => @comp}
+			      format.json { render :json => @comp_names}
 			    end
-	    end
+	    	end
 
 		else
 			redirect_to log_in_path, alert: "Please Log In to continue!"
@@ -159,11 +161,11 @@ class WatchesController < ApplicationController
 
 			if @watch
 				watch_name = @watch.watch_name
-	      Watch.delete_watch(@watch)
-	      redirect_to watches_path, notice: "'#{watch_name}' has been deleted!"
-	    else
-	      redirect_to watches_path, alert: "The watch was not found!"
-	    end
+		      	Watch.delete_watch(@watch)
+		      	redirect_to watches_path, notice: "'#{watch_name}' has been deleted!"
+		    else
+		      	redirect_to watches_path, alert: "The watch was not found!"
+		    end
 
 		else
 			redirect_to log_in_path, alert: "Please Log In to continue!"
@@ -218,17 +220,17 @@ class WatchesController < ApplicationController
 	end
 
 	def watch_params
-    # params hash keys
-    params.require(:watch).permit(
-    	:watch_name,
-    	:watch_maker,
-    	:movement,
-    	:band,
-    	:model_number,
-    	:water_resistance,
-    	:date_bought,
-    	complications_attributes: [:complication_name, :complication_description]
+    	# params hash keys
+    	params.require(:watch).permit(
+    		:watch_name,
+    		:watch_maker,
+    		:movement,
+    		:band,
+    		:model_number,
+    		:water_resistance,
+    		:date_bought,
+    		complications_attributes: [:complication_name, :complication_description]
     	)
-  end
+  	end
 
 end
