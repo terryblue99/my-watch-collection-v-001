@@ -137,8 +137,9 @@ class WatchesController < ApplicationController
 						# collection complication
 		   			if c_id.present?
 		   				if !@watch.complications_watches.detect {|cw| cw.complication_id == c_id.to_i}
-			   				ComplicationsWatch.build_join(@watch, c_id)
-							@comp_names << Complication.find(c_id.to_i).complication_name
+			   				ComplicationsWatch.build_join(@watch, c_id)		
+							complication = Complication.find(c_id.to_i)
+							@comp_names.push({id: complication.id, complication_name: complication.complication_name})
 				   		end
 		   			end
 	   			end
