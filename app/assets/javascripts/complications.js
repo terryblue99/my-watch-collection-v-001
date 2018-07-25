@@ -58,6 +58,11 @@ function newComplication(e, action, params) {
 		this.name = attributes.complication_name
 	}
 
+	Complication.prototype.renderComplication = function() {
+
+		
+	}
+
 
 	$.ajax({
       url: action,
@@ -69,6 +74,8 @@ function newComplication(e, action, params) {
   		
   		json.forEach(function(comp){
   			let complication = new Complication(comp)
+  			let complicationData = complication.renderComplication()
+  			// $(".renderComplications").append(complicationData)
   		})	
   	})
   	.error(function(jqxhr, textStatus, error){
