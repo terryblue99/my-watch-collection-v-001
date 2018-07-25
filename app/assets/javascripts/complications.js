@@ -51,7 +51,14 @@ function loadComplications(e, $href, template) {
 }
 
 function newComplication(e, action, params) {
-	debugger
+	
+	function Complication(attributes) {
+
+		this.id = attributes.id
+		this.name = attributes.complication_name
+	}
+
+
 	$.ajax({
       url: action,
       data: params,
@@ -59,7 +66,10 @@ function newComplication(e, action, params) {
       method: "POST"
   	})
   	.success(function(json) {
-  	
+  		
+  		json.forEach(function(comp){
+  			let complication = new Complication(comp)
+  		})	
   	})
   	.error(function(jqxhr, textStatus, error){
 	    showError(jqxhr, textStatus, error)
