@@ -8,7 +8,7 @@
   	<h5><%= link_to "Show Complications", watch_complications_path(watch), :class => "load_complications" %></h5>
 	<h5><%= link_to "Edit this Watch", edit_watch_path %></h5>
 	<h5><%= link_to "Add a new watch", new_watch_path %></h5>
-	<h5><%= link_to 'Delete this watch', watch_path, method: :delete, data: { confirm: 'Are you sure?' } %></h5>
+	<h5><%= link_to 'Delete this watch', watch_path, method: :delete, data: { confirm: 'Are you sure you want to delete this watch?' } %></h5>
 	<h5><a href="javascript:window.location='/'" >Show all of my watches</a></h5>
 	<%= link_to image_tag("http://www.wristcritic.com/wp-content/uploads/2014/09/popular-invicta-watches-2.png", width: 250), root_path %>
 
