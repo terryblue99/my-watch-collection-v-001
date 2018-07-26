@@ -26,7 +26,7 @@ function watchListeners() {
 function pagination(e, $href) {
 	// get watches stored in the database
 	$.getJSON($href)
-	.success(function(json){
+	.done(function(json){
 		// clear the div html's of previous watches data
 	  	$(".watches").html("")
 	  	$(".watches_paginate").html("")
@@ -38,8 +38,9 @@ function pagination(e, $href) {
 		// execute the related js.erb file in the watches view
 		// to set pagination entries (index.js.erb / most_maker.js.erb)
 		$.get($href, null, null, "script")
-	}).error(function(jqxhr, textStatus, error){
-	    showError(jqxhr, textStatus, error)
+	})
+	.fail(function(jqxhr, textStatus, errorThrown){
+	    showError(jqxhr, textStatus, errorThrown)
 	})
 	e.preventDefault()
 }
@@ -49,29 +50,29 @@ function showWatch(e, $href, template) {
 	$(".load_watch").html("")
 	// get a watch stored in the database	
 	$.getJSON($href)
-	.success(function(json) {
+	.done(function(json) {
 		// load watch details via handlebars template
 		$(".load_watch").html(template(json))
 	})
-	.error(function(jqxhr, textStatus, error){
-	    showError(jqxhr, textStatus, error)
+	.fail(function(jqxhr, textStatus, errorThrown){
+	    showError(jqxhr, textStatus, errorThrown)
 	})
 	// $.ajax({
 	// url: $href,
 	// type: "GET",
 	// dataType: "json"
-	// }).sucess(function(json) {
+	// }).done(function(json) {
 	//     // load watch details via handlebars template
 	// 	   $(".load_watch").html(template(json))
-	// }).error(function(jqxhr, textStatus, error){
-	//     showError(jqxhr, textStatus, error)
+	// .fail(function(jqxhr, textStatus, errorThrown){
+	//     showError(jqxhr, textStatus, errorThrown)
 	// })
 	e.preventDefault()
 }
 
-function showError(jqxhr, textStatus, error) {
+function showError(jqxhr, textStatus, errorThrown) {
 
-	let err = textStatus + ', ' + error
+	let err = textStatus + ', ' + errorThrown
 	alert("Request Failed: " + err)	
 }
 
