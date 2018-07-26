@@ -38,16 +38,15 @@ function compListeners() {
 }
 
 function loadComplications(e, $href, template) {
-	debugger
+	
 	$.getJSON($href)
-	.success(function(json) {
+	.done(function(json) {
 		// load watch complications via handlebars template
 		$(".complications").html(template(json))
 	})
-	.error(function(jqxhr, textStatus, error){
-	    showError(jqxhr, textStatus, error)
+	.fail(function(jqxhr, textStatus, errorThrown){
+	    showError(jqxhr, textStatus, errorThrown)
 	})
-	// $.get($href, null, null, "script")
 	e.preventDefault()
 }
 
@@ -61,9 +60,9 @@ function newComplication(e, action, params) {
 	}
 
 	Complication.prototype.renderComplication = function() {
-		debugger
+		
 		html = ""
-		html += `<h5><b><%= link_to "${this.complication_name}", description_path(${this.watch_id}, watch_id: ${this.watch_id}, comp_name: "${this.complication_name}", comp_id: ${this.id}) %></b></h5>`
+		html += `<h5><b><a href="/comlications/${this.watch_id}/description?comp_id=${this.id}&watch_id=${this.watch_id}"> ${this.complication_name} </a></b></h5>`
 		return html
 	}
 
@@ -73,22 +72,31 @@ function newComplication(e, action, params) {
       dataType: "json",
       method: "POST"
   	})
-  	.success(function(json) {
-  		debugger
+  	.done(function(json) {
+  		
   		json.forEach(function(comp){
   			let complication = new Complication(comp)
   			let complicationData = complication.renderComplication()
-  			$(".complications").append(complicationData)
+  			
+  			if ($(".text-danger")[0]){
+  				// no complications on this watch as yet as denoted by a displayed message,
+  				// so remove the message before displaying new complication/s
+  				$(".text-danger")[0].innerText = ""
+			    $(".complications").append(complicationData)
+			} else {		
+			    $(".complications").append(complicationData)
+			}
+  				
   		})	
   	})
-  	.error(function(jqxhr, textStatus, error){
-	    showError(jqxhr, textStatus, error)
+  	.fail(function(jqxhr, textStatus, errorThrown){
+	    showError(jqxhr, textStatus, errorThrown)
 	})
   	e.preventDefault()	
 }
 
-function showError(jqxhr, textStatus, error) {
+function showError(jqxhr, textStatus, errorThrown) {
 
-	let err = textStatus + ', ' + error
+	let err = textStatus + ', ' + errorThrown
 	alert("Request Failed: " + err)
 }
