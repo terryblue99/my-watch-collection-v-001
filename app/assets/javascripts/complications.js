@@ -38,7 +38,7 @@ function compListeners() {
 }
 
 function loadComplications(e, $href, template) {
-
+	debugger
 	$.getJSON($href)
 	.success(function(json) {
 		// load watch complications via handlebars template
@@ -47,6 +47,7 @@ function loadComplications(e, $href, template) {
 	.error(function(jqxhr, textStatus, error){
 	    showError(jqxhr, textStatus, error)
 	})
+	// $.get($href, null, null, "script")
 	e.preventDefault()
 }
 
@@ -55,14 +56,16 @@ function newComplication(e, action, params) {
 	function Complication(attributes) {
 
 		this.id = attributes.id
-		this.name = attributes.complication_name
+		this.complication_name = attributes.complication_name
+		this.watch_id = attributes.watch_id
 	}
 
 	Complication.prototype.renderComplication = function() {
-
-		
+		debugger
+		html = ""
+		html += `<h5><b><%= link_to "${this.complication_name}", description_path(${this.watch_id}, watch_id: ${this.watch_id}, comp_name: "${this.complication_name}", comp_id: ${this.id}) %></b></h5>`
+		return html
 	}
-
 
 	$.ajax({
       url: action,
@@ -71,11 +74,11 @@ function newComplication(e, action, params) {
       method: "POST"
   	})
   	.success(function(json) {
-  		
+  		debugger
   		json.forEach(function(comp){
   			let complication = new Complication(comp)
   			let complicationData = complication.renderComplication()
-  			// $(".renderComplications").append(complicationData)
+  			$(".complications").append(complicationData)
   		})	
   	})
   	.error(function(jqxhr, textStatus, error){
