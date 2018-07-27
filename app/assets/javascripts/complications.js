@@ -47,6 +47,7 @@ function loadComplications(e, $href, template) {
 	.fail(function(jqxhr, textStatus, errorThrown){
 	    showError(jqxhr, textStatus, errorThrown)
 	})
+	$.get($href, null, null, "script")
 	e.preventDefault()
 }
 
