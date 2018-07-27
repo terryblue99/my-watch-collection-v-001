@@ -47,7 +47,10 @@ function loadComplications(e, $href, template) {
 	.fail(function(jqxhr, textStatus, errorThrown){
 	    showError(jqxhr, textStatus, errorThrown)
 	})
+	// execute the show.js.erb file in the watches view
+	// to load the complications form
 	$.get($href, null, null, "script")
+	
 	e.preventDefault()
 }
 
