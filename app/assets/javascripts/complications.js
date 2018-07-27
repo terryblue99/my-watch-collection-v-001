@@ -30,6 +30,7 @@ function compListeners() {
 	$(document).on("submit", "form#new_complication", function(e) {
 		
 		const $form = $(this)
+		debugger
     	const action = $form.attr("action")
     	const params = $form.serialize()
     	newComplication(e, action, params)
@@ -50,12 +51,11 @@ function loadComplications(e, $href, template) {
 	// execute the show.js.erb file in the watches view
 	// to load the complications form
 	$.get($href, null, null, "script")
-	
 	e.preventDefault()
 }
 
 function newComplication(e, action, params) {
-	
+	debugger
 	function Complication(attributes) {
 
 		this.id = attributes.id
@@ -77,21 +77,31 @@ function newComplication(e, action, params) {
       method: "POST"
   	})
   	.done(function(json) {
-  		
-  		json.forEach(function(comp){
-  			let complication = new Complication(comp)
-  			let complicationData = complication.renderComplication()
-  			
-  			if ($(".text-danger")[0]){
-  				// no complications on this watch as yet as denoted by a displayed message,
-  				// so remove the message before displaying new complication/s
-  				$(".text-danger")[0].innerText = ""
-			    $(".complications").append(complicationData)
-			} else {		
-			    $(".complications").append(complicationData)
-			}
-  				
-  		})	
+  		if (json.length > 0) {
+	  		json.forEach(function(comp){
+	  			let complication = new Complication(comp)
+	  			let complicationData = complication.renderComplication()
+	  			
+	  			if ($(".text-danger")[0]){
+	  				// no complications on this watch as yet as denoted by a displayed message,
+	  				// so remove the message before displaying new complication/s
+	  				$(".text-danger")[0].innerText = ""
+				    $(".complications").append(complicationData)
+				} else {
+				debugger		
+				    $(".complications").append(complicationData)
+				}
+				// execute the show.js.erb file in the watches view
+				// to reload the complications form
+				debugger
+	  			$.get($href, null, null, "script")
+	  		})
+	  	} else {
+	  		// Update Watch button clicked and no complication/s selected
+	  		// so execute the show.js.erb file in the watches view
+			// to reload the complications form
+	  		$.get($href, null, null, "script")
+	  	}		
   	})
   	.fail(function(jqxhr, textStatus, errorThrown){
 	    showError(jqxhr, textStatus, errorThrown)
