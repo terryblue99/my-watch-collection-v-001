@@ -22,8 +22,10 @@ class Watch < ApplicationRecord
  	def complications_attributes=(complication_hashes)
 	# Nested fields_for complication
 
-       @@complication_result = nil # Used for capturing any complication validation errors when updating a watch
-
+       @complication_result = "" # Used for capturing new complication record 
+       							 # or any complication validation errors
+       @@comp_result_array = []
+       
        complication_hashes.each do |i, complication_attributes|
        			
     		if complication_attributes[:complication_name].present? || complication_attributes[:complication_description].present?
@@ -31,6 +33,8 @@ class Watch < ApplicationRecord
 	 	   		@complication = Complication.new(complication_name: complication_attributes[:complication_name], complication_description: complication_attributes[:complication_description])
 
 	          	if @complication.save
+
+	          		@@comp_result_array.push("new_complication", @complication)
 
 	       			@join_build = self.complications_watches.build(complication_id: @complication.id)
 	       			@join_build.complication_description = @complication.complication_description
@@ -47,15 +51,16 @@ class Watch < ApplicationRecord
 	              	else
 		                # Capture complication validation errors when updating a watch
 		                # Need this because 'self.complications << @complication' causes app to abort
-		                @@complication_result = ""
 
 		                if @complication.errors.messages[:complication_name].size > 0
-		                   @@complication_result += "Name #{@complication.errors.messages[:complication_name][0]}"
+		                   @complication_result += "Name #{@complication.errors.messages[:complication_name][0]}"
 		                end
 
 		                if @complication.errors.messages[:complication_description].size > 0
-		                   @@complication_result += ", Description #{@complication.errors.messages[:complication_description][0]}"
+		                   @complication_result += ", Description #{@complication.errors.messages[:complication_description][0]}"
 		                end
+
+		                @@comp_result_array.push("errors", @complication_result)
 	            	end
 	            end
 	 		end
@@ -91,9 +96,9 @@ class Watch < ApplicationRecord
 	def self.update_watch(watch, params)
 	  @@watch_create = "no"
 	  watch.update(params)
-	  # Complication validation errors captured
-	  # for a watch update (if any), else == nil
-	  @@complication_result
+	  # Complication record captured if successfully saved
+	  # or complication validation errors captured
+	  @@comp_result_array
 	end
 
  	def self.sort_complications(watch)
