@@ -96,7 +96,7 @@ class Watch < ApplicationRecord
 	def self.update_watch(watch, params)
 	  @@watch_create = "no"
 	  watch.update(params)
-	  # Complication record captured if successfully saved
+	  # new complication record captured if successfully saved
 	  # or complication validation errors captured
 	  @@comp_result_array
 	end
