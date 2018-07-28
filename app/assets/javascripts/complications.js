@@ -30,9 +30,9 @@ function compListeners() {
 	$(document).on("submit", "form#new_complication", function(e) {
 		
 		const $form = $(this)
-		debugger
     	const action = $form.attr("action")
     	const params = $form.serialize()
+    	
     	newComplication(e, action, params)
 	})
 
@@ -55,7 +55,7 @@ function loadComplications(e, $href, template) {
 }
 
 function newComplication(e, action, params) {
-	debugger
+	
 	function Complication(attributes) {
 
 		this.id = attributes.id
@@ -77,6 +77,7 @@ function newComplication(e, action, params) {
       method: "POST"
   	})
   	.done(function(json) {
+  		
   		if (json.length > 0) {
 	  		json.forEach(function(comp){
 	  			let complication = new Complication(comp)
@@ -87,15 +88,14 @@ function newComplication(e, action, params) {
 	  				// so remove the message before displaying new complication/s
 	  				$(".text-danger")[0].innerText = ""
 				    $(".complications").append(complicationData)
-				} else {
-				debugger		
+				} else {			
 				    $(".complications").append(complicationData)
 				}
 				// execute the show.js.erb file in the watches view
 				// to reload the complications form
-				debugger
 	  			$.get($href, null, null, "script")
 	  		})
+
 	  	} else {
 	  		// Update Watch button clicked and no complication/s selected
 	  		// so execute the show.js.erb file in the watches view
