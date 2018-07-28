@@ -1,0 +1,27 @@
+<% if session[:show_complications] %>
+
+	<h4>Complications</h4>
+		
+		<% if @watch.complications.present? %>
+
+			<% if @watch.complications.size > 1 %>
+				<% watch_complications = Watch.sort_complications(@watch) %>	
+			<% else %>	
+				<% watch_complications = @watch.complications %>
+			<% end %>
+
+			<h5 class="text-success">(Click any to see a description)</h5>	
+
+			<% watch_complications.each do |complication| %>
+		
+				<h5><b><%= link_to complication.complication_name, description_path(@watch, watch_id: @watch.id, comp_name: complication.complication_name, comp_id: complication.id) %></b></h5>
+
+			<% end %>
+
+		<% else %>
+			<h5 class="text-danger">There are no complications to display!</h5>
+		<% end %>
+
+	<% session[:show_complications] = nil %>
+		
+<% end %>
