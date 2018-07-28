@@ -27,7 +27,8 @@ class ComplicationsController < ApplicationController
 		    redirect_to description_path(params[:watch_id]), alert: "The watch was not found!"
 	    else
 	    	Watch.delete_join(@watch, params[:comp_id])
-	      redirect_to watch_path(params[:watch_id]), notice: "Complication: '#{params[:comp_name]}' has been deleted!"
+	    	session[:display_complications] = "yes"
+	      	redirect_to watch_path(params[:watch_id]), notice: "Complication: '#{params[:comp_name]}' has been deleted!"
 	    end
 
 		else
