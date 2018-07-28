@@ -90,17 +90,17 @@ function newComplication(e, action, params) {
 				    $(".complications").append(complicationData)
 				} else {			
 				    $(".complications").append(complicationData)
-				}
+				   }
 				// execute the show.js.erb file in the watches view
 				// to reload the complications form
-	  			$.get($href, null, null, "script")
+	  			$.get(action, null, null, "script")
 	  		})
 
 	  	} else {
 	  		// Update Watch button clicked and no complication/s selected
 	  		// so execute the show.js.erb file in the watches view
 			// to reload the complications form
-	  		$.get($href, null, null, "script")
+	  		$.get(action, null, null, "script")
 	  	}		
   	})
   	.fail(function(jqxhr, textStatus, errorThrown){
