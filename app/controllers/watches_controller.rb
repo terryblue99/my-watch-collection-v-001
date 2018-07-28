@@ -118,36 +118,48 @@ class WatchesController < ApplicationController
 	def update
 		
 		if user_signed_in?
-			# watch_result will contain complication validation error message/s, if any
+			# watch_result will contain new complication record or complication validation error message/s
 			watch_result = Watch.update_watch(@watch, watch_params)
-
-			if watch_result != nil
-				@watch.errors[:base] << "Invalid Complication: #{watch_result}"
+			
+			if watch_result[0] == "errors"
+				@watch.errors[:base] << "Invalid Complication: #{watch_result[1]}"
 			end
 
 			if @watch.errors.full_messages.size > 0
 					session[:watch_errors] = @watch.errors.full_messages
-					watch_result = nil
+					watch_result = ""
 		      render :edit
 		  	else
 		  		
 		  		@comp_names = []
 		  		
-		    	params[:complications][:id].each do |c_id|
-						# collection complication
-		   			if c_id.present?
-		   				if !@watch.complications_watches.detect {|cw| cw.complication_id == c_id.to_i}
-			   				ComplicationsWatch.build_join(@watch, c_id)		
-							complication = Complication.find(c_id.to_i)
-							@comp_names.push({id: complication.id, complication_name: complication.complication_name, watch_id: @watch.id})
-				   		end
+		  		if params[:complications][:id].length > 1
+
+			    	params[:complications][:id].each do |c_id|
+						# selected from complication list on form
+			   			if c_id.present?
+			   				if !@watch.complications_watches.detect {|cw| cw.complication_id == c_id.to_i}
+				   				ComplicationsWatch.build_join(@watch, c_id)		
+								complication = Complication.find(c_id.to_i)
+								@comp_names.push({id: complication.id, complication_name: complication.complication_name, watch_id: @watch.id})
+					   		end
+			   			end
 		   			end
-	   			end
+		   		else
+		   		
+		   			if watch_result[0] == "new_complication"
+		   				# new complication name and description entered on form
+		   				@comp_names.push({id: watch_result[1].id, complication_name: watch_result[1].complication_name, watch_id: @watch.id})
+
+		   			end	
+
+		   		end	
 	   			
 	   			respond_to do |format|
 			      format.html { redirect_to watch_path, notice: "The watch was successfully updated!"}
 			      format.json { render :json => @comp_names}
 			    end
+
 	    	end
 
 		else
