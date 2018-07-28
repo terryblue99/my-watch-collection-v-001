@@ -14,22 +14,20 @@
 				<h4><b>One of My Watches</b></h4>
     			<h5><b class="text-success">Watch Name: </b><%= @watch.watch_name %></h5>
 
-
-    			<% if session[:display_complications] == "yes" %>
-
-					<%= render "complications/load_complications" %>
-					<%= render "complications/add_complications_form" %>
-					<% session[:display_complications] = "no" %>
-
-    			<% end %>
-
 				<div class="load_watch">	
 				</div>
-
+			
 				<div class="complications">
+					<% if session[:display_complications] == "yes" %>
+						<%= render "complications/load_complications" %>
+    				<% end %>
 				</div>
 
 				<div class="add_complications_form">
+					<% if session[:display_complications] == "yes" %>
+						<%= render "complications/add_complications_form" %>
+						<% session[:display_complications] = "no" %>
+    				<% end %>
 		    	</div>
 
 			</div>
