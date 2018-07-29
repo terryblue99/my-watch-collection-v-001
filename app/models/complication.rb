@@ -1,5 +1,5 @@
 class Complication < ApplicationRecord
-	has_many :complications_watches
+  has_many :complications_watches
   has_many :watches, through: :complications_watches
 
   validates :complication_name, presence: true
