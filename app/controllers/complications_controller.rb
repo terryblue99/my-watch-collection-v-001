@@ -1,5 +1,4 @@
 class ComplicationsController < ApplicationController
-	before_action :set_session, only: [:show, :description]
 
 	def show
 	# Show the watch complication/s
@@ -44,11 +43,6 @@ class ComplicationsController < ApplicationController
 			redirect_to log_in_path, alert: "Please Log In to continue!"
 		end
 
-	end
-
-	def set_session
-	# Activate the display of the watch complication/s
-		session[:show_complications] = "yes"
 	end
 
 end
