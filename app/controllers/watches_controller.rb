@@ -126,9 +126,9 @@ class WatchesController < ApplicationController
 			end
 
 			if @watch.errors.full_messages.size > 0
-					session[:watch_errors] = @watch.errors.full_messages
-					watch_result = ""
-		      render :edit
+				session[:watch_errors] = @watch.errors.full_messages
+				watch_result = ""
+	      		render :edit
 		  	else
 		  		
 		  		@comp_names = []
