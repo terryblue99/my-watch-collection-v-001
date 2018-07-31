@@ -2,7 +2,7 @@
 
 my_watch_collection  
 
-A Rails CRUD app that allows watch collectors to document their watch collection.  
+A Rails/jQuery CRUD app that allows watch collectors to document their watch collection.  
 
 Installation, Usage & Development  
 
