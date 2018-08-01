@@ -1,10 +1,4 @@
 
-// handlebars greater than helper
-Handlebars.registerHelper('gt', function( a, b ){
-	let next =  arguments[arguments.length-1];
-	return (a > b) ? next.fn(this) : next.inverse(this);
-})
-
 $(function() {
   compListeners();
 })
@@ -42,6 +36,10 @@ function loadComplications(e, $href) {
 	
 	$.getJSON($href)
 	.done(function(json) {
+		// sort the json object on complication name ascending
+		json.complications.sort(function(a, b) {
+		    return sortJson(a.complication_name, b.complication_name)
+		})
 		// load watch complications via handlebars template
 		$(".complications").html(template(json))
 	})
@@ -107,6 +105,14 @@ function newComplication(e, action, params) {
 	    showError(jqxhr, textStatus, errorThrown)
 	})
   	e.preventDefault()	
+}
+
+function sortJson(a, b) {
+  
+  a = a.toLowerCase()
+  b = b.toLowerCase()
+
+  return (a < b) ? -1 : (a > b) ? 1 : 0
 }
 
 function showError(jqxhr, textStatus, errorThrown) {
