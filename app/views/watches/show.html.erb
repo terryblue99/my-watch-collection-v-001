@@ -54,12 +54,6 @@
 		
 		{{#if complications}}
 
-			{{#gt complications.length 1}}
-				<% complications = Watch.sort_complications(@watch) %>	
-			{{else}}	
-				<% complications = @watch.complications %>
-			{{/gt}}
-
 			<h5 class="text-success">(Click any to see a description)</h5>
 
 			{{#each complications}}
