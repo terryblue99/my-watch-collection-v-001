@@ -1,9 +1,9 @@
 			    	
 <%= form_for @watch, :html => {:class => "form-horizontal center", :id => "new_complication"} do |f| %>
 
-	<h4><%= f.label "Add Complication/s: Scroll and select" %></h4>
+	<h4 class="text-success"><%= f.label "Add Complication/s: Scroll and select" %></h4>
 	<h5> Click any to select one from the list </h5>
-	<h6> *OR* </h6>
+	<h6> *<b>OR</b>* </h6>
 	<h5> <b>CMD+Click</b> or <b>CTRL+Click</b> to select/deselect more than one </h5>
 	<%= collection_select(:complications, :id, Complication.order(:complication_name), :id, :complication_name, {}, {:multiple => true}) %>
 
