@@ -1,6 +1,6 @@
 
 $(function() {
-  compListeners();
+  compListeners()
 })
 
 function compListeners() {
