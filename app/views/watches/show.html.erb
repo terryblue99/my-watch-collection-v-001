@@ -50,23 +50,23 @@
 	</script>
 	<script id="complications" type="text/x-handlebars-template">
 	
-		<h4>Complications</h4>
+		<h4>Complications ({{complications.length}})</h4>
 		
 		{{#if complications}}
 
 			{{#gt complications.length 1}}
-				<% watch_complications = Watch.sort_complications(@watch) %>	
+				<% complications = Watch.sort_complications(@watch) %>	
 			{{else}}	
-				<% watch_complications = @watch.complications %>
+				<% complications = @watch.complications %>
 			{{/gt}}
 
-			<h5 class="text-success">(Click any to see a description)</h5>	
+			<h5 class="text-success">(Click any to see a description)</h5>
 
-			<% watch_complications.each do |complication| %>
-				
-				<h5><b><%= link_to complication.complication_name, description_path(@watch, watch_id: @watch.id, comp_name: complication.complication_name, comp_id: complication.id) %></b></h5>
+			{{#each complications}}
 
-			<% end %>
+				<h5><b><a href="/comlications/<%= @watch.id %>/description?comp_id={{id}}&watch_id=<%= @watch.id %>"> {{complication_name}} </a></b></h5>
+
+			{{/each}}
 		
 		{{else}}
 			<h5 class="text-danger">There are no complications to display!</h5>
