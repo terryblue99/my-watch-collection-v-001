@@ -22,7 +22,7 @@ function compListeners() {
 		const $form = $(this)
     	const action = $form.attr("action")
     	const params = $form.serialize()
-    	
+    	debugger
     	newComplication(e, action, params)
 	})
 
@@ -54,11 +54,16 @@ function loadComplications(e, $href) {
 
 function newComplication(e, action, params) {
 	
-	function Complication(attributes) {
+	class Complication {
 
-		this.id = attributes.id
-		this.complication_name = attributes.complication_name
-		this.watch_id = attributes.watch_id
+		constructor(attributes) {
+
+			this.id = attributes.id
+			this.complication_name = attributes.complication_name
+			this.watch_id = attributes.watch_id
+
+		}
+
 	}
 
 	Complication.prototype.renderComplication = function() {
