@@ -22,7 +22,7 @@ function compListeners() {
 		const $form = $(this)
     	const action = $form.attr("action")
     	const params = $form.serialize()
-    	debugger
+    	
     	newComplication(e, action, params)
 	})
 
