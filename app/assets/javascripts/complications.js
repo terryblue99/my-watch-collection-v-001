@@ -36,11 +36,9 @@ function compListeners() {
 
 function loadComplications(e, $href) {
 
-	$(function() {	
-		// handlebar process
-		let templateSource = $("#complications").html()
-		let template = Handlebars.compile(templateSource)
-	})	
+	// handlebar process
+	let templateSource = $("#complications").html()
+	let template = Handlebars.compile(templateSource)
 	
 	$.getJSON($href)
 	.done(function(json) {
@@ -51,6 +49,7 @@ function loadComplications(e, $href) {
 	    showError(jqxhr, textStatus, errorThrown)
 	})
 	// execute the show.js.erb file in the watches view
+	// to load the complications form
 	$.get($href, null, null, "script")
 	e.preventDefault()
 }
@@ -93,12 +92,14 @@ function newComplication(e, action, params) {
 				    $(".complications").append(complicationData)
 				   }
 				// execute the show.js.erb file in the watches view
+				// to reload the complications form
 	  			$.get(action, null, null, "script")
 	  		})
 
 	  	} else {
 	  		// Update Watch button clicked and no complication/s selected
 	  		// so execute the show.js.erb file in the watches view
+	  		// to reload the complications form
 	  		$.get(action, null, null, "script")
 	  	}		
   	})
