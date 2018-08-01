@@ -1,6 +1,6 @@
 
 $(function() {
-  watchListeners();
+  watchListeners()
 })
 
 function watchListeners() {
