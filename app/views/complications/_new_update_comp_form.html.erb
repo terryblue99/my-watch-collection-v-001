@@ -1,0 +1,16 @@
+<!-- Thsi form is hidden (saved for future use) -->
+<%= form_for @watch, :html => {:class => "form-horizontal center", :id => "new_complication"} do |f| %>
+
+	<div id="collection" style="display:none;">
+		<%= collection_select(:complications, :id, Complication.order(:complication_name), :id, :complication_name, {}, {:multiple => true}) %>
+		<%= f.fields_for :complications, Complication.new do |fields| %>
+		    <%= fields.label :complication_name %>
+		    <%=fields.text_field :complication_name %>
+		    <%= fields.label :complication_description %>
+		    <%=fields.text_field :complication_description %>
+		<% end %>
+	</div> 
+	<br>
+	<%= f.submit %>
+
+<% end %>
