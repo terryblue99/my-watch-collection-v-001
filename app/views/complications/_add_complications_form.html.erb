@@ -4,7 +4,7 @@
 	<h4 class="text-success"><%= f.label "Add Complication/s: Scroll and select" %></h4>
 	<h5> Click any to select one from the list </h5>
 	<h6> *<b>OR</b>* </h6>
-	<h5> <b>CMD+Click</b> or <b>CTRL+Click</b> to select/deselect more than one </h5>
+	<h5> <b>CMD+Click</b> or <b>CTRL+Click</b> to select/deselect one or more </h5>
 	<%= collection_select(:complications, :id, Complication.order(:complication_name), :id, :complication_name, {}, {:multiple => true}) %>
 
 	<h4 class="text-success"> Add a New Complication </h4>
