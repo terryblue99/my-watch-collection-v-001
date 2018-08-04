@@ -8,7 +8,11 @@ function compListeners() {
 	$(document).on("click", "a.load_complications", function(e) {	
 	
 		$href = this.href
-		loadComplications(e, $href)
+		// handlebar process
+		let templateSource = $("#complications").html()
+		let template = Handlebars.compile(templateSource)
+
+		loadComplications(e, $href, template)
 	})
 
 	$(document).on("click", "a.back", function(e){
@@ -28,11 +32,7 @@ function compListeners() {
 
 }
 
-function loadComplications(e, $href) {
-
-	// handlebar process
-	let templateSource = $("#complications").html()
-	let template = Handlebars.compile(templateSource)
+function loadComplications(e, $href, template) {
 	
 	$.getJSON($href)
 	.done(function(json) {
