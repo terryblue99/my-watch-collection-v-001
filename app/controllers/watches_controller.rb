@@ -97,16 +97,15 @@ class WatchesController < ApplicationController
 			@watch = Watch.create_watch(watch_params)
 
 			if @watch.errors.full_messages.size > 0
-					session[:watch_errors] = @watch.errors.full_messages
-		      render :new
+				session[:watch_errors] = @watch.errors.full_messages
+		      	render :new
 		  	else
 		   		current_user.watches << @watch
 		   		params[:complications][:id].each do |complication|
-						# collection complication
-			   		if complication.present?
-			   			ComplicationsWatch.build_join(@watch, complication)
-			   		end
-
+					# collection complication
+				   	if complication.present?
+				   		ComplicationsWatch.build_join(@watch, complication)
+				   	end
 			  	end
 		    	redirect_to watch_path(@watch), notice: "The watch was successfully saved!"
 			end
@@ -147,15 +146,21 @@ class WatchesController < ApplicationController
 					   		end
 			   			end
 		   			end
+
+		   			if watch_result[0] == "new_complication"
+		   				# new complication name and description entered on form
+		   				@comp_names.push({id: watch_result[1].id, complication_name: watch_result[1].complication_name, watch_id: @watch.id})
+
+		   			end
+
 		   		else
 		   		
 		   			if watch_result[0] == "new_complication"
 		   				# new complication name and description entered on form
 		   				@comp_names.push({id: watch_result[1].id, complication_name: watch_result[1].complication_name, watch_id: @watch.id})
-
 		   			end	
 
-		   		end	
+		   		end
 	   			
 	   			respond_to do |format|
 			      format.html { redirect_to watch_path, notice: "The watch was successfully updated!"}
