@@ -5,8 +5,7 @@ class Watch < ApplicationRecord
 
 	belongs_to :user
 	has_many :complications_watches
-	# dependent: :destroy will delete the related join record when a watch is deleted
-  	has_many :complications, through: :complications_watches, dependent: :destroy
+  	has_many :complications, through: :complications_watches
   	validates :watch_name, presence: true
  	validates :watch_maker, presence: true
 
@@ -108,9 +107,13 @@ class Watch < ApplicationRecord
   	end
 
   	def self.delete_watch(watch)
-	# Using .destroy together with dependent: :destroy in has_many :complications
-	# which will delete the related join record when a watch is deleted 
      	watch.destroy
+     	# Find and delete all related complications_watch join records
+     	ComplicationsWatch.where([
+		  "watch_id NOT IN (?) OR complication_id NOT IN (?)",
+		  Watch.pluck("id"),
+		  Complication.pluck("id")
+		]).destroy_all
   	end
 
   	def self.delete_join(watch, comp_id)
