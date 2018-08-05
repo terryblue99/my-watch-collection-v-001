@@ -108,6 +108,7 @@ class Watch < ApplicationRecord
 
   	def self.delete_watch(watch)
      	watch.destroy
+     	
      	# Find and delete all related complications_watch join records
      	ComplicationsWatch.where([
 		  "watch_id NOT IN (?) OR complication_id NOT IN (?)",
