@@ -5,7 +5,8 @@ class Watch < ApplicationRecord
 
 	belongs_to :user
 	has_many :complications_watches
-  	has_many :complications, through: :complications_watches
+	# dependent: :destroy will delete join record when watch is deleted
+  	has_many :complications, through: :complications_watches, dependent: :destroy
   	validates :watch_name, presence: true
  	validates :watch_maker, presence: true
 
@@ -107,7 +108,7 @@ class Watch < ApplicationRecord
   	end
 
   	def self.delete_watch(watch)
-     	watch.delete
+     	watch.destroy
   	end
 
   	def self.delete_join(watch, comp_id)
