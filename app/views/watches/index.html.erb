@@ -1,8 +1,20 @@
 
 <body class="container bg-light">
+	
+	<% if session[:change_page_size?] %>
+		
+		<script language="javascript" type="text/javascript">
+	     	javascript:window.location='/'
+	 	</script>
 
-	<%= render "index_links" %>
+		<% session[:change_page_size?] = nil %>
 
-	<%= render "show_watches" %>
+	<% else %>
+	
+		<%= render "index_links" %>
+
+		<%= render "show_watches" %>	
+
+	<% end %>
 	
 </body>
