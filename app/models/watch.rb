@@ -108,7 +108,6 @@ class Watch < ApplicationRecord
 
   	def self.delete_watch(watch)
      	watch.destroy
-     	binding.pry
      	# Delete any related complications_watch join records
      	watch.complications.delete_all
      	# Find and delete all related complications_watch join records
