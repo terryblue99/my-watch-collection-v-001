@@ -102,19 +102,21 @@ class Watch < ApplicationRecord
 	end
 
  	def self.sort_complications(watch)
-	# Initiated by app/views/watches/_show_watch.html.erb
+	# Initiated by app/views/complications/_load_complications.html.erb
      	watch_complications_sorted = watch.complications.sort_by(&:complication_name)
   	end
 
   	def self.delete_watch(watch)
      	watch.destroy
-     	
+     	binding.pry
+     	# Delete any related complications_watch join records
+     	watch.complications.delete_all
      	# Find and delete all related complications_watch join records
-     	ComplicationsWatch.where([
-		  "watch_id NOT IN (?) OR complication_id NOT IN (?)",
-		  Watch.pluck("id"),
-		  Complication.pluck("id")
-		]).destroy_all
+      	# ComplicationsWatch.where([
+		#   "watch_id NOT IN (?) OR complication_id NOT IN (?)",
+		#   Watch.pluck("id"),
+		#   Complication.pluck("id")
+		# ]).destroy_all
   	end
 
   	def self.delete_join(watch, comp_id)
