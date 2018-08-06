@@ -108,6 +108,10 @@ function newComplication(e, action, params) {
   	})
   	.fail(function(jqxhr, textStatus, errorThrown){
 	    showError(jqxhr, textStatus, errorThrown)
+	    alert("Check if the complication already exists in the list!")
+	    // execute the show.js.erb file in the watches view
+		// to reload the complications form
+	    $.get(action, null, null, "script")
 	})
   	e.preventDefault()	
 }
