@@ -42,6 +42,8 @@ class WatchesController < ApplicationController
 	def rows
 	# Initiated when user selects how many watches to display on each page
 
+		session[:change_page_size?] = "yes"
+
 	  	if user_signed_in?
 
 	  	  if session[:most_maker]
