@@ -41,7 +41,9 @@
           <%= f.text_field :water_resistance %><br>
           <%= f.label :date_bought %><br>
           <%= f.text_field :date_bought %><br>
-
+          
+          <!-- This partial form is hidden (saved for future use) -->
+          <!-- but needs to be processed by the application -->
           <%= render partial: "complications/new_update_comp_form", locals: {field: f} %>
 
         </div>
