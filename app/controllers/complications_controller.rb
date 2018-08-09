@@ -17,7 +17,7 @@ class ComplicationsController < ApplicationController
 
 	def destroy
 	# Delete the complications_watches join record
-
+		binding.pry
 		if user_signed_in?
 
 			@watch = Watch.find_watch(params[:watch_id])
@@ -36,7 +36,7 @@ class ComplicationsController < ApplicationController
 		    	end
 
 		    	session[:display_complications] = "yes"
-		      	redirect_to watch_path(params[:watch_id]), notice: "Complication: '#{comp_name}' has been deleted!"
+		      	redirect_to watch_path(params[:watch_id]), notice: "Complication: '#{comp_name}' has been deleted from the watch!"
 		    end
 
 		else
@@ -45,4 +45,16 @@ class ComplicationsController < ApplicationController
 
 	end
 
+	def delete_list_comp
+		# Delete a complication from the complications list
+		comp = Complication.find_by_id(params[:comp_id])
+		comp_name = comp.complication_name
+		comp.destroy
+		session[:display_complications] = "yes"
+		redirect_to watch_path(params[:id]), notice: "Complication: '#{comp_name}' has been deleted from the list!"
+	end
+
 end
+
+
+
