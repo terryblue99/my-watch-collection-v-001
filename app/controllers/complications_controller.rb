@@ -47,6 +47,7 @@ class ComplicationsController < ApplicationController
 
 	def delete_list_comp
 		# Delete a complication from the complications list
+		# Will also delete ALL related complications_watches join records 
 		comp = Complication.find_by_id(params[:comp_id])
 		comp_name = comp.complication_name
 		comp.destroy
