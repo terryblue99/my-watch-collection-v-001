@@ -69,7 +69,7 @@ function newComplication(e, action, params) {
 	Complication.prototype.renderComplication = function() {
 		
 		html = ""
-		html += `<h5><b><a href="/comlications/${this.watch_id}/description?comp_id=${this.id}&watch_id=${this.watch_id}"> ${this.complication_name} </a></b></h5>`
+		html += `<h5><b><a href="/complications/${this.watch_id}/description?comp_id=${this.id}&watch_id=${this.watch_id}"> ${this.complication_name} </a></b></h5>`
 		return html
 	}
 
