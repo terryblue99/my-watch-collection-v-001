@@ -5,7 +5,7 @@
 
 	<h4 class="text-success"><%= @description %></h4><br>
 
-	<h5><%= link_to 'Delete this complication from the watch', watch_complications_path(params[:id], comp_id: @comp_id, comp_name: @comp_name), method: :delete, data: { confirm: 'Are you sure you want to delete this complication from the watch?' } %></h5>
+	<h5><%= link_to 'Delete this complication from the watch', watch_complications_path(params[:id], comp_id: @comp_id, comp_name: @comp_name), method: :delete, data: { confirm: 'Are you sure you want to delete this complication from the watch?' } %></h5><br>
 	
 	<h5>The following link will also delete the complication from ALL watches!</h5>
 	<h5 class="list_delete_color"><%= link_to 'Delete this complication from the list', delete_list_comp_path(params[:id], comp_id: @comp_id, comp_name: @comp_name), method: :delete_comp, data: { confirm: "Are you sure you want to delete this complication from the list?\nALL watches will lose this complication!!!" } %></h5>
