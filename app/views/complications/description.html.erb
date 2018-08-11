@@ -1,7 +1,7 @@
 
 <body class="container bg-light text-center">
 
-	<h3><%= @comp_name %></h3>
+	<h3><%= Complication.find_by_id(params[:comp_id]).complication_name %></h3>
 
 	<h4 class="text-success"><%= @description %></h4>
 
