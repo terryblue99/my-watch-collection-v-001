@@ -15,6 +15,10 @@
  */
 
  /* Needed if text wrapped in a div and misaligned on error display (ADDED) */
-  .field_with_errors {
-     display: inline;
-  {
+ .list_delete_color:hover a{
+	 color: #FF0000;
+  }
+
+ .field_with_errors {
+  display: inline;
+ {
