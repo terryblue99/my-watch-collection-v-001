@@ -17,7 +17,7 @@ class ComplicationsController < ApplicationController
 
 	def destroy
 	# Delete the complications_watches join record
-		binding.pry
+		
 		if user_signed_in?
 
 			@watch = Watch.find_watch(params[:watch_id])
