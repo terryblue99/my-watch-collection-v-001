@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171118195021) do
+ActiveRecord::Schema.define(version: 20180812211513) do
 
   create_table "complications", force: :cascade do |t|
     t.string   "complication_name"
@@ -58,8 +58,12 @@ ActiveRecord::Schema.define(version: 20171118195021) do
     t.string   "water_resistance"
     t.string   "date_bought"
     t.integer  "user_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "watch_image_file_name"
+    t.string   "watch_image_content_type"
+    t.bigint   "watch_image_file_size"
+    t.datetime "watch_image_updated_at"
   end
 
 end
