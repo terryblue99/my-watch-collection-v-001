@@ -8,6 +8,11 @@ class Watch < ApplicationRecord
   	has_many :complications, through: :complications_watches
   	validates :watch_name, presence: true
  	validates :watch_maker, presence: true
+ 	# Wire up the model to use Paperclip's has_attached_file method
+ 	has_attached_file :watch_image
+ 	# Provided by Paperclip, and ensures that we get an image file when we expect one
+  	validates_attachment_content_type :watch_image, content_type: /\Aimage\/.*\z/
+
 
   	validate do |watch|
 	    watch.complications.each do |complication|
