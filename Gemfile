@@ -48,6 +48,7 @@ gem 'will_paginate', '~> 3.1.1'
 gem 'will_paginate-bootstrap'
 gem 'api-pagination'
 gem 'sprockets', '~> 3.7.2'
+gem "paperclip"
 
 group :test, :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
