@@ -1,5 +1,5 @@
 
-<%= form_for this_watch, :html => {:class => "form-horizontal center"} do |f| %>
+<%= form_for this_watch, :html => {:class => "form-horizontal center", multipart: true} do |f| %>
 
   <body class="container bg-light">
     <div class="row">
@@ -41,6 +41,8 @@
           <%= f.text_field :water_resistance %><br>
           <%= f.label :date_bought %><br>
           <%= f.text_field :date_bought %><br>
+          <%= f.label :watch_image %><br>
+          <%= f.file_field :watch_image %><br>
           
           <!-- This partial form is hidden (saved for future use) -->
           <!-- but needs to be processed by the application -->
