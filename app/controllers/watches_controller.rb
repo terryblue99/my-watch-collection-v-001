@@ -252,6 +252,7 @@ class WatchesController < ApplicationController
     		:model_number,
     		:water_resistance,
     		:date_bought,
+    		:watch_image,
     		complications_attributes: [:complication_name, :complication_description]
     	)
   	end
