@@ -1,7 +1,7 @@
 class Watch < ApplicationRecord
 
-	require 'will_paginate'
-	require 'will_paginate/array'
+	require "will_paginate"
+	require "will_paginate/array"
 
 	belongs_to :user
 	has_many :complications_watches
@@ -9,7 +9,7 @@ class Watch < ApplicationRecord
   	validates :watch_name, presence: true
  	validates :watch_maker, presence: true
  	# Wire up the model to use Paperclip's has_attached_file method
- 	has_attached_file :watch_image
+ 	has_attached_file :watch_image, default_url: ":style/default.png", styles: { original: "250x250" }
  	# Provided by Paperclip, and ensures that we get an image file when we expect one
   	validates_attachment_content_type :watch_image, content_type: /\Aimage\/.*\z/
 
