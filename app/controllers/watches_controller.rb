@@ -100,7 +100,7 @@ class WatchesController < ApplicationController
 	def create
 
 		if user_signed_in?
-			binding.pry
+			
 			@watch = Watch.create_watch(watch_params)
 
 			if @watch.errors.full_messages.size > 0
