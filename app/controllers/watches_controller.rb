@@ -197,7 +197,7 @@ class WatchesController < ApplicationController
 	end
 
 	def find_maker
-	# Find a maker and their watches
+	# Find a maker and allof their watches
 		
 		if current_user.watches.size > 2
 
