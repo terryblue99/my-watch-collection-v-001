@@ -196,6 +196,38 @@ class WatchesController < ApplicationController
 
 	end
 
+	def find_maker
+	# Find a maker and their watches
+		
+		if current_user.watches.size > 2
+
+			session[:find_maker] = "yes"
+			find_maker_array = Watch.find_maker(current_user)
+			@watches_for_display = find_maker_array.size
+			# Selection made of how many watches to display on each page
+		  	if session[:maker_rows]
+		  		# selected by user
+		    	@watches = find_maker_array.paginate(:page => params[:page], :per_page => session[:maker_rows])
+		  	else
+		  		# Default
+		    	@watches = find_maker_array.paginate(:page => params[:page], :per_page => session[:watches_on_page])
+		  	end
+		  	
+		  	respond_to do |format|
+		      format.html { render 'find_maker.html'}
+		      format.json { render :json => @watches}
+		      format.js
+		    end
+
+		else
+
+			@watches = current_user.watches
+			@watches_for_display = current_user.watches.size
+
+		end
+
+	end
+
 	def most_maker
 	# Find the maker of most of the watches and display them
 		
