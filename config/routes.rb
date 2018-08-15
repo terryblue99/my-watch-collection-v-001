@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
 	  get 'watches/:id/rows', to: 'watches#rows', as: 'rows'
 	  get '/watches/:id/most_maker', to: 'watches#most_maker', as: 'most_maker'
-	  get '/watches/:id/find_watch', to: 'watches#find_watch', as: 'find_watch'
+	  get '/watches/:id/search_watches', to: 'watches#search_watches', as: 'search_watches'
 	  get '/watches/:id/find_maker', to: 'watches#find_maker', as: 'find_maker'
 
 	  get '/watches/:id/newest_watches', to: 'watches#newest_watches', as: 'newest_watches'
