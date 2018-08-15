@@ -33,7 +33,7 @@ function compListeners() {
 }
 
 function loadComplications(e, $href, template) {
-	
+	// get the complications, returned as a json object
 	$.getJSON($href)
 	.done(function(json) {
 		// sort the json object on complication name ascending
@@ -53,7 +53,7 @@ function loadComplications(e, $href, template) {
 }
 
 function newComplication(e, action, params) {
-	
+	// Complication prototype
 	class Complication {
 
 		constructor(attributes) {
@@ -65,9 +65,9 @@ function newComplication(e, action, params) {
 		}
 
 	}
-
+	// function attached to the Complication prototype
 	Complication.prototype.renderComplication = function() {
-		
+		// format the complication data
 		html = ""
 		html += `<h5><b><a href="/complications/${this.watch_id}/description?comp_id=${this.id}&watch_id=${this.watch_id}"> ${this.complication_name} </a></b></h5>`
 		return html
@@ -87,8 +87,8 @@ function newComplication(e, action, params) {
 	  			let complicationData = complication.renderComplication()
 	  			
 	  			if ($(".text-danger")[0]){
-	  				// no complications on this watch as yet as denoted by a displayed message,
-	  				// so remove the message before displaying new complication/s
+	  				// no complications on this watch as yet, as denoted by a displayed message,
+	  				// so remove the message before displaying the new complication/s
 	  				$(".text-danger")[0].innerText = ""
 				    $(".complications").append(complicationData)
 				} else {			
