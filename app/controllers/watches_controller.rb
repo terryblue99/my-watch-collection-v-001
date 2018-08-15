@@ -201,6 +201,24 @@ class WatchesController < ApplicationController
 
 	end
 
+	def search_watches
+	# search for watch/watches matching search criteria
+		
+		if current_user.watches.size > 2
+			
+			session[:search_watches] = "yes"
+			@watches = Watch.search_watches(current_user, params[:watch])
+			@watches_for_display = @watches.size
+
+		else
+
+			@watches = current_user.watches
+			@watches_for_display = current_user.watches.size
+
+		end
+
+	end
+
 	def find_maker
 	# Find a maker and all of their watches
 
