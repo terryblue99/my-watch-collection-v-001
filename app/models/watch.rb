@@ -74,7 +74,7 @@ class Watch < ApplicationRecord
 
  	def self.find_maker(current_user, maker)
   	# Find a maker and their watches
-		find_maker_array = current_user.watches.select { |w| w.watch_maker == maker }
+		find_maker_array = current_user.watches.select { |w| w.watch_maker.downcase == maker.downcase }
 		# sorts by watch name ascending
 		find_maker_array = find_maker_array.sort_by(&:watch_name)
 
