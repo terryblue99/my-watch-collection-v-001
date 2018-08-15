@@ -46,7 +46,12 @@ class WatchesController < ApplicationController
 
 	  	if user_signed_in?
 
-	  	  if session[:most_maker]
+
+	  	  if session[:find_maker]
+	  	  	# Find a maker and their watches
+	      	session[:maker_rows] = params[:rows]
+	      	redirect_to find_maker_path
+	  	  elsif session[:most_maker]
 	  	  	# Maker of most of the watches and the watches
 	      	session[:maker_rows] = params[:rows]
 	      	redirect_to most_maker_path
@@ -197,12 +202,12 @@ class WatchesController < ApplicationController
 	end
 
 	def find_maker
-	# Find a maker and allof their watches
+	# Find a maker and all of their watches
 		
 		if current_user.watches.size > 2
 
 			session[:find_maker] = "yes"
-			find_maker_array = Watch.find_maker(current_user)
+			find_maker_array = Watch.find_maker(current_user, params[:maker])
 			@watches_for_display = find_maker_array.size
 			# Selection made of how many watches to display on each page
 		  	if session[:maker_rows]
