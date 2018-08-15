@@ -10,13 +10,13 @@ class WatchesController < ApplicationController
 
 			if @user
 
-				session[:watches_on_page] ||= 16
-				
+				session[:watches_on_page] ||= 16			
 			    @watches_for_display = @user.watches.size
 			    session[:find_maker] = nil
 			    session[:most_maker] = nil
-			    # Selection made of how many watches to display on each page
+			    
 			  	if session[:rows]
+			  	# Selection made of how many watches to display on each page
 			  		# selected by user
 			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => session[:rows]).order(:watch_maker, :watch_name)
 			  	else
@@ -46,7 +46,6 @@ class WatchesController < ApplicationController
 		session[:change_page_size?] = "yes"
 
 	  	if user_signed_in?
-
 
 	  	  if session[:find_maker]
 	  	  	# Find a maker and their watches
@@ -101,7 +100,7 @@ class WatchesController < ApplicationController
 	def create
 
 		if user_signed_in?
-
+			binding.pry
 			@watch = Watch.create_watch(watch_params)
 
 			if @watch.errors.full_messages.size > 0
