@@ -100,7 +100,7 @@ class WatchesController < ApplicationController
 	def create
 
 		if user_signed_in?
-			
+
 			@watch = Watch.create_watch(watch_params)
 
 			if @watch.errors.full_messages.size > 0
@@ -109,7 +109,6 @@ class WatchesController < ApplicationController
 		  	else
 		   		current_user.watches << @watch
 		   		params[:complications][:id].each do |complication|
-					# collection complication
 				   	if complication.present?
 				   		ComplicationsWatch.build_join(@watch, complication)
 				   	end
@@ -147,6 +146,7 @@ class WatchesController < ApplicationController
 						# selected from complication list on form
 			   			if c_id.present?
 			   				if !@watch.complications_watches.detect {|cw| cw.complication_id == c_id.to_i}
+			   					# build the complications_watches join record if one doesn't already exist
 				   				ComplicationsWatch.build_join(@watch, c_id)		
 								complication = Complication.find(c_id.to_i)
 								@comp_names.push({id: complication.id, complication_name: complication.complication_name, watch_id: @watch.id})
