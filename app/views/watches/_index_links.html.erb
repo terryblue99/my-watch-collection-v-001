@@ -12,7 +12,7 @@
 
   <h4><b>Find a Watch</b></h4>
 
-  <%= form_tag find_watch_path(current_user), method: :get do %>
+  <%= form_tag search_watches_path(current_user), method: :get do %>
       <%= label_tag(:watch, "Search for:") %>
     <%= text_field_tag(:watch) %><br>
     <%= submit_tag("Search") %>
