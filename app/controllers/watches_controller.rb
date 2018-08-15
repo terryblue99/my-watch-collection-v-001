@@ -13,6 +13,7 @@ class WatchesController < ApplicationController
 				session[:watches_on_page] ||= 16
 				
 			    @watches_for_display = @user.watches.size
+			    session[:find_maker] = nil
 			    session[:most_maker] = nil
 			    # Selection made of how many watches to display on each page
 			  	if session[:rows]
@@ -261,6 +262,7 @@ class WatchesController < ApplicationController
 		if current_user.watches.size > 2
 
 			session[:most_maker] = "yes"
+			session[:find_maker] = nil
 			most_maker_array = Watch.retrieve_most_maker(current_user)
 			@watches_for_display = most_maker_array.size
 			# Selection made of how many watches to display on each page
