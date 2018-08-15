@@ -203,19 +203,10 @@ class WatchesController < ApplicationController
 
 	def search_watches
 	# search for watch/watches matching search criteria
-		
-		if current_user.watches.size > 2
 			
-			session[:search_watches] = "yes"
-			@watches = Watch.search_watches(current_user, params[:watch])
-			@watches_for_display = @watches.size
-
-		else
-
-			@watches = current_user.watches
-			@watches_for_display = current_user.watches.size
-
-		end
+		session[:search_watches] = "yes"
+		@watches = Watch.search_watches(current_user, params[:watch])
+		@watches_for_display = @watches.size
 
 	end
 
@@ -225,33 +216,24 @@ class WatchesController < ApplicationController
 		if params[:maker]
 			session[:maker_param] = params[:maker]
 		end	
-		
-		if current_user.watches.size > 2
 			
-			session[:find_maker] = "yes"
-			find_maker_array = Watch.find_maker(current_user, session[:maker_param])
-			@watches_for_display = find_maker_array.size
-			# Selection made of how many watches to display on each page
-		  	if session[:maker_rows]
-		  		# selected by user
-		    	@watches = find_maker_array.paginate(:page => params[:page], :per_page => session[:maker_rows])
-		  	else
-		  		# Default
-		    	@watches = find_maker_array.paginate(:page => params[:page], :per_page => session[:watches_on_page])
-		  	end
-		  	
-		  	respond_to do |format|
-		      format.html { render 'find_maker.html'}
-		      format.json { render :json => @watches}
-		      format.js
-		    end
-
-		else
-
-			@watches = current_user.watches
-			@watches_for_display = current_user.watches.size
-
-		end
+		session[:find_maker] = "yes"
+		find_maker_array = Watch.find_maker(current_user, session[:maker_param])
+		@watches_for_display = find_maker_array.size
+		# Selection made of how many watches to display on each page
+	  	if session[:maker_rows]
+	  		# selected by user
+	    	@watches = find_maker_array.paginate(:page => params[:page], :per_page => session[:maker_rows])
+	  	else
+	  		# Default
+	    	@watches = find_maker_array.paginate(:page => params[:page], :per_page => session[:watches_on_page])
+	  	end
+	  	
+	  	respond_to do |format|
+	      format.html { render 'find_maker.html'}
+	      format.json { render :json => @watches}
+	      format.js
+	    end
 
 	end
 
