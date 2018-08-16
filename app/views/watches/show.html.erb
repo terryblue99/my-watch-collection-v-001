@@ -18,17 +18,17 @@
 				</div>
 			
 				<div class="complications">
-					<% if session[:display_complications] == "yes" %> 
+					<% if session[:display_complications] %> 
 					<!-- set when complication description deleted -->
 						<%= render "complications/load_complications" %>
     				<% end %>
 				</div>
 
 				<div class="add_complications_form">
-					<% if session[:display_complications] == "yes" %>
+					<% if session[:display_complications] %>
 					<!-- set when complication description deleted -->
 						<%= render "complications/add_complications_form" %>
-						<% session[:display_complications] = "no" %>
+						<% session[:display_complications] = nil %>
     				<% end %>
 		    	</div>
 
