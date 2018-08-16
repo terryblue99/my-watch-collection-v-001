@@ -219,6 +219,7 @@ class WatchesController < ApplicationController
 			
 		# Set number of watches displayed on each page 
 		session[:find_maker] = "yes"
+		session[:most_maker] = nil
 		find_maker_array = Watch.find_maker(current_user, session[:maker_param])
 		@watches_for_display = find_maker_array.size
 		@session_rows = session[:maker_rows]
