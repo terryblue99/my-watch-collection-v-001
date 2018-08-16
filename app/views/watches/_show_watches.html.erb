@@ -10,11 +10,9 @@
 		    <% elsif %>
 				<% session[:find_maker] %>
 		    	<h4 style="text-indent: 4em;">One of My Watch Makers [<%= @watches_for_display %>]</h4>
-		    	<% session[:find_maker] = nil %>
 		    <% elsif %>
 				<% session[:most_maker] %>
 		    	<h4 style="text-indent: 4em;">The Maker of Most of My Watches [<%= @watches_for_display %>]</h4>
-		    	<% session[:most_maker] = nil %>
 		    <% elsif %>
 				<% session[:newest_watches] %>
 		    	<h4 style="text-indent: 4em;">My 10 Newest Watches</h4>
