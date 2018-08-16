@@ -15,6 +15,14 @@ function compListeners() {
 		loadComplications(e, $href, template)
 	})
 
+	$(document).on("click", "a.complications_form", function(e) {
+	
+		// execute the show.js.erb file in the watches view
+		// to load the complications form
+		$.get(this.href, null, null, "script")
+		e.preventDefault()
+	})
+
 	$(document).on("click", "a.back", function(e){
 		// navigate to previous page when 'back' link clicked
 		parent.history.back()
