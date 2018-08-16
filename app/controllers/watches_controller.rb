@@ -10,7 +10,9 @@ class WatchesController < ApplicationController
 
 			if @user
 
-				session[:watches_on_page] ||= 16			
+				# Set watches per page default if not already set
+				session[:watches_on_page] ||= 16
+
 			    @watches_for_display = @user.watches.size
 			    session[:search_watches] = nil
 				session[:find_maker] = nil
