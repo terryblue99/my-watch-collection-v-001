@@ -6,7 +6,6 @@
 			
 			<% if session[:search_watches] %>
 		    	<h4 style="text-indent: 4em;">Watch/es Found [<%= @watches_for_display %>]</h4>
-		    	<% session[:search_watches] = nil %>
 		    <% elsif %>
 				<% session[:find_maker] %>
 		    	<h4 style="text-indent: 4em;">One of My Watch Makers [<%= @watches_for_display %>]</h4>
@@ -16,7 +15,6 @@
 		    <% elsif %>
 				<% session[:newest_watches] %>
 		    	<h4 style="text-indent: 4em;">My 10 Newest Watches</h4>
-		    	<% session[:newest_watches] = nil %>
 		    <% else %>
 		    	<h4 style="text-indent: 4em;">All of My Watches [<%= @watches_for_display %>]</h4>
 		    <% end %>
