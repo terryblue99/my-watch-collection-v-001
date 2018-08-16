@@ -12,8 +12,10 @@ class WatchesController < ApplicationController
 
 				session[:watches_on_page] ||= 16			
 			    @watches_for_display = @user.watches.size
-			    session[:find_maker] = nil
-			    session[:most_maker] = nil
+			    session[:search_watches] = nil
+				session[:find_maker] = nil
+				session[:most_maker] = nil
+				session[:newest_watches] = nil
 
 			    if session[:rows]
 			  	# Selection made of how many watches to display on each page
@@ -205,6 +207,9 @@ class WatchesController < ApplicationController
 	# search for watch/watches matching search criteria
 			
 		session[:search_watches] = "yes"
+		session[:find_maker] = nil
+		session[:most_maker] = nil
+		session[:newest_watches] = nil
 		@watches = Watch.search_watches(current_user, params[:watch])
 		@watches_for_display = @watches.size
 
@@ -219,7 +224,9 @@ class WatchesController < ApplicationController
 			
 		# Set number of watches displayed on each page 
 		session[:find_maker] = "yes"
+		session[:search_watches] = nil
 		session[:most_maker] = nil
+		session[:newest_watches] = nil
 		find_maker_array = Watch.find_maker(current_user, session[:maker_param])
 		@watches_for_display = find_maker_array.size
 		@session_rows = session[:maker_rows]
@@ -241,7 +248,9 @@ class WatchesController < ApplicationController
 
 			# Set number of watches displayed on each page
 			session[:most_maker] = "yes"
+			session[:search_watches] = nil
 			session[:find_maker] = nil
+			session[:newest_watches] = nil
 			most_maker_array = Watch.retrieve_most_maker(current_user)
 			@watches_for_display = most_maker_array.size
 			@session_rows = session[:maker_rows]
@@ -266,6 +275,9 @@ class WatchesController < ApplicationController
 	def newest_watches
   
     	session[:newest_watches] = "yes"
+    	session[:search_watches] = nil
+    	session[:find_maker] = nil
+    	session[:most_maker] = nil
 		@watches = Watch.retrieve_newest_watches(current_user)
 		@watches_for_display = @watches.size
 
