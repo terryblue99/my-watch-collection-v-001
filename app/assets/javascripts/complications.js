@@ -6,7 +6,7 @@ $(function() {
 function compListeners() {
 
 	$(document).on("click", "a.load_complications", function(e) {	
-	
+		$(this).css("color", "red")
 		$href = this.href
 		// handlebar process
 		let templateSource = $("#complications").html()
@@ -16,7 +16,7 @@ function compListeners() {
 	})
 
 	$(document).on("click", "a.complications_form", function(e) {
-	
+		$(this).css("color", "red")
 		$href = this.href
 		// handlebar process
 		let templateSource = $("#complications").html()
