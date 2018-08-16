@@ -14,8 +14,8 @@ class WatchesController < ApplicationController
 			    @watches_for_display = @user.watches.size
 			    session[:find_maker] = nil
 			    session[:most_maker] = nil
-			    
-			  	if session[:rows]
+
+			    if session[:rows]
 			  	# Selection made of how many watches to display on each page
 			  		# selected by user
 			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => session[:rows]).order(:watch_maker, :watch_name)
@@ -23,7 +23,7 @@ class WatchesController < ApplicationController
 			  		# Default
 			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => session[:watches_on_page]).order(:watch_maker, :watch_name)
 			  	end
-
+			  	
 		    	respond_to do |format|
 			      format.html { render 'index.html'}
 			      format.json { render :json => @watches}
@@ -217,17 +217,13 @@ class WatchesController < ApplicationController
 			session[:maker_param] = params[:maker]
 		end	
 			
+		# Set number of watches displayed on each page 
 		session[:find_maker] = "yes"
 		find_maker_array = Watch.find_maker(current_user, session[:maker_param])
 		@watches_for_display = find_maker_array.size
-		# Selection made of how many watches to display on each page
-	  	if session[:maker_rows]
-	  		# selected by user
-	    	@watches = find_maker_array.paginate(:page => params[:page], :per_page => session[:maker_rows])
-	  	else
-	  		# Default
-	    	@watches = find_maker_array.paginate(:page => params[:page], :per_page => session[:watches_on_page])
-	  	end
+		@session_rows = session[:maker_rows]
+	    @watches_array = find_maker_array
+	    paginate
 	  	
 	  	respond_to do |format|
 	      format.html { render 'find_maker.html'}
@@ -242,18 +238,14 @@ class WatchesController < ApplicationController
 		
 		if current_user.watches.size > 2
 
+			# Set number of watches displayed on each page
 			session[:most_maker] = "yes"
 			session[:find_maker] = nil
 			most_maker_array = Watch.retrieve_most_maker(current_user)
 			@watches_for_display = most_maker_array.size
-			# Selection made of how many watches to display on each page
-		  	if session[:maker_rows]
-		  		# selected by user
-		    	@watches = most_maker_array.paginate(:page => params[:page], :per_page => session[:maker_rows])
-		  	else
-		  		# Default
-		    	@watches = most_maker_array.paginate(:page => params[:page], :per_page => session[:watches_on_page])
-		  	end
+			@session_rows = session[:maker_rows]
+		    @watches_array = most_maker_array
+		    paginate
 		  	
 		  	respond_to do |format|
 		      format.html { render 'most_maker.html'}
@@ -298,5 +290,18 @@ class WatchesController < ApplicationController
     		complications_attributes: [:complication_name, :complication_description]
     	)
   	end
+
+  	def paginate
+  		
+  		if @session_rows
+	  	# Selection made of how many watches to display on each page
+	  		# selected by user
+	    	@watches = @watches_array.paginate(:page => params[:page], :per_page => session[:maker_rows])
+	  	else
+	  		# Default
+	    	@watches = @watches_array.paginate(:page => params[:page], :per_page => session[:watches_on_page])
+	  	end
+
+  	end	
 
 end
