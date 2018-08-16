@@ -12,7 +12,7 @@ function watchListeners() {
 	})
 
 	$(document).on("click", "a.show_watch", function(e) {	
-
+		$(this).css("color", "red")
 		$href = this.href
 		// handlebar process
 		let templateSource = $("#watch-template").html()
