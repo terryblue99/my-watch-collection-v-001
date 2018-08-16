@@ -17,9 +17,15 @@ function compListeners() {
 
 	$(document).on("click", "a.complications_form", function(e) {
 	
+		$href = this.href
+		// handlebar process
+		let templateSource = $("#complications").html()
+		let template = Handlebars.compile(templateSource)
+		
+		loadComplications(e, $href, template)
 		// execute the show.js.erb file in the watches view
 		// to load the complications form
-		$.get(this.href, null, null, "script")
+		$.get($href, null, null, "script")
 		e.preventDefault()
 	})
 
@@ -54,9 +60,6 @@ function loadComplications(e, $href, template) {
 	.fail(function(jqxhr, textStatus, errorThrown){
 	    showError(jqxhr, textStatus, errorThrown)
 	})
-	// execute the show.js.erb file in the watches view
-	// to load the complications form
-	$.get($href, null, null, "script")
 	e.preventDefault()
 }
 
