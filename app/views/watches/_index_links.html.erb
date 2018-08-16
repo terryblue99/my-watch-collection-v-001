@@ -6,12 +6,12 @@
   <h5><a href="javascript:window.location='/'" >Show all of my watches</a></h5>
   <h5><%= link_to "Who makes most of my watches?", most_maker_path(current_user) %></h5>
   <h5><%= link_to "Show my 10 newest watches", newest_watches_path(current_user) %></h5>
-  <h5>[Click on a watch to view it!]</h5>
+  <h5>[Click on a watch to view it]</h5>
   <h5><%= link_to "Add a new watch", new_watch_path %></h5>
   <%= link_to image_tag("http://www.wristcritic.com/wp-content/uploads/2014/09/popular-invicta-watches-2.png", width: 200), root_path %>
 
   <h4><b>Find a Watch</b></h4>
-
+  <!-- all of or partial name can be searched on -->
   <%= form_tag search_watches_path(current_user), method: :get do %>
       <%= label_tag(:watch, "Search for:") %>
     <%= text_field_tag(:watch) %><br>
@@ -21,7 +21,7 @@
   <h5 class="text-danger"><b>*OR*</b></h5>
 
   <h4><b>Find a Maker</b></h4>
-
+  <!-- Complete name needs to be searched on -->
   <%= form_tag find_maker_path(current_user), method: :get do %>
   	  <%= label_tag(:maker, "Search for:") %>
 	  <%= text_field_tag(:maker) %><br>
