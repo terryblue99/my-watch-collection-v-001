@@ -25,7 +25,7 @@ class Watch < ApplicationRecord
 	end
 
  	def complications_attributes=(complication_hashes)
-	# Nested fields_for complication
+	# Custom attribute writer for Nested complication form
 
        @complication_result = "" # Used for capturing new complication record 
        							 # or any complication validation errors
