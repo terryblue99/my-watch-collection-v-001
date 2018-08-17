@@ -5,12 +5,11 @@ $(function() {
 
 function compListeners() {
 
-	$("#complications-container").on("click", "a.complications_link", function(e) {
+	$(document).on("click", "a.complications_link", function(e) {
 		
 		$(this).css("color", "red")
 		$href = this.href
-    	let id = e.target.id
-
+    	let id = e.target.id;
     	// handlebar process
 		let templateSource = $("#complications").html()
 		let template = Handlebars.compile(templateSource)
@@ -18,7 +17,6 @@ function compListeners() {
     	if ( id === "load_complications"){
 			loadComplications(e, $href, template)
         }
-
         if ( id === "complications_form"){	
 			loadComplications(e, $href, template)
 			// execute the show.js.erb file in the watches view
