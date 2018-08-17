@@ -5,7 +5,7 @@ $(function() {
 
 function compListeners() {
 
-	$(document).on("click", "a.complications_link", function(e) {
+	$("#complications-container").on("click", "a.complications_link", function(e) {
 		
 		$(this).css("color", "red")
 		$href = this.href
