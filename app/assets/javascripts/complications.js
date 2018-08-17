@@ -5,28 +5,28 @@ $(function() {
 
 function compListeners() {
 
-	$(document).on("click", "a.load_complications", function(e) {	
-		$(this).css("color", "red")
-		$href = this.href
-		// handlebar process
-		let templateSource = $("#complications").html()
-		let template = Handlebars.compile(templateSource)
-
-		loadComplications(e, $href, template)
-	})
-
-	$(document).on("click", "a.complications_form", function(e) {
-		$(this).css("color", "red")
-		$href = this.href
-		// handlebar process
-		let templateSource = $("#complications").html()
-		let template = Handlebars.compile(templateSource)
+	$(document).on("click", "a.complications_link", function(e) {
 		
-		loadComplications(e, $href, template)
-		// execute the show.js.erb file in the watches view
-		// to load the complications form
-		$.get($href, null, null, "script")
-		e.preventDefault()
+		$(this).css("color", "red")
+		$href = this.href
+    	let id = e.target.id
+
+    	// handlebar process
+		let templateSource = $("#complications").html()
+		let template = Handlebars.compile(templateSource)
+
+    	if ( id === "load_complications"){
+			loadComplications(e, $href, template)
+        }
+
+        if ( id === "complications_form"){	
+			loadComplications(e, $href, template)
+			// execute the show.js.erb file in the watches view
+			// to load the complications form
+			$.get($href, null, null, "script")
+			e.preventDefault()
+        }	
+
 	})
 
 	$(document).on("click", "a.back", function(e){
