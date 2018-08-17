@@ -38,15 +38,15 @@
 
 	<div class="row">
 	    <div class="col-sm-8 text-center">
-			
-	      <%if @watches_for_display && @watches_for_display > session[:watches_on_page] %>
-			<!-- input box and submit button to change number of watches on a page -->
-	        <%= form_tag rows_path(current_user), method: :get do %>
-	          <b class="text-success">Watches on a page:</b> <input  type="number" id="rows" name="rows" min="1" max="50">
-	          <button class="btn btn-primary btn btn-sm">submit</button>
-	        <%end%>
-
-	      <%end%>
+	    	<%if !session[:search_watches] %>
+		      <%if @watches_for_display && @watches_for_display > session[:watches_on_page] %>
+				<!-- input box and submit button to change number of watches on a page -->
+		        <%= form_tag rows_path(current_user), method: :get do %>
+		          <b class="text-success">Watches on a page:</b> <input  type="number" id="rows" name="rows" min="1" max="50">
+		          <button class="btn btn-primary btn btn-sm">submit</button>
+		        <%end%>
+		      <%end%>
+		    <%end%>  
 	    </div>
   </div>
 
