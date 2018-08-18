@@ -51,7 +51,11 @@ class WatchesController < ApplicationController
 
 	  	if user_signed_in?
 
-	  	  if session[:find_maker]
+	  	  if session[:search_watches]
+	  	  	# Find watches
+	      	session[:maker_rows] = params[:rows]
+	      	redirect_to search_watches_path
+	  	  elsif session[:find_maker]
 	  	  	# Find a maker and their watches
 	      	session[:maker_rows] = params[:rows]
 	      	redirect_to find_maker_path
