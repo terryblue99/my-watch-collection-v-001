@@ -74,14 +74,7 @@ class Watch < ApplicationRecord
 
  	def self.search_watches(current_user, watch)
   	# Search for watches
-		watches_array = current_user.watches.where("watch_name like ?", "%#{watch}%")
-		i = 0
-		num = watches_array.length
-		search_watches_array = []
-		while i < num do
-			search_watches_array << current_user.watches.find_by_id(watches_array[i].id)
-			i+= 1
-		end	
+		search_watches_array = current_user.watches.where("watch_name like ?", "%#{watch}%")	
 		# sorts by maker, name ascending
 		search_watches_array = search_watches_array.sort_by{ |w| [w.watch_maker, w.watch_name]}
 
