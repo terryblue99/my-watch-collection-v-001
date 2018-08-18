@@ -36,7 +36,7 @@ function pagination(e, $href) {
 	  		$(".watches").append(`<h5 class="text-success">${watch.watch_maker}: <b><a href="/watches/${watch.id}">${watch.watch_name}</a></b></h5>`)
 		})
 		// execute the related js.erb file in the watches view to set pagination entries
-		// (index.js.erb / find_maker.js.erb / most_maker.js.erb)
+		// (index.js.erb / search_watches.js.erb / find_maker.js.erb / most_maker.js.erb)
 		$.get($href, null, null, "script")
 	})
 	.fail(function(jqxhr, textStatus, errorThrown){
@@ -75,5 +75,3 @@ function showError(jqxhr, textStatus, errorThrown) {
 	let err = textStatus + ', ' + errorThrown
 	alert("Request Failed: " + err)	
 }
-
-
