@@ -216,8 +216,11 @@ class WatchesController < ApplicationController
 		session[:find_maker] = nil
 		session[:most_maker] = nil
 		session[:newest_watches] = nil
-		@watches = Watch.search_watches(current_user, params[:watch])
-		@watches_for_display = @watches.size
+		search_watches_array = Watch.search_watches(current_user, params[:watch])
+		@watches_for_display = search_watches_array.size
+		@session_rows = session[:maker_rows]
+	    @watches_array = search_watches_array
+	    paginate
 
 	end
 
