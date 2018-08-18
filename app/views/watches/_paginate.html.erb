@@ -1,8 +1,6 @@
 <!-- update the page links in the show_watches.html.erb watches_paginate div-->
-<%if !session[:search_watches] %>
-	<%if @watches_for_display && @watches_for_display > session[:watches_on_page] %>
-		<div style="margin-left: 90px;">
-			<%= will_paginate @watches, renderer: BootstrapPagination::Rails %>
-		</div>
-	<% end %>
-<%end%>	
+<%if @watches_for_display && @watches_for_display > session[:watches_on_page] %>
+	<div style="margin-left: 90px;">
+		<%= will_paginate @watches, renderer: BootstrapPagination::Rails %>
+	</div>
+<% end %>
