@@ -1,13 +1,13 @@
 			    	
 <%= form_for @watch, :html => {:class => "form-horizontal center", :id => "new_complication"} do |f| %>
 
-	<h4 class="text-success"><%= f.label "Add Complication/s: Scroll and select" %></h4>
+	<h5><b class="text-success">Add Complication/s:</b> Scroll and select </h5>
 	<h5> Click any to select one from the list </h5>
 	<h6> *<b>OR</b>* </h6>
-	<h5> <b>CMD+Click (Mac)</b> / <b>CTRL+Click (Windows)</b> to select/deselect one or more </h5>
+	<h5> <b>CMD+Click</b> (Mac) / <b>CTRL+Click</b> (Windows) to select/deselect one or more </h5>
 	<%= collection_select(:complications, :id, Complication.order(:complication_name), :id, :complication_name, {}, {:multiple => true}) %>
 
-	<h4 class="text-success"> Add a New Complication </h4>
+	<h5 class="text-success"> Add a New Complication </h5>
 
 	<%= f.fields_for :complications, Complication.new do |fields| %>
 	    <%= fields.label :complication_name %>
