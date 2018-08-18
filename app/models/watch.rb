@@ -82,8 +82,8 @@ class Watch < ApplicationRecord
 			search_watches_array << current_user.watches.find_by_id(watches_array[i].id)
 			i+= 1
 		end	
-		# sorts by watch name ascending
-		search_watches_array = search_watches_array.sort_by(&:watch_name)
+		# sorts by maker, name ascending
+		search_watches_array = search_watches_array.sort_by{ |w| [w.watch_maker, w.watch_name]}
 
  	end   
 
