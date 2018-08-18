@@ -211,16 +211,26 @@ class WatchesController < ApplicationController
 
 	def search_watches
 	# search for watch/watches matching search criteria
+
+		if params[:watch]
+			session[:watch_param] = params[:watch]
+		end
 			
 		session[:search_watches] = "yes"
 		session[:find_maker] = nil
 		session[:most_maker] = nil
 		session[:newest_watches] = nil
-		search_watches_array = Watch.search_watches(current_user, params[:watch])
+		search_watches_array = Watch.search_watches(current_user, session[:watch_param])
 		@watches_for_display = search_watches_array.size
 		@session_rows = session[:maker_rows]
 	    @watches_array = search_watches_array
 	    paginate
+
+	    respond_to do |format|
+	      format.html { render 'search_watches.html'}
+	      format.json { render :json => @watches}
+	      format.js
+	    end
 
 	end
 
