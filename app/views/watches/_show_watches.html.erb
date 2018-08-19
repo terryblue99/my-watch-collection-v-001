@@ -5,10 +5,10 @@
 	  <% if @watches.size > 0 %>
 			
 			<% if session[:search_watches] %>
-		    	<h4 style="text-indent: 4em;">Watch/es Found [<%= @watches_for_display %>]</h4>
+		    	<h4 style="text-indent: 4em;">Find a Watch Result [<%= @watches_for_display %>]</h4>
 		    <% elsif %>
 				<% session[:find_maker] %>
-		    	<h4 style="text-indent: 4em;">One of My Watch Makers [<%= @watches_for_display %>]</h4>
+		    	<h4 style="text-indent: 4em;">Find a Maker Result [<%= @watches_for_display %>]</h4>
 		    <% elsif %>
 				<% session[:most_maker] %>
 		    	<h4 style="text-indent: 4em;">The Maker of Most of My Watches [<%= @watches_for_display %>]</h4>
