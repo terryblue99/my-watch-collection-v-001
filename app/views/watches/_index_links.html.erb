@@ -10,6 +10,7 @@
   <h5><%= link_to "Add a new watch", new_watch_path %></h5>
   <%= link_to image_tag("wristwatch.png", width: 225) %>
 
+  <h6><b>Searches accept lower case</b></h6>
   <h5><b class="text-success">Find a Watch</b> (can be partial name)</h5>
   <!-- all of or partial name can be searched on -->
   <%= form_tag search_watches_path(current_user), method: :get do %>
@@ -18,7 +19,7 @@
     <%= submit_tag("Search") %>
   <% end %>
 
-  <h5 class="text-danger"><b>*OR*</b></h5>
+  <h6 class="text-danger"><b>*OR*</b></h6>
 
   <h5><b class="text-success">Find a Maker</b> (full name only)</h5>
   <!-- Complete name needs to be searched on -->
