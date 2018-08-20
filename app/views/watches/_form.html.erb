@@ -60,7 +60,13 @@
           <!-- but needs to be processed by the application -->
           <%= render partial: "complications/new_update_comp_form", locals: {field: f} %>
 
-          <%= f.submit %>
+          <%= f.submit %><br>
+
+          <% if params[:action] != "edit" && params[:action] != "update"%>
+            <%= link_to "Back", :back %>
+          <% else %>
+            <%= link_to "Back", watch_path, :class => "back" %>
+          <% end %>   
 
         </div>
       </div>
