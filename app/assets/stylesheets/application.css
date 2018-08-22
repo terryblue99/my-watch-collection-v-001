@@ -20,7 +20,7 @@
   }
 
  .list_delete_color:hover a{
-	 color: #FF0000;
+	 color: red;
   }
   
  /* Needed if text wrapped in a div and misaligned on error display (ADDED) */
