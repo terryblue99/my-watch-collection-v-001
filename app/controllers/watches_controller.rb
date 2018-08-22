@@ -1,42 +1,36 @@
 class WatchesController < ApplicationController
-	before_action :authenticate_user!
+	
 	before_action :set_watch, only: [:show, :edit, :update, :destroy]
 
 	def index
 
-		if user_signed_in?
+		@user = User.find_user(current_user)
 
-			@user = User.find_user(current_user)
+		if @user
 
-			if @user
+			# Set watches per page default if not already set
+			session[:watches_on_page] ||= 16
 
-				# Set watches per page default if not already set
-				session[:watches_on_page] ||= 16
+		    @watches_for_display = @user.watches.size
+		    session[:search_watches] = nil
+			session[:find_maker] = nil
+			session[:most_maker] = nil
+			session[:newest_watches] = nil
 
-			    @watches_for_display = @user.watches.size
-			    session[:search_watches] = nil
-				session[:find_maker] = nil
-				session[:most_maker] = nil
-				session[:newest_watches] = nil
-
-			    if session[:rows]
-			  	# Selection made of how many watches to display on each page
-			  		# selected by user
-			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => session[:rows]).order(:watch_maker, :watch_name)
-			  	else
-			  		# Default
-			    	@watches = @user.watches.paginate(:page => params[:page], :per_page => session[:watches_on_page]).order(:watch_maker, :watch_name)
-			  	end
-			  	
-		    	respond_to do |format|
-			      format.html { render 'index.html'}
-			      format.json { render :json => @watches}
-			      format.js
-			    end
-
-			else
-				redirect_to log_in_path, alert: "Please Log In to continue!"
-			end
+		    if session[:rows]
+		  	# Selection made of how many watches to display on each page
+		  		# selected by user
+		    	@watches = @user.watches.paginate(:page => params[:page], :per_page => session[:rows]).order(:watch_maker, :watch_name)
+		  	else
+		  		# Default
+		    	@watches = @user.watches.paginate(:page => params[:page], :per_page => session[:watches_on_page]).order(:watch_maker, :watch_name)
+		  	end
+		  	
+	    	respond_to do |format|
+		      format.html { render 'index.html'}
+		      format.json { render :json => @watches}
+		      format.js
+		    end
 
 		else
 			redirect_to log_in_path, alert: "Please Log In to continue!"
@@ -47,166 +41,126 @@ class WatchesController < ApplicationController
 	def rows
 	# Initiated when user selects how many watches to display on each page
 
-		session[:change_page_size?] = "yes"
+	  	session[:change_page_size?] = "yes"
 
-	  	if user_signed_in?
-
-	  	  if session[:search_watches]
-	  	  	# Find watches
-	      	session[:maker_rows] = params[:rows]
-	      	redirect_to search_watches_path
-	  	  elsif session[:find_maker]
-	  	  	# Find a maker and their watches
-	      	session[:maker_rows] = params[:rows]
-	      	redirect_to find_maker_path
-	  	  elsif session[:most_maker]
-	  	  	# Maker of most of the watches and the watches
-	      	session[:maker_rows] = params[:rows]
-	      	redirect_to most_maker_path
-	      else
-	      	# All watches
-	      	session[:rows] = params[:rows]
-	      	redirect_to watches_path
-	      end
-
-	    else
-	      redirect_to log_in_path, alert: "Please Log In to continue!"
-	    end
-
+	  	 if session[:search_watches]
+	  	  # Find watches
+	      session[:maker_rows] = params[:rows]
+	      redirect_to search_watches_path
+	  	 elsif session[:find_maker]
+	  	  # Find a maker and their watches
+	      session[:maker_rows] = params[:rows]
+	      redirect_to find_maker_path
+	  	 elsif session[:most_maker]
+	  	  # Maker of most of the watches and the watches
+	      session[:maker_rows] = params[:rows]
+	      redirect_to most_maker_path
+	     else
+	      # All watches
+	      session[:rows] = params[:rows]
+	      redirect_to watches_path
+	     end
 	end
 
 	def show
 
-		if user_signed_in?
-
-		    if !@watch
-		      	redirect_to watches_path, alert: "The watch was not found!"
-		    else
-		    	respond_to do |format|
-			      format.html { render 'show.html'}
-			      format.json { render :json => @watch}
-			      format.js
-			    end
+	    if !@watch
+	      	redirect_to watches_path, alert: "The watch was not found!"
+	    else
+	    	respond_to do |format|
+		      format.html { render 'show.html'}
+		      format.json { render :json => @watch}
+		      format.js
 		    end
-
-		else
-			redirect_to log_in_path, alert: "Please Log In to continue!"
-		end
-
+	    end
 	end
 
 	def new
-
-		if user_signed_in?
-			@watch = Watch.new
-		else
-			redirect_to log_in_path, alert: "Please Log In to continue!"
-		end
-
+		@watch = Watch.new
 	end
 
 	def create
 
-		if user_signed_in?
+		@watch = Watch.create_watch(watch_params)
 
-			@watch = Watch.create_watch(watch_params)
-
-			if @watch.errors.full_messages.size > 0
-				session[:watch_errors] = @watch.errors.full_messages
-		      	render :new
-		  	else
-		   		current_user.watches << @watch
-		   		params[:complications][:id].each do |complication|
-				   	if complication.present?
-				   		ComplicationsWatch.build_join(@watch, complication)
-				   	end
-			  	end
-		    	redirect_to watch_path(@watch), notice: "The watch was successfully saved!"
-			end
-
-		else
-			redirect_to log_in_path, alert: "Please Log In to continue!"
+		if @watch.errors.full_messages.size > 0
+			session[:watch_errors] = @watch.errors.full_messages
+	      	render :new
+	  	else
+	   		current_user.watches << @watch
+	   		params[:complications][:id].each do |complication|
+			   	if complication.present?
+			   		ComplicationsWatch.build_join(@watch, complication)
+			   	end
+		  	end
+	    	redirect_to watch_path(@watch), notice: "The watch was successfully saved!"
 		end
-
 	end
 
 	def update
 		
-		if user_signed_in?
-			# watch_result will contain new complication record or complication validation error message/s
-			watch_result = Watch.update_watch(@watch, watch_params)
-			
-			if watch_result[0] == "errors"
-				@watch.errors[:base] << "Invalid Complication: #{watch_result[1]}"
-			end
-
-			if @watch.errors.full_messages.size > 0
-				session[:watch_errors] = @watch.errors.full_messages
-				watch_result = ""
-	      		render :edit
-		  	else
-		  		
-		  		@comp_names = []
-		  		
-		  		if params[:complications][:id].length > 1
-
-			    	params[:complications][:id].each do |c_id|
-						# selected from complication list on form
-			   			if c_id.present?
-			   				if !@watch.complications_watches.detect {|cw| cw.complication_id == c_id.to_i}
-			   					# build the complications_watches join record if one doesn't already exist
-				   				ComplicationsWatch.build_join(@watch, c_id)		
-								complication = Complication.find(c_id.to_i)
-								@comp_names.push({id: complication.id, complication_name: complication.complication_name, watch_id: @watch.id})
-					   		end
-			   			end
-		   			end
-
-		   			if watch_result[0] == "new_complication"
-		   				# new complication name and description entered on form
-		   				@comp_names.push({id: watch_result[1].id, complication_name: watch_result[1].complication_name, watch_id: @watch.id})
-
-		   			end
-
-		   		else
-		   		
-		   			if watch_result[0] == "new_complication"
-		   				# new complication name and description entered on form
-		   				@comp_names.push({id: watch_result[1].id, complication_name: watch_result[1].complication_name, watch_id: @watch.id})
-		   			end	
-
-		   		end
-	   			
-	   			respond_to do |format|
-			      format.html { redirect_to watch_path, notice: "The watch was successfully updated!"}
-			      format.json { render :json => @comp_names}
-			      format.js
-			    end
-
-	    	end
-
-		else
-			redirect_to log_in_path, alert: "Please Log In to continue!"
+		# watch_result will contain new complication record or complication validation error message/s
+		watch_result = Watch.update_watch(@watch, watch_params)
+		
+		if watch_result[0] == "errors"
+			@watch.errors[:base] << "Invalid Complication: #{watch_result[1]}"
 		end
 
+		if @watch.errors.full_messages.size > 0
+			session[:watch_errors] = @watch.errors.full_messages
+			watch_result = ""
+      		render :edit
+	  	else
+	  		
+	  		@comp_names = []
+	  		
+	  		if params[:complications][:id].length > 1
+
+		    	params[:complications][:id].each do |c_id|
+					# selected from complication list on form
+		   			if c_id.present?
+		   				if !@watch.complications_watches.detect {|cw| cw.complication_id == c_id.to_i}
+		   					# build the complications_watches join record if one doesn't already exist
+			   				ComplicationsWatch.build_join(@watch, c_id)		
+							complication = Complication.find(c_id.to_i)
+							@comp_names.push({id: complication.id, complication_name: complication.complication_name, watch_id: @watch.id})
+				   		end
+		   			end
+	   			end
+
+	   			if watch_result[0] == "new_complication"
+	   				# new complication name and description entered on form
+	   				@comp_names.push({id: watch_result[1].id, complication_name: watch_result[1].complication_name, watch_id: @watch.id})
+
+	   			end
+
+	   		else
+	   		
+	   			if watch_result[0] == "new_complication"
+	   				# new complication name and description entered on form
+	   				@comp_names.push({id: watch_result[1].id, complication_name: watch_result[1].complication_name, watch_id: @watch.id})
+	   			end	
+
+	   		end
+   			
+   			respond_to do |format|
+		      format.html { redirect_to watch_path, notice: "The watch was successfully updated!"}
+		      format.json { render :json => @comp_names}
+		      format.js
+		    end
+
+    	end
 	end
 
 	def destroy
 
-		if user_signed_in?
-
-			if @watch
-				watch_name = @watch.watch_name
-		      	Watch.delete_watch(@watch)
-		      	redirect_to watches_path, notice: "'#{watch_name}' has been deleted!"
-		    else
-		      	redirect_to watches_path, alert: "The watch was not found!"
-		    end
-
-		else
-			redirect_to log_in_path, alert: "Please Log In to continue!"
-		end
-
+		if @watch
+			watch_name = @watch.watch_name
+	      	Watch.delete_watch(@watch)
+	      	redirect_to watches_path, notice: "'#{watch_name}' has been deleted!"
+	    else
+	      	redirect_to watches_path, alert: "The watch was not found!"
+	    end
 	end
 
 	def search_watches
