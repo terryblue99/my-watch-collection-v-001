@@ -83,7 +83,7 @@ class Watch < ApplicationRecord
  	def self.find_maker(current_user, maker)
   	# Find a maker and their watches
 		find_maker_array = current_user.watches.select { |w| w.watch_maker.downcase == maker.downcase }
-		# sorts by watch name ascending
+		# sorts by watch_name ascending
 		find_maker_array = find_maker_array.sort_by(&:watch_name)
 
  	end
@@ -95,7 +95,7 @@ class Watch < ApplicationRecord
 		most_maker = current_user.watches.group(:watch_maker).order('count_all DESC').limit(1).count
 		# returns the maker's watches
 		most_maker_array = current_user.watches.select { |w| w.watch_maker == most_maker.keys[0] }
-		# sorts by watch name ascending
+		# sorts by watch_name ascending
 		most_maker_array = most_maker_array.sort_by(&:watch_name)
 
  	end
@@ -124,6 +124,8 @@ class Watch < ApplicationRecord
 
  	def self.sort_complications(this_watch)
 	# Initiated by app/views/complications/_load_complications.html.erb
+
+		# Sorts by complication_name ascending
      	watch_complications_sorted = this_watch.complications.sort_by(&:complication_name)
   	end
 
