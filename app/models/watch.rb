@@ -72,9 +72,9 @@ class Watch < ApplicationRecord
     	end
  	end
 
- 	def self.search_watches(current_user, watch)
+ 	def self.search_watches(current_user, watchname)
   	# Search for watches
-		search_watches_array = current_user.watches.where("watch_name like ?", "%#{watch}%")	
+		search_watches_array = current_user.watches.where("watch_name like ?", "%#{watchname}%")	
 		# sorts by maker, name ascending
 		search_watches_array = search_watches_array.sort_by{ |w| [w.watch_maker, w.watch_name]}
 
@@ -114,33 +114,34 @@ class Watch < ApplicationRecord
  		self.create(watch_params)
  	end
 
-	def self.update_watch(watch, params)
+	def self.update_watch(this_watch, params)
 	  @@watch_create = "no"
-	  watch.update(params)
+	  this_watch.update(params)
 	  # new complication record captured if successfully saved
 	  # or complication validation errors captured
 	  @@comp_result_array
 	end
 
- 	def self.sort_complications(watch)
+ 	def self.sort_complications(this_watch)
 	# Initiated by app/views/complications/_load_complications.html.erb
-     	watch_complications_sorted = watch.complications.sort_by(&:complication_name)
+     	watch_complications_sorted = this_watch.complications.sort_by(&:complication_name)
   	end
 
-  	def self.delete_watch(watch)
-     	watch.destroy
+  	def self.delete_watch(this_watch)
      	# Delete any related complications_watch join records
-     	watch.complications.delete_all
+     	this_watch.complications.delete_all
      	# Find and delete all related complications_watch join records
       	# ComplicationsWatch.where([
 		#   "watch_id NOT IN (?) OR complication_id NOT IN (?)",
 		#   Watch.pluck("id"),
 		#   Complication.pluck("id")
 		# ]).destroy_all
+
+		this_watch.destroy
   	end
 
-  	def self.delete_join(watch, comp_id)
-     	watch.complications.delete(comp_id)
+  	def self.delete_join(this_watch, comp_id)
+     	this_watch.complications.delete(comp_id)
   	end
 
 end
