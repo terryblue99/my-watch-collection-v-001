@@ -17,32 +17,25 @@ class ComplicationsController < ApplicationController
 
 	def destroy
 	# Delete the complications_watches join record
-		
-		if user_signed_in?
 
-			@watch = Watch.find_watch(params[:watch_id])
+		@watch = Watch.find_watch(params[:watch_id])
 
-			if !@watch
-			    redirect_to description_path(params[:watch_id]), alert: "The watch was not found!"
-		    else
-		    
-		    	Watch.delete_join(@watch, params[:comp_id])
+		if !@watch
+		    redirect_to description_path(params[:watch_id]), alert: "The watch was not found!"
+	    else
+	    
+	    	Watch.delete_join(@watch, params[:comp_id])
 
-		    	if !params[:comp_name]
-		    		# appended name being deleted and name not in params
-		    		comp_name = Complication.find_by_id(params[:comp_id]).complication_name
-		    	else
-		    		comp_name = params[:comp_name]
-		    	end
+	    	if !params[:comp_name]
+	    		# appended name being deleted and name not in params
+	    		comp_name = Complication.find_by_id(params[:comp_id]).complication_name
+	    	else
+	    		comp_name = params[:comp_name]
+	    	end
 
-		    	session[:display_complications] = "yes"
-		      	redirect_to watch_path(params[:watch_id]), notice: "Complication: '#{comp_name}' has been deleted from the watch!"
-		    end
-
-		else
-			redirect_to log_in_path, alert: "Please Log In to continue!"
-		end
-
+	    	session[:display_complications] = "yes"
+	      	redirect_to watch_path(params[:watch_id]), notice: "Complication: '#{comp_name}' has been deleted from the watch!"
+	    end
 	end
 
 	def delete_list_comp
