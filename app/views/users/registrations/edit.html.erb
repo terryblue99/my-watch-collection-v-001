@@ -2,6 +2,7 @@
   <div class="text-center">    
 
     <h2 class="text-success">Edit <%= resource_name.to_s.humanize %></h2>
+    <h4><b>(You can update your email and/or your password here)</b></h4>
 
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
       <%= devise_error_messages! %>
