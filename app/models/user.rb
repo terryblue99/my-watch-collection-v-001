@@ -19,4 +19,13 @@ class User < ApplicationRecord
     self.find_by(email: current_user.email)   
   end
 
+
+  def self.delete_user_watch_data(current_user)
+    user = User.find_user(current_user)
+    user.watches.each do |w|
+      w.complications.delete_all
+      w.destroy
+    end
+  end  
+
 end
