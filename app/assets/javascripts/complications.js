@@ -15,6 +15,7 @@ function compListeners() {
 		let template = Handlebars.compile(templateSource)
 
     	if ( id === "load_complications"){
+    		$(".add_complications_form").html("")
 			loadComplications(e, $href, template)
         }
         if ( id === "complications_form"){	
