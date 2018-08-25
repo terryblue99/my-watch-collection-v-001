@@ -42,7 +42,7 @@
 
     <h3 class="text-danger">Cancel my account</h3>
     
-    <p>Unhappy? <%= button_to "Cancel my account", delete_user_path(current_user), data: { confirm: "Are you sure?\nAll watches will also be deleted!" } %></p>
+    <p>Sorry to see you go! <%= button_to "Cancel my account", delete_user_path(current_user), data: { confirm: "Are you sure?\nAll of your watches will also be deleted!" } %></p>
 
     <%= link_to "Back", :back %>
 
