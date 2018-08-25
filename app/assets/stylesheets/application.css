@@ -23,7 +23,7 @@
 	 color: red;
   }
   
- /* Needed if text wrapped in a div and misaligned on error display (ADDED) */
+ /* Needed if text wrapped in a div and misaligned on error display */
  .field_with_errors {
   display: inline;
  {
