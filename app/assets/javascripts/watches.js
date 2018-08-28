@@ -57,16 +57,6 @@ function showWatch(e, $href, template) {
 	.fail(function(jqxhr, textStatus, errorThrown){
 	    showError(jqxhr, textStatus, errorThrown)
 	})
-	// $.ajax({
-	// url: $href,
-	// type: "GET",
-	// dataType: "json"
-	// }).done(function(json) {
-	//     // load watch details via handlebars template
-	// 	   $(".load_watch").html(template(json))
-	// .fail(function(jqxhr, textStatus, errorThrown){
-	//     showError(jqxhr, textStatus, errorThrown)
-	// })
 	e.preventDefault()
 }
 
