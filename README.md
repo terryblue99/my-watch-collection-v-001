@@ -6,13 +6,15 @@ A Rails/jQuery CRUD app that allows watch collectors to document their watch col
 
 Installation, Usage & Development  
 
-Clone this repository to your computer and run the following commands in your terminal:  
+Fork and clone this repository to your computer and run the following commands in your terminal:  
 
-1. bundle install  
-2. rake db:migrate  
-3. rake db:seed (Loads the complications table with watch complications)  
-                (There are a few sample users which are commented out)  
-4. rails s  
+1. bundle install => (installs the app gems)
+2. rake db:migrate => (runs migrations) 
+3. rake db:seed => (Loads the complications table with watch complications)  
+                   (There are a few sample users which are commented out)  
+4. rails s => (starts the server,  displaying the local host url)
+
+Copy and paste the url into the browser to display the Log in page
 
 Then sign up / sign in  
 
