@@ -6,7 +6,7 @@ class UsersController < ApplicationController
 		deleted_user = current_user.email
 		current_user.destroy
 
-		redirect_to new_user_session_path, alert: "'#{deleted_user}' has been deleted!"
+		redirect_to new_user_session_path, alert: "Bye #{deleted_user}! Your account has been successfully cancelled. We hope to see you again soon."
 
 	end	
 
