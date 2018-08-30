@@ -10,7 +10,7 @@ function compListeners() {
 		$(this).css("color", "red")
 		$href = this.href
     	let id = e.target.id;
-    	// handlebar process
+    	// handlebars process
 		let templateSource = $("#complications").html()
 		let template = Handlebars.compile(templateSource)
 
