@@ -41,11 +41,11 @@ class WatchesController < ApplicationController
 	def rows
 	# Initiated when user selects how many watches to display on each page
 
-	  	session[:change_page_size?] = "yes"
+	  	session[:page_size_changed?] = "yes"
 
 	  	 if session[:search_watches]
 	  	  # Find watches
-	      session[:maker_rows] = params[:rows]
+	      session[:search_rows] = params[:rows]
 	      redirect_to search_watches_path
 	  	 elsif session[:find_maker]
 	  	  # Find a maker and their watches
@@ -176,7 +176,7 @@ class WatchesController < ApplicationController
 		session[:newest_watches] = nil
 		search_watches_array = Watch.search_watches(current_user, session[:watch_param])
 		@watches_for_display = search_watches_array.size
-		@session_rows = session[:maker_rows]
+		@session_rows = session[:search_rows]
 	    @watches_array = search_watches_array
 	    paginate
 
