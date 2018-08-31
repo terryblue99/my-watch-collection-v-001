@@ -39,8 +39,8 @@ function compListeners() {
 		const $form = $(this)
     	const action = $form.attr("action")
     	const params = $form.serialize()
-    	
-    	newComplication(e, action, params)
+    
+    	newComplication(e, action, params, $form)
 	})
 
 }
@@ -62,7 +62,7 @@ function loadComplications(e, $href, template) {
 	e.preventDefault()
 }
 
-function newComplication(e, action, params) {
+function newComplication(e, action, params, $form) {
 	// Complication prototype
 	class Complication {
 
@@ -116,9 +116,18 @@ function newComplication(e, action, params) {
 	  		$.get(action, null, null, "script")
 	  	}		
   	})
-  	.fail(function(jqxhr, textStatus, errorThrown){
-	    // showError(jqxhr, textStatus, errorThrown)
-	    alert("Check if the complication already exists in the list!")
+  	.fail(function(){
+	    // Check for presence of both complication_name and complication_description
+	    // when adding a new complication
+	    if ($form.context[5].value !== null && $form.context[6].value == "" || 
+	    	$form.context[6].value !== null && $form.context[5].value == "") 
+	    	{
+	    		alert("Both Complication name AND Complication description must be present!")
+	    	}
+	    else 
+	    	{	// The complication being added as a new one already exists in the database
+	    		alert("Check if the complication already exists in the list!")
+			}
 	    // execute the show.js.erb file in the watches view
 		// to reload the complications form
 	    $.get(action, null, null, "script")
