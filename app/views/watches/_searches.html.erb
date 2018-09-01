@@ -1,0 +1,19 @@
+
+<h6 class="text-danger"><b>Searches accept lower case</b></h6>
+  <h5><b class="text-success">Find a Watch</b> (can be partial name)</h5>
+  <!-- all of or partial name can be searched on -->
+  <%= form_tag search_watches_path(current_user), method: :get do %>
+      <%= label_tag(:watch, "Search for:") %>
+    <%= text_field_tag(:watch) %><br>
+    <%= submit_tag("Search") %>
+  <% end %>
+
+  <h6 class="text-danger"><b>*OR*</b></h6>
+
+  <h5><b class="text-success">Find a Maker</b> (full name only)</h5>
+  <!-- Complete name needs to be searched on -->
+  <%= form_tag find_maker_path(current_user), method: :get do %>
+  	  <%= label_tag(:maker, "Search for:") %>
+	  <%= text_field_tag(:maker) %><br>
+	  <%= submit_tag("Search") %>
+	<% end %>
