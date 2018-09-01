@@ -20,6 +20,7 @@
 				<div class="complications">
 					<% if session[:display_complications] %> 
 					<!-- set when a complication is deleted -->
+						<!-- load the watch's complications -->
 						<%= render "complications/load_complications" %>
     				<% end %>
 				</div>
@@ -27,6 +28,7 @@
 				<div class="add_complications_form">
 					<% if session[:display_complications] %>
 					<!-- set when a complication is deleted -->
+						<!-- load the form for adding complications to the watch -->
 						<%= render "complications/add_complications_form" %>
 						<% session[:display_complications] = nil %>
     				<% end %>
