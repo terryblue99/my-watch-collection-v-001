@@ -23,6 +23,8 @@
 						<!-- load the watch's complications -->
 						<%= render "complications/load_complications" %>
     				<% end %>
+    				<!-- this div will normally be appended with data by -->
+	      			<!-- the asset pipeline javascripts/complications.js loadComplications function -->
 				</div>
 
 				<div class="add_complications_form">
@@ -32,6 +34,8 @@
 						<%= render "complications/add_complications_form" %>
 						<% session[:display_complications] = nil %>
     				<% end %>
+    				<!-- this div will normally be appended with the form by an-->
+	      			<!-- event handler in the asset pipeline javascripts/complications.js file -->
 		    	</div>
 
 			</div>
