@@ -4,37 +4,29 @@ class WatchesController < ApplicationController
 
 	def index
 
-		@user = User.find_user(current_user)
+		# Set watches per page default if not already set
+		session[:watches_on_page] ||= 16
 
-		if @user
+	    @watches_for_display = current_user.watches.size
+	    session[:search_watches] = nil
+		session[:find_maker] = nil
+		session[:most_maker] = nil
+		session[:newest_watches] = nil
 
-			# Set watches per page default if not already set
-			session[:watches_on_page] ||= 16
-
-		    @watches_for_display = @user.watches.size
-		    session[:search_watches] = nil
-			session[:find_maker] = nil
-			session[:most_maker] = nil
-			session[:newest_watches] = nil
-
-		    if session[:rows]
-		  	# Selection made of how many watches to display on each page
-		  		# selected by user
-		    	@watches = @user.watches.paginate(:page => params[:page], :per_page => session[:rows]).order(:watch_maker, :watch_name)
-		  	else
-		  		# Default
-		    	@watches = @user.watches.paginate(:page => params[:page], :per_page => session[:watches_on_page]).order(:watch_maker, :watch_name)
-		  	end
-		  	
-	    	respond_to do |format|
-		      format.html { render 'index.html'}
-		      format.json { render :json => @watches}
-		      format.js
-		    end
-
-		else
-			redirect_to log_in_path, alert: "Please Log In to continue!"
-		end
+	    if session[:rows]
+	  	# Selection made of how many watches to display on each page
+	  		# selected by user
+	    	@watches = current_user.watches.paginate(:page => params[:page], :per_page => session[:rows]).order(:watch_maker, :watch_name)
+	  	else
+	  		# Default
+	    	@watches = current_user.watches.paginate(:page => params[:page], :per_page => session[:watches_on_page]).order(:watch_maker, :watch_name)
+	  	end
+	  	
+    	respond_to do |format|
+	      format.html { render 'index.html'}
+	      format.json { render :json => @watches}
+	      format.js
+	    end
 
 	end
 
