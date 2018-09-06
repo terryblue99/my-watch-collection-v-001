@@ -1,3 +1,31 @@
+/**
+ * An Handlebars helper to format numbers
+ * 
+ * This helper has these three optional parameters:
+ *  decimalLength int => The length of the decimals
+ *  thousandsSep char => The thousands separator
+ *  decimalSep char   => The decimals separator
+ * 
+ * Demo: http://jsfiddle.net/DennyLoko/6sR87/
+ */
+Handlebars.registerHelper('numberFormat', function (value, options) {
+    // Helper parameters
+     let dl = options.hash['decimalLength'] || 2
+     let ts = options.hash['thousandsSep'] || ','
+     let ds = options.hash['decimalSep'] || '.';
+
+    // Parse to float
+     let val = parseFloat(value)
+
+    // The regex
+     let re = '\\d(?=(\\d{3})+' + (dl > 0 ? '\\D' : '$') + ')'
+
+    // Formats the number with the decimals
+     let num = val.toFixed(Math.max(0, ~~dl))
+
+    // Returns the formatted number
+    return (ds ? num.replace('.', ds) : num).replace(new RegExp(re, 'g'), '$&' + ts)
+})
 
 $(function() {
   watchListeners()
