@@ -1,4 +1,4 @@
 class WatchSerializer < ActiveModel::Serializer
-  attributes :id, :watch_name, :watch_maker, :movement, :band, :model_number, :water_resistance, :date_bought
+  attributes :id, :watch_name, :watch_maker, :movement, :band, :model_number, :water_resistance, :date_bought, :cost
   has_many :complications
 end
