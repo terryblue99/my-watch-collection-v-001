@@ -45,17 +45,26 @@
   	</div>
 
 	<script id="watch-template" type="text/x-handlebars-template">
+		
 
 		<h5><b class="text-success">Maker:</b> {{watch_maker}} </h5>
-		<h5><b class="text-success">Movement:</b> {{movement}} </h5>
-		<h5><b class="text-success">Band:</b> {{band}} </h5>
-		<h5><b class="text-success">Model Number:</b> {{model_number}} </h5>
-		<h5><b class="text-success">Water Resistance:</b> {{water_resistance}} </h5>
-		<h5><b class="text-success">Date Bought:</b> {{date_bought}} </h5>
+		{{#if movement}}
+			<h5><b class="text-success">Movement:</b> {{movement}} </h5>
+		{{/if}}
+		{{#if band}}
+			<h5><b class="text-success">Band:</b> {{band}} </h5>
+		{{/if}}
+		{{#if model_number}}
+			<h5><b class="text-success">Model Number:</b> {{model_number}} </h5>
+		{{/if}}
+		{{#if water_resistance}}
+			<h5><b class="text-success">Water Resistance:</b> {{water_resistance}} </h5>
+		{{/if}}
+		{{#if date_bought}}
+			<h5><b class="text-success">Date Bought:</b> {{date_bought}} </h5>
+		{{/if}}
 		{{#if cost}}
 			<h5><b class="text-success">Cost:</b> ${{numberFormat cost}} </h5>
-		{{else}}
-			<h5><b class="text-success">Cost:</b> </h5>
 		{{/if}}
 
 	</script>
