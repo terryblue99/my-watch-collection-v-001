@@ -250,7 +250,7 @@ class WatchesController < ApplicationController
 	end
 
 	def watch_params
-    	# params hash keys
+    	# params hash keys (strong params)
     	params.require(:watch).permit(
     		:watch_name,
     		:watch_maker,
@@ -260,6 +260,7 @@ class WatchesController < ApplicationController
     		:water_resistance,
     		:date_bought,
     		:cost,
+    		:case_measurement,
     		:watch_image,
     		complications_attributes: [:complication_name, :complication_description]
     	)
