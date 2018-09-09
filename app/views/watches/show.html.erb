@@ -13,6 +13,7 @@
 				
 				<h4><b>One of My Watches</b></h4>
     			<h5><b class="text-success">Watch Name: </b><%= @watch.watch_name %></h5>
+    			<h5><b class="text-success">Maker: </b><%= @watch.watch_maker %></h5>
 
 				<div class="load_watch">	
 				</div>
@@ -46,8 +47,6 @@
 
 	<script id="watch-template" type="text/x-handlebars-template">
 		
-
-		<h5><b class="text-success">Maker:</b> {{watch_maker}} </h5>
 		{{#if movement}}
 			<h5><b class="text-success">Movement:</b> {{movement}} </h5>
 		{{/if}}
