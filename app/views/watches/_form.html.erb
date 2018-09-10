@@ -22,17 +22,21 @@
           <% end %>
 
           <% if params[:action] == "edit" || params[:action] == "update"%>
-            <h3 class="text-success">Edit this Watch</h3><br>   
-              <%= f.label :watch_name, "Watch name:" %>
-              <span><%= f.text_field :watch_name %></span>
-              <%= f.label :watch_maker, "Watch maker:" %>
-              <span><%= f.text_field :watch_maker %></span><br><br>  
+            <h3 class="text-success">Edit this Watch</h3>
+            <%= f.label :watch_name %><br>
+            <%= f.text_field :watch_name %><br>
+            <%= f.label :watch_maker %><br>
+            <%= f.text_field :watch_maker %><br>
           <% else %>
-            <h3 class="text-success">New Watch</h3><br>
-              <%= f.label :watch_name, "Watch name:", :class => "form-field-required" %>
-              <span><%= f.text_field :watch_name, required: true %></span>
-              <%= f.label :watch_maker, "Watch maker:", :class => "form-field-required" %>
-              <span><%= f.text_field :watch_maker, required: true %></span><br><br>
+            <h3 class="text-success">New Watch</h3>
+            <div class="form-field-required">
+              <%= f.label :watch_name %><br>
+              <%= f.text_field :watch_name, required: true %><br>
+            </div>
+            <div class="form-field-required">  
+              <%= f.label :watch_maker %><br>
+              <%= f.text_field :watch_maker, required: true %><br>
+            </div>  
           <% end %>
 
           <%= f.label :movement %><br>
