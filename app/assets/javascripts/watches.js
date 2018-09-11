@@ -27,6 +27,7 @@ Handlebars.registerHelper('numberFormat', function (value, options) {
     return (ds ? num.replace('.', ds) : num).replace(new RegExp(re, 'g'), '$&' + ts)
 })
 
+// execute the watchListeners function when the document is ready
 $(function() {
   watchListeners()
 })
