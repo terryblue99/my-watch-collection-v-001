@@ -63,7 +63,7 @@ function loadComplications(e, $href, template) {
 }
 
 function newComplication(e, action, params, $form) {
-	// create a Complication prototype object
+	// create a Complication prototype object and add a function to the prototype to format the complication data and append it to the DOM
 	class Complication {
 
 		constructor(attributes) {
@@ -73,14 +73,14 @@ function newComplication(e, action, params, $form) {
 			this.watch_id = attributes.watch_id
 
 		}
-
-	}
-	// function added to the Complication prototype to format the complication data and append the data to the DOM
-	Complication.prototype.renderComplication = function() {
+		renderComplication () {
 		// format the complication data
-		html = ""
-		html += `<h5><b><a href="/complications/${this.watch_id}/description?comp_id=${this.id}&watch_id=${this.watch_id}"> ${this.complication_name} </a></b></h5>`
-		return html
+
+			let html = ""
+			html += `<h5><b><a href="/complications/${this.watch_id}/description?comp_id=${this.id}&watch_id=${this.watch_id}"> ${this.complication_name} </a></b></h5>`
+			return html
+		}
+
 	}
 
 	$.ajax({ // ajax posts the complications
@@ -101,7 +101,7 @@ function newComplication(e, action, params, $form) {
 	  				// so remove the message before displaying the new complication/s
 	  				$(".text-danger")[0].innerText = ""
 				    $(".complications").append(complicationData)
-				} else {			
+				} else {	
 				    $(".complications").append(complicationData)
 				   }
 				// execute the show.js.erb file in the watches view
