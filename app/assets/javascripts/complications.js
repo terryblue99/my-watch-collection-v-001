@@ -47,7 +47,7 @@ function compListeners() {
 
 function loadComplications(e, $href, template) {
 	// get the complications, returned as a json object
-	$.getJSON($href)
+	$.getJSON($href) // ajax request for the complications data
 	.done(function(json) {
 		// sort the json object on complication name ascending
 		json.complications.sort(function(a, b) {
@@ -83,7 +83,7 @@ function newComplication(e, action, params, $form) {
 		return html
 	}
 
-	$.ajax({
+	$.ajax({ // ajax posts the complications
       url: action,
       data: params,
       dataType: "json",
