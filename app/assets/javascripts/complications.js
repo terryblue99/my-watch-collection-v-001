@@ -63,6 +63,9 @@ function loadComplications(e, $href, template) {
 }
 
 function newComplication(e, action, params, $form) {
+	// create a Complication prototype object and add a function to that prototype
+	// to format the complication data and append the data to the DOM
+	
 	// Complication prototype
 	class Complication {
 
