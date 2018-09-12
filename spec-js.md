@@ -12,7 +12,7 @@ Specs:
        app/views/watches/index.html.erb  
        => index_links partial  
        => show_watches partial  
-       => 'Next' link  
+       => 'Next' page link  
        => app/assets/javascripts/watches.js  
        => pagination function.  
 - [x] Include at least one has_many relationship in information rendered via JSON and appended to the DOM.  
