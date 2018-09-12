@@ -25,7 +25,7 @@ function watchListeners() {
  
 function pagination(e, $href) {
 	// get watches stored in the database
-	$.getJSON($href)
+	$.getJSON($href) // ajax request for the watches data for the next page
 	.done(function(json){
 		// clear the div html's of previous watches data
 	  	$(".watches").html("")
@@ -49,7 +49,7 @@ function showWatch(e, $href, template) {
 	
 	$(".load_watch").html("")
 	// get a watch stored in the database	
-	$.getJSON($href)
+	$.getJSON($href) // ajax request for the watch data
 	.done(function(json) {
 		// load watch details via handlebars template
 		$(".load_watch").html(template(json))
