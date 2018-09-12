@@ -63,10 +63,7 @@ function loadComplications(e, $href, template) {
 }
 
 function newComplication(e, action, params, $form) {
-	// create a Complication prototype object and add a function to that prototype
-	// to format the complication data and append the data to the DOM
-	
-	// Complication prototype
+	// create a Complication prototype object
 	class Complication {
 
 		constructor(attributes) {
@@ -78,7 +75,7 @@ function newComplication(e, action, params, $form) {
 		}
 
 	}
-	// function attached to the Complication prototype
+	// function added to the Complication prototype to format the complication data and append the data to the DOM
 	Complication.prototype.renderComplication = function() {
 		// format the complication data
 		html = ""
