@@ -6,7 +6,6 @@ git_source(:github) do |repo_name|
 end
 
 gem 'active_model_serializers', '0.10.6'
-gem 'grape'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.6'
@@ -50,6 +49,9 @@ gem 'api-pagination'
 gem 'sprockets', '~> 3.7.2'
 gem "paperclip"
 gem 'validates_email_format_of'
+gem 'rubyzip', '~> 1.2.2'
+gem 'ffi', '~> 1.9.24'
+gem 'grape', '~> 1.1.0'
 
 group :test, :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
