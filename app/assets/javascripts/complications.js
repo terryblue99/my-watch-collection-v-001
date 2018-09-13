@@ -74,14 +74,14 @@ function newComplication(e, action, params, $form) {
 			this.watch_id = attributes.watch_id
 
 		}
+
+		renderComplication() {
+			
+			let html = ""
+			html += `<h5><b><a href="/complications/${this.watch_id}/description?comp_id=${this.id}&watch_id=${this.watch_id}"> ${this.complication_name} </a></b></h5>`
+			return html
+		}
 		
-	}
-	// function attached to the Complication prototype
-	Complication.prototype.renderComplication = function() {
-		// format the complication data
-		html = ""
-		html += `<h5><b><a href="/complications/${this.watch_id}/description?comp_id=${this.id}&watch_id=${this.watch_id}"> ${this.complication_name} </a></b></h5>`
-		return html
 	}
 
 	$.ajax({ 
