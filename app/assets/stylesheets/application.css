@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  */
- .form-field-required > label:first-child:before {
+ label.form-field-required:before {
     content: '* ';
     margin-left: 2px;
     color: red;

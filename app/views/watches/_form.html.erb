@@ -22,21 +22,17 @@
           <% end %>
 
           <% if params[:action] == "edit" || params[:action] == "update"%>
-            <h3 class="text-success">Edit this Watch</h3>
-            <%= f.label :watch_name %><br>
-            <%= f.text_field :watch_name %><br>
-            <%= f.label :watch_maker %><br>
-            <%= f.text_field :watch_maker %><br>
+            <h3 class="text-success">Edit this Watch</h3><br>
+            <%= f.label :watch_name, "Watch name:" %>
+            <span><%= f.text_field :watch_name %></span>
+            <%= f.label :watch_maker, "Watch maker:" %>
+            <span><%= f.text_field :watch_maker %></span><br><br>
           <% else %>
-            <h3 class="text-success">New Watch</h3>
-            <div class="form-field-required">
-              <%= f.label :watch_name %><br>
-              <%= f.text_field :watch_name, required: true %><br>
-            </div>
-            <div class="form-field-required">  
-              <%= f.label :watch_maker %><br>
-              <%= f.text_field :watch_maker, required: true %><br>
-            </div>  
+            <h3 class="text-success">New Watch</h3><br>
+            <%= f.label :watch_name, "Watch name:", :class => "form-field-required" %>
+            <span><%= f.text_field :watch_name, required: true %></span>
+            <%= f.label :watch_maker, "Watch maker:", :class => "form-field-required" %>
+            <span><%= f.text_field :watch_maker, required: true %></span><br><br>
           <% end %>
 
           <%= f.label :movement %><br>
@@ -47,8 +43,12 @@
           <%= f.text_field :model_number %><br>
           <%= f.label :water_resistance %><br>
           <%= f.text_field :water_resistance %><br>
+          <%= f.label :case_measurement %> (e.g. <b style="color: red">45mm</b>)<br>
+          <%= f.text_field :case_measurement %><br>
           <%= f.label :date_bought %><br>
           <%= f.text_field :date_bought %><br>
+          <%= f.label :cost %> (e.g. <b style="color: red">199.99</b>)<br>
+          <%= f.text_field :cost %><br>
           <%= f.label :watch_image %><br>
           <%= f.file_field :watch_image %>
 

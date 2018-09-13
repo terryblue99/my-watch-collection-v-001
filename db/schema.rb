@@ -10,8 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180907180402) do
-
   create_table "complications", force: :cascade do |t|
     t.string   "complication_name"
     t.datetime "created_at",               null: false
@@ -64,6 +62,8 @@ ActiveRecord::Schema.define(version: 20180907180402) do
     t.string   "watch_image_content_type"
     t.integer  "watch_image_file_size",    limit: 8
     t.datetime "watch_image_updated_at"
+    t.string   "cost"
+    t.string   "case_measurement"
   end
 
 end

@@ -1,4 +1,5 @@
 
+// execute the compListeners function when the document is ready
 $(function() {
   compListeners()
 })
