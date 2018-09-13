@@ -1,4 +1,4 @@
-// execute the watchListeners function when the document is ready
+
 $(function() {
   watchListeners()
 })
