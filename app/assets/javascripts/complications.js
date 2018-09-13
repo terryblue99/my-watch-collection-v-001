@@ -1,4 +1,4 @@
-// execute the compListeners function when the document is ready
+
 $(function() {
   compListeners()
 })
@@ -47,7 +47,7 @@ function compListeners() {
 
 function loadComplications(e, $href, template) {
 	// get the complications, returned as a json object
-	$.getJSON($href) // ajax request for the complications data
+	$.getJSON($href) 
 	.done(function(json) {
 		// sort the json object on complication name ascending
 		json.complications.sort(function(a, b) {
@@ -73,17 +73,17 @@ function newComplication(e, action, params, $form) {
 			this.watch_id = attributes.watch_id
 
 		}
-		renderComplication () {
+		
+	}
+	// function attached to the Complication prototype
+	Complication.prototype.renderComplication = function() {
 		// format the complication data
-
-			let html = ""
-			html += `<h5><b><a href="/complications/${this.watch_id}/description?comp_id=${this.id}&watch_id=${this.watch_id}"> ${this.complication_name} </a></b></h5>`
-			return html
-		}
-
+		html = ""
+		html += `<h5><b><a href="/complications/${this.watch_id}/description?comp_id=${this.id}&watch_id=${this.watch_id}"> ${this.complication_name} </a></b></h5>`
+		return html
 	}
 
-	$.ajax({ // ajax posts the complications
+	$.ajax({ 
       url: action,
       data: params,
       dataType: "json",
