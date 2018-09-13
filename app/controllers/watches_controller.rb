@@ -3,7 +3,7 @@ class WatchesController < ApplicationController
 	before_action :set_watch, only: [:show, :edit, :update, :destroy]
 
 	def index
-
+		
 		# Set watches per page default if not already set
 		session[:watches_on_page] ||= 16
 
@@ -12,16 +12,32 @@ class WatchesController < ApplicationController
 		session[:find_maker] = nil
 		session[:most_maker] = nil
 		session[:newest_watches] = nil
+		
+		if params[:sort_name]
+		# Watches will be sorted by watch name ascending
 
-	    if session[:rows]
-	  	# Selection made of how many watches to display on each page
-	  		# selected by user
-	    	@watches = current_user.watches.paginate(:page => params[:page], :per_page => session[:rows]).order(:watch_maker, :watch_name)
+		    if session[:rows]
+		  	# Selection made of how many watches to display on each page
+		  		# selected by user
+		    	@watches = current_user.watches.paginate(:page => params[:page], :per_page => session[:rows]).order(:watch_name)
+		  	else
+		  		# Default
+		    	@watches = current_user.watches.paginate(:page => params[:page], :per_page => session[:watches_on_page]).order(:watch_name)
+		  	end
+
 	  	else
-	  		# Default
-	    	@watches = current_user.watches.paginate(:page => params[:page], :per_page => session[:watches_on_page]).order(:watch_maker, :watch_name)
-	  	end
-	  	
+	  	# Watches will be sorted by watch maker ascending, then by watch name ascending 
+
+	  		if session[:rows]
+		  	# Selection made of how many watches to display on each page
+		  		# selected by user
+		    	@watches = current_user.watches.paginate(:page => params[:page], :per_page => session[:rows]).order(:watch_maker, :watch_name)
+		  	else
+		  		# Default
+		    	@watches = current_user.watches.paginate(:page => params[:page], :per_page => session[:watches_on_page]).order(:watch_maker, :watch_name)
+		  	end
+
+	  	end	
     	respond_to do |format|
 	      format.html { render 'index.html'}
 	      format.json { render :json => @watches}
@@ -36,7 +52,7 @@ class WatchesController < ApplicationController
 	  	session[:page_size_changed?] = "yes"
 
 	  	session[:rows] = params[:rows]
-
+ 	 
 	  	 if session[:search_watches]
 	  	  # Find watches
 	      redirect_to search_watches_path
