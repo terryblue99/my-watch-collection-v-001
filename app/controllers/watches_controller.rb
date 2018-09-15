@@ -13,7 +13,8 @@ class WatchesController < ApplicationController
 		session[:most_maker] = nil
 		session[:newest_watches] = nil
 		
-		if params[:sort_name]
+		if session[:sort_watch_names]
+			
 		# Watches will be sorted by watch name ascending
 
 		    if session[:rows]
@@ -168,6 +169,11 @@ class WatchesController < ApplicationController
 	      	redirect_to watches_path, alert: "The watch was not found!"
 	    end
 	end
+
+	def set_sort_watch_names_session
+		session[:sort_watch_names] = "yes"
+		redirect_to watches_path
+	end	
 
 	def search_watches
 	# search for watch/watches matching search criteria
