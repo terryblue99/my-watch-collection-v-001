@@ -108,7 +108,7 @@ function compListeners() {
 	$(document).on("click", "a.complications_link", function(e) {
 		
 		$(this).css("color", "red")
-		$href = this.href
+		let $href = this.href
     	let id = e.target.id;
     	// handlebars process
 		let templateSource = $("#complications").html()
