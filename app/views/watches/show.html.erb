@@ -33,7 +33,7 @@
 					<!-- set when a complication is deleted -->
 						<!-- load the form for adding complications to the watch -->
 						<%= render "complications/add_complications_form" %>
-						<% session[:display_complications] = nil %>
+						<% session[:display_complications] = false %>
     				<% end %>
     				<!-- this div will normally be appended with the form by an-->
 	      			<!-- event handler in the asset pipeline javascripts/complications.js file -->
