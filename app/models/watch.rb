@@ -111,7 +111,6 @@ class Watch < ApplicationRecord
 
  	def self.create_watch(watch_params)
     	@@watch_create = "yes"
-    	binding.pry
  		self.create(watch_params)
  	end
 
