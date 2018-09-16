@@ -33,7 +33,7 @@ class ComplicationsController < ApplicationController
 	    		comp_name = params[:comp_name]
 	    	end
 
-	    	session[:display_complications] = "yes"
+	    	session[:display_complications] = true
 	      	redirect_to watch_path(params[:watch_id]), notice: "Complication: '#{comp_name}' has been deleted from the watch!"
 	    end
 	end
@@ -44,7 +44,7 @@ class ComplicationsController < ApplicationController
 		comp = Complication.find_by_id(params[:comp_id])
 		comp_name = comp.complication_name
 		comp.destroy
-		session[:display_complications] = "yes"
+		session[:display_complications] = true
 		redirect_to watch_path(params[:id]), notice: "Complication: '#{comp_name}' has been deleted from the list!"
 	end
 
