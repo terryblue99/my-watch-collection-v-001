@@ -1,4 +1,18 @@
 
+function showError(jqxhr, textStatus, errorThrown) {
+
+	let err = textStatus + ', ' + errorThrown
+	alert("Request Failed: " + err)
+}
+
+function sortJson(a, b) {
+  
+  a = a.toLowerCase()
+  b = b.toLowerCase()
+
+  return (a < b) ? -1 : (a > b) ? 1 : 0
+}
+
 function loadComplications(e, $href, template) {
 	// get the complications, returned as a json object
 	$.getJSON($href) 
@@ -87,20 +101,6 @@ function newComplication(e, action, params, $form) {
 	    $.get(action, null, null, "script")
 	})
   	e.preventDefault()
-}
-
-function sortJson(a, b) {
-  
-  a = a.toLowerCase()
-  b = b.toLowerCase()
-
-  return (a < b) ? -1 : (a > b) ? 1 : 0
-}
-
-function showError(jqxhr, textStatus, errorThrown) {
-
-	let err = textStatus + ', ' + errorThrown
-	alert("Request Failed: " + err)
 }
 
 function compListeners() {
