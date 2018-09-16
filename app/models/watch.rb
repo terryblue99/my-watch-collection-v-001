@@ -3,7 +3,7 @@ class Watch < ApplicationRecord
 	require "will_paginate"
 	require "will_paginate/array"
 
-	belongs_to :user
+	belongs_to :user, optional: true
 	has_many :complications_watches
   	has_many :complications, through: :complications_watches
   	validates :watch_name, presence: true
@@ -111,6 +111,7 @@ class Watch < ApplicationRecord
 
  	def self.create_watch(watch_params)
     	@@watch_create = "yes"
+    	binding.pry
  		self.create(watch_params)
  	end
 
