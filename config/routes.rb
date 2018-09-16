@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 	  end
 
 	  get "/sort_watch_names", :to=>"watches#set_sort_watch_names_session"
-	  get "/sort_watch_makers", :to=>"watches#set_sort_watch_makers_session"
+	  get "/sort_watch_makers", :to=>"watches#sort_by_watch_makers"
 
 	  get 'users/:id/delete_user', to: 'users#delete_user', as: 'delete_user'
 	  post 'users/:id/delete_user', to: 'users#delete_user'
