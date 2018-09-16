@@ -170,6 +170,11 @@ class WatchesController < ApplicationController
 	    end
 	end
 
+	def set_sort_watch_makers_session
+		session[:sort_watch_names] = nil
+		redirect_to watches_path
+	end
+
 	def set_sort_watch_names_session
 		session[:sort_watch_names] = "yes"
 		redirect_to watches_path
