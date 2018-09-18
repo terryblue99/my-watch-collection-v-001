@@ -1,14 +1,23 @@
-/**
- * An Handlebars helper to format numbers
- * 
- * This helper has these three optional parameters:
- *  decimalLength int => The length of the decimals
- *  thousandsSep char => The thousands separator
- *  decimalSep char   => The decimals separator
- * 
- * Demo: http://jsfiddle.net/DennyLoko/6sR87/
- */
+
+"use strict"
+// Eliminates some JavaScript silent errors or bloopers by changing them to throw errors.
+// Fixes mistakes that make it difficult for JavaScript engines to perform optimizations.
+// Prohibits use of potential reserved words likely to be defined in future versions of ECMAScript.
+// It prevents, or throws errors, when relatively �unsafe� actions are taken (such as gaining access to the global object).
+// It disables features that are confusing or poorly thought out, like the use of eval.
+// Makes it easier to write "secure" JavaScript.
+
+
 Handlebars.registerHelper('numberFormat', function (value, options) {
+//  An Handlebars helper to format numbers
+//   
+//  This helper has these three optional parameters:
+//   decimalLength int => The length of the decimals
+//   thousandsSep char => The thousands separator
+//   decimalSep char   => The decimals separator
+//   
+//  Demo: http://jsfiddle.net/DennyLoko/6sR87/
+ 
     // Helper parameters
      let dl = options.hash['decimalLength'] || 2
      let ts = options.hash['thousandsSep'] || ','
@@ -27,8 +36,8 @@ Handlebars.registerHelper('numberFormat', function (value, options) {
     return (ds ? num.replace('.', ds) : num).replace(new RegExp(re, 'g'), '$&' + ts)
 })
 
-// execute the watchListeners function when the document is ready
 $(function() {
+  // execute the watchListeners function when the document is ready
   watchListeners()
 })
 
