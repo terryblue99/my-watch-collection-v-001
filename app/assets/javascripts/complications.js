@@ -1,16 +1,49 @@
 
-function showError(jqxhr, textStatus, errorThrown) {
+// execute the compListeners function when the document is ready
+$(function() {
+  compListeners()
+})
 
-	let err = textStatus + ', ' + errorThrown
-	alert("Request Failed: " + err)
-}
+function compListeners() {
 
-function sortJson(a, b) {
-  
-  a = a.toLowerCase()
-  b = b.toLowerCase()
+	$(document).on("click", "a.complications_link", function(e) {
+		
+		$(this).css("color", "red")
+		let $href = this.href
+    	let id = e.target.id;
+    	// handlebars process
+		let templateSource = $("#complications").html()
+		let template = Handlebars.compile(templateSource)
 
-  return (a < b) ? -1 : (a > b) ? 1 : 0
+    	if ( id === "load_complications"){
+    		$(".add_complications_form").html("")
+			loadComplications(e, $href, template)
+        }
+        if ( id === "complications_form"){	
+			loadComplications(e, $href, template)
+			// execute the show.js.erb file in the watches view
+			// to load the complications form
+			$.get($href, null, null, "script")
+			e.preventDefault()
+        }	
+
+	})
+
+	$(document).on("click", "a.back", function(e){
+		// navigate to previous page when 'back' link clicked
+		parent.history.back()
+		e.preventDefault()
+	})
+
+	$(document).on("submit", "form#new_complication", function(e) {
+		
+		const $form = $(this)
+    	const action = $form.attr("action")
+    	const params = $form.serialize()
+    
+    	newComplication(e, action, params, $form)
+	})
+
 }
 
 function loadComplications(e, $href, template) {
@@ -103,49 +136,16 @@ function newComplication(e, action, params, $form) {
   	e.preventDefault()
 }
 
-function compListeners() {
+function sortJson(a, b) {
+  
+  a = a.toLowerCase()
+  b = b.toLowerCase()
 
-	$(document).on("click", "a.complications_link", function(e) {
-		
-		$(this).css("color", "red")
-		let $href = this.href
-    	let id = e.target.id;
-    	// handlebars process
-		let templateSource = $("#complications").html()
-		let template = Handlebars.compile(templateSource)
-
-    	if ( id === "load_complications"){
-    		$(".add_complications_form").html("")
-			loadComplications(e, $href, template)
-        }
-        if ( id === "complications_form"){	
-			loadComplications(e, $href, template)
-			// execute the show.js.erb file in the watches view
-			// to load the complications form
-			$.get($href, null, null, "script")
-			e.preventDefault()
-        }	
-
-	})
-
-	$(document).on("click", "a.back", function(e){
-		// navigate to previous page when 'back' link clicked
-		parent.history.back()
-		e.preventDefault()
-	})
-
-	$(document).on("submit", "form#new_complication", function(e) {
-		
-		const $form = $(this)
-    	const action = $form.attr("action")
-    	const params = $form.serialize()
-    
-    	newComplication(e, action, params, $form)
-	})
-
+  return (a < b) ? -1 : (a > b) ? 1 : 0
 }
 
-// execute the compListeners function when the document is ready
-$(function() {
-  compListeners()
-})
+function showError(jqxhr, textStatus, errorThrown) {
+
+	let err = textStatus + ', ' + errorThrown
+	alert("Request Failed: " + err)
+}
