@@ -1,6 +1,14 @@
 
-// execute the compListeners function when the document is ready
+"use strict"
+// Eliminates some JavaScript silent errors or bloopers by changing them to throw errors.
+// Fixes mistakes that make it difficult for JavaScript engines to perform optimizations.
+// Prohibits use of potential reserved words likely to be defined in future versions of ECMAScript.
+// It prevents, or throws errors, when relatively �unsafe� actions are taken (such as gaining access to the global object).
+// It disables features that are confusing or poorly thought out, like the use of eval.
+// Makes it easier to write "secure" JavaScript.
+
 $(function() {
+  // execute the compListeners function when the document is ready
   compListeners()
 })
 
