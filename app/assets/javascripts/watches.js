@@ -49,7 +49,8 @@ function watchListeners() {
 		pagination(e, $href)
 	})
 
-	$(document).on("click", "a.show_watch", function(e) {	
+	$(document).on("click", "a.show_watch", function(e) {
+	debugger	
 		$(this).css("color", "red")
 		let $href = this.href
 		// handlebars process

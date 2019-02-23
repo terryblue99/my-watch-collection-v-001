@@ -76,7 +76,7 @@ group :test, :development do
   gem 'pry-byebug'
 end
 
-gem 'bootstrap-sass', '~> 3.1.1'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'faker'
 gem 'friendly_id'
 
