@@ -39,7 +39,7 @@ gem 'bcrypt', platforms: :ruby
 # bundle exec rake doc:rails generates the API under doc/api
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
-gem 'devise'
+gem 'devise', '~> 4.6.0'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'dotenv-rails'
