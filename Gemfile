@@ -40,7 +40,7 @@ gem 'bcrypt', platforms: :ruby
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'devise', '~> 4.6.0'
-gem 'omniauth'
+gem 'omniauth', '>= 1.9.0'
 gem 'omniauth-facebook'
 gem 'dotenv-rails'
 gem 'will_paginate', '~> 3.1.1'
