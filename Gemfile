@@ -10,11 +10,11 @@ gem 'active_model_serializers', '0.10.6'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.6'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4.0'
+gem 'sqlite3', '~> 1.3.6'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+# gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -71,6 +71,7 @@ group :test, :development do
   gem 'pry'
   gem 'guard-rspec', require: false
   gem 'thin'
+  gem 'nokogiri', '~> 1.10.4'
 
   # Adds step-by-step debugging and stack navigation capabilities to pry using byebug. To use, invoke pry normally.
   gem 'pry-byebug'
