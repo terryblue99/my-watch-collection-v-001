@@ -72,6 +72,7 @@ group :test, :development do
   gem 'guard-rspec', require: false
   gem 'thin'
   gem 'nokogiri', '~> 1.10.4'
+  gem "loofah", ">= 2.3.1"
 
   # Adds step-by-step debugging and stack navigation capabilities to pry using byebug. To use, invoke pry normally.
   gem 'pry-byebug'
