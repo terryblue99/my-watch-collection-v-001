@@ -49,7 +49,7 @@ gem 'api-pagination'
 gem 'sprockets', '~> 3.7.2'
 gem "paperclip"
 gem 'validates_email_format_of'
-gem 'rubyzip', '~> 1.2.2'
+gem "rubyzip", ">= 1.3.0"
 gem 'ffi', '~> 1.9.24'
 gem 'grape', '~> 1.1.0'
 
